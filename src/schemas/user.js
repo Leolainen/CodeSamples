@@ -18,7 +18,17 @@ export default Joi.object().keys({
     .label("Username"),
   password: Joi.string()
     .regex(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,30}$/)
-    .label("Password"),
+    .label("Password")
+    .options({
+      language: {
+        string: {
+          regex: {
+            base:
+              "Password must be at least 8 characters long and have at least one letter and one character"
+          }
+        }
+      }
+    }),
   score: Joi.number()
     .integer()
     .label("Score")

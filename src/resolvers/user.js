@@ -31,7 +31,7 @@ export default {
     signUp: async (root, args, context, info) => {
       // Todo: not auth
       // validation
-      await Joi.validate(args, SignUp);
+      await Joi.validate(args, SignUp, { abortEarly: false });
 
       return User.create(args);
     }
