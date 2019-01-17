@@ -1,3 +1,13 @@
+## packages explained
+
+> - **apollo-server-express**: used to create easier graphQL schemas with "typeDefs"
+> - **bcryptjs**: for hashing passwords
+> - **esm**: allows for "import" and "export" syntax in NodeJS
+> - **express**: To run a server
+> - **graphql**: For fetching data from mongoDB. Mostly used because I want to practice using graphql.
+> - **joi**: for validating user requests on the backend.
+> - **mongoose**: used to connect to the mongoDB server hosted on mLabs.com
+
 ## example queries
 
 Below are some examples that may be used in the graphql playground
