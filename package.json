@@ -1,0 +1,11 @@
+{
+  "name": "codesamples",
+  "version": "1.0.0",
+  "description": "A site where a user may find code sample solutions to various, typical problems.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Leo",
+  "license": "ISC"
+}
