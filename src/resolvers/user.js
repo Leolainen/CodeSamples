@@ -1,7 +1,9 @@
 import mongoose from "mongoose";
 import { UserInputError } from "apollo-server-express";
+import Joi from "joi";
 
 import { User } from "../models";
+import { SignUp } from "../schemas";
 
 /**
  * Projection is a concept in mongoDB which is about fetching
@@ -26,9 +28,10 @@ export default {
     }
   },
   Mutation: {
-    signUp: (root, args, context, info) => {
+    signUp: async (root, args, context, info) => {
       // Todo: not auth
       // validation
+      await Joi.validate(args, SignUp);
 
       return User.create(args);
     }
