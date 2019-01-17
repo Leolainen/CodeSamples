@@ -2,6 +2,9 @@ import mongoose from "mongoose";
 import { hash } from "bcryptjs";
 
 /**
+ * docs about schemas: https://mongoosejs.com/docs/api.html#schema_Schema
+ * docs about custom validation: https://mongoosejs.com/docs/validation.html#custom-validators
+ *
  * user object generally has a "createdAt" key.
  * the option "timestamps: true" in mongoose
  * will automatically add a 'createdAt' and 'updatedAt' key values
@@ -10,8 +13,20 @@ import { hash } from "bcryptjs";
 
 const userSchema = new mongoose.Schema(
   {
-    email: String,
-    username: String,
+    email: {
+      type: String,
+      validate: {
+        validator: email => User.doesntExist({ email }),
+        message: ({ value }) => `The email ${value} is taken`
+      }
+    },
+    username: {
+      type: String,
+      validate: {
+        validator: username => User.doesntExist({ username }),
+        message: ({ value }) => `The username ${value} is taken`
+      }
+    },
     password: String,
     score: {
       type: Number,
@@ -30,6 +45,10 @@ userSchema.pre("save", async function() {
     this.password = await hash(this.password, 10);
   }
 });
+
+userSchema.statics.doesntExist = async function(options) {
+  return (await this.where(options).countDocuments()) === 0;
+};
 
 const User = mongoose.model("User", userSchema);
 
