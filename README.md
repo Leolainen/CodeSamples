@@ -1,4 +1,37 @@
-mutations:
+## example queries
+
+Below are some examples that may be used in the graphql playground
+_localhost.com:5000/graphql by default_
+
+### query:
+
+> fetch all users
+
+```
+  query {
+    users {
+      username,
+      email
+    }
+  }
+```
+
+> fetch a user by id
+
+```
+query {
+  user(id:"5c40ba7c940e867eb50687ff") {
+    username,
+    email,
+    createdAt,
+    score
+  }
+}
+```
+
+### mutations:
+
+> Create a new user
 
 ```
 mutation {
@@ -7,21 +40,6 @@ mutation {
     email,
     username,
     createdAt
-  }
-}
-```
-
-**Above returns:**
-
-```
-{
-  "data": {
-    "signUp": {
-      "id": "5c409ad59f0c7f77fa327be9",
-      "email": "email@test.com",
-      "username": "test",
-      "createdAt": "1547737813470"
-    }
   }
 }
 ```
