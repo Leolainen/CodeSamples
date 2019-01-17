@@ -17,7 +17,9 @@ export default Joi.object().keys({
     .required()
     .label("Username"),
   password: Joi.string()
-    .regex(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,30}$/)
+    .min(8)
+    .max(30)
+    .regex(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d].*$/)
     .label("Password")
     .options({
       language: {

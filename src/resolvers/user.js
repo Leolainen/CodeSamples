@@ -3,7 +3,7 @@ import { UserInputError } from "apollo-server-express";
 import Joi from "joi";
 
 import { User } from "../models";
-import { SignUp } from "../schemas";
+import { signUp } from "../schemas";
 
 /**
  * Projection is a concept in mongoDB which is about fetching
@@ -31,7 +31,7 @@ export default {
     signUp: async (root, args, context, info) => {
       // Todo: not auth
       // validation
-      await Joi.validate(args, SignUp, { abortEarly: false });
+      await Joi.validate(args, signUp, { abortEarly: false });
 
       return User.create(args);
     }
