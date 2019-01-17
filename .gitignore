@@ -1,0 +1,19 @@
+/.eslintcache
+
+/node_modules/
+
+package-lock.json
+
+# Emacs Temp/Autosaves
+*~
+\#*\#
+.#*.*
+*_flymake*
+
+.DS_Store
+
+# .vscode local config
+.vscode
+
+# Ignore Jests __snapshots__ folders which are created when running tests
+__snapshots__
