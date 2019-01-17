@@ -13,5 +13,6 @@ export default gql`
     email: String!
     username: String!
     createdAt: String!
+    score: Int!
   }
 `;

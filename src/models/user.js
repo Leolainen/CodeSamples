@@ -11,7 +11,11 @@ const userSchema = new mongoose.Schema(
   {
     email: String,
     username: String,
-    password: String
+    password: String,
+    score: {
+      type: Number,
+      default: 0
+    }
   },
   {
     timestamps: true
