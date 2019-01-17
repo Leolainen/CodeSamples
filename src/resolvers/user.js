@@ -7,13 +7,13 @@ import { User } from "../models";
 
 export default {
   Query: {
-    users: (root, arg, context, info) => {
+    users: (root, args, context, info) => {
       // Todo: Auth, projection, pagination
       return User.find({});
     },
-    user: (root, arg, context, info) => {}
+    user: (root, args, context, info) => {}
   },
   Mutation: {
-    signUp: (root, arg, context, info) => {}
+    signUp: (root, args, context, info) => {}
   }
 };
