@@ -5,33 +5,43 @@ import Joi from "joi";
  * Minimum eight characters, maximum 30 characters,
  * at least one letter and one number
  */
-export default Joi.object().keys({
-  email: Joi.string()
-    .email()
-    .required()
-    .label("Email"),
-  username: Joi.string()
-    .alphanum()
-    .min(4)
-    .max(30)
-    .required()
-    .label("Username"),
-  password: Joi.string()
-    .min(8)
-    .max(30)
-    .regex(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d].*$/)
-    .label("Password")
-    .options({
-      language: {
-        string: {
-          regex: {
-            base:
-              "Password must be at least 8 characters long and have at least one letter and one character"
-          }
+const email = Joi.string()
+  .email()
+  .required()
+  .label("Email");
+const username = Joi.string()
+  .alphanum()
+  .min(4)
+  .max(30)
+  .required()
+  .label("Username");
+const password = Joi.string()
+  .min(8)
+  .max(30)
+  .regex(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d].*$/)
+  .label("Password")
+  .options({
+    language: {
+      string: {
+        regex: {
+          base:
+            "Password must be at least 8 characters long and have at least one letter and one character"
         }
       }
-    }),
-  score: Joi.number()
-    .integer()
-    .label("Score")
+    }
+  });
+const score = Joi.number()
+  .integer()
+  .label("Score");
+
+export const signUp = Joi.object().keys({
+  email,
+  username,
+  password,
+  score
+});
+
+export const signIn = Joi.object().keys({
+  email,
+  password
 });

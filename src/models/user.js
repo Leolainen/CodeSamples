@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { hash } from "bcryptjs";
+import { hash, compare } from "bcryptjs";
 
 /**
  * docs about schemas: https://mongoosejs.com/docs/api.html#schema_Schema
@@ -45,6 +45,11 @@ userSchema.pre("save", async function() {
     this.password = await hash(this.password, 10);
   }
 });
+
+userSchema.methods.matchesPassword = function(password) {
+  // compares the password in the argument to the actual hashed password
+  return compare(password, this.password);
+};
 
 userSchema.statics.doesntExist = async function(options) {
   return (await this.where(options).countDocuments()) === 0;

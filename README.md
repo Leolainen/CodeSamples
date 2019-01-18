@@ -4,6 +4,7 @@
 > - **bcryptjs**: for hashing passwords
 > - **esm**: allows for "import" and "export" syntax in NodeJS
 > - **express**: To run a server
+> - **express-session**: For handling sessions
 > - **graphql**: For fetching data from mongoDB. Mostly used because I want to practice using graphql.
 > - **joi**: for validating user requests on the backend.
 > - **mongoose**: used to connect to the mongoDB server hosted on mLabs.com

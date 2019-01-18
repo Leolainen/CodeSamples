@@ -3,7 +3,8 @@ import { UserInputError } from "apollo-server-express";
 import Joi from "joi";
 
 import { User } from "../models";
-import { signUp } from "../schemas";
+import { signUp, signIn } from "../schemas";
+import * as Auth from "../auth";
 
 /**
  * Projection is a concept in mongoDB which is about fetching
@@ -12,12 +13,21 @@ import { signUp } from "../schemas";
 
 export default {
   Query: {
-    users: (root, args, context, info) => {
+    me: (root, args, { req }, info) => {
+      // Todo: projection
+      Auth.checkSignedIn(req);
+
+      return User.findById(req.session.userId);
+    },
+    users: (root, args, { req }, info) => {
       // Todo: Auth, projection, pagination, sanitization
+      Auth.checkSignedIn(req);
+
       return User.find({});
     },
-    user: (root, { id }, context, info) => {
+    user: (root, { id }, { req }, info) => {
       // Todo: Auth, projection, sanitization
+      Auth.checkSignedIn(req);
 
       if (!mongoose.Types.ObjectId.isValid(id)) {
         // if a user id is NOT valid
@@ -28,12 +38,35 @@ export default {
     }
   },
   Mutation: {
-    signUp: async (root, args, context, info) => {
+    signUp: async (root, args, { req }, info) => {
       // Todo: not auth
-      // validation
+      Auth.checkSignedOut(req);
+
       await Joi.validate(args, signUp, { abortEarly: false });
 
-      return User.create(args);
+      const user = await User.create(args);
+      req.session.userId = user.id;
+
+      return user;
+    },
+    signIn: async (root, args, { req }, info) => {
+      const { userId } = req.session;
+      if (userId) {
+        return User.findById(userId);
+      }
+
+      await Joi.validate(args, signIn, { abortEarly: false });
+
+      const { email, password } = args;
+      const user = await Auth.attemptSignIn(email, password);
+
+      req.session.userId = user.id;
+
+      return user;
+    },
+    signOut: (root, args, { req, res }, info) => {
+      Auth.checkSignedIn(req);
+      return Auth.signOut(req, res);
     }
   }
 };

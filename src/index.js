@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import express from "express";
+import session from "express-session";
 import { ApolloServer } from "apollo-server-express";
 
 import typeDefs from "./typeDefs";
@@ -13,6 +14,11 @@ import {
   DB_NAME
 } from "./dbConfig";
 import { APP_PORT, IN_PROD } from "./appConfig";
+import {
+  SESSION_NAME,
+  SESSION_SECRET,
+  SESSION_LIFETIME
+} from "./sessionConfig";
 
 (async () => {
   try {
@@ -28,10 +34,31 @@ import { APP_PORT, IN_PROD } from "./appConfig";
     const app = express();
     app.disable("x-powered-by");
 
+    app.use(
+      session({
+        name: SESSION_NAME,
+        secret: SESSION_SECRET,
+        resave: false,
+        saveUninitialized: false,
+        ookie: {
+          maxAge: SESSION_LIFETIME,
+          sameSite: true,
+          secure: IN_PROD
+        }
+      })
+    );
+
     const server = new ApolloServer({
       typeDefs,
       resolvers,
-      playground: !IN_PROD
+      playground: IN_PROD
+        ? false
+        : {
+            settings: {
+              "request.credentials": "include"
+            }
+          },
+      context: ({ req, res }) => ({ req, res })
     });
 
     server.applyMiddleware({ app });
