@@ -4,7 +4,7 @@
   "description": "A site where a user may find code sample solutions to various, typical problems.",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon -r esm"
+    "dev": "eval $(cat .env) nodemon -r esm"
   },
   "author": "Leo",
   "license": "ISC",

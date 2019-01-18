@@ -12,6 +12,9 @@ package-lock.json
 
 .DS_Store
 
+# Ignore secret stuff like DB credentials etc...
+.env
+
 # .vscode local config
 .vscode
 
