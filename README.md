@@ -40,6 +40,19 @@ query {
 }
 ```
 
+> fetch the currently signed in user
+
+```
+query {
+  me {
+    username,
+    email,
+    createdAt,
+    score
+  }
+}
+```
+
 ### mutations:
 
 > Create a new user
@@ -52,5 +65,23 @@ mutation {
     username,
     createdAt
   }
+}
+```
+
+> Sign in to an existing user account
+
+```
+mutation {
+  signIn(password:"testpassword1", email:"testemail@email.com") {
+    id, username, email
+  }
+}
+```
+
+> Sign out of a user account
+
+```
+mutation {
+  signOut
 }
 ```
