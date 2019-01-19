@@ -3,14 +3,8 @@ import mongoose from "mongoose";
 const codeSampleSchema = new mongoose.Schema(
   {
     userId: String,
-    title: {
-      type: String,
-      validate: {
-        validator: title => CodeSample.doesntExist(title),
-        message: ({ value }) => `The title "${value}" is already taken`
-      }
-    },
-    langauge: Array,
+    title: String,
+    language: Array,
     framework: Array,
     codeSample: String,
     likes: {
@@ -25,7 +19,10 @@ const codeSampleSchema = new mongoose.Schema(
       type: Boolean,
       default: false
     },
-    date: Date
+    date: {
+      type: Date,
+      default: Date.now
+    }
   },
   {
     timestamps: true

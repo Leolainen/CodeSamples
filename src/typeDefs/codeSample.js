@@ -8,18 +8,18 @@ export default gql`
   extend type Mutation {
     post(
       title: String!
-      langauge: [String]
+      language: [String]
       framework: [String]
       codeSample: String!
     ): Sample
-    update(langauge: [String], framework: [String], codeSample: String!): Sample
+    update(language: [String], framework: [String], codeSample: String!): Sample
     # delete: Boolean
   }
   type Sample {
     id: ID!
     userId: String!
     title: String!
-    langauge: [String!]!
+    language: [String!]!
     framework: [String!]!
     codeSample: String!
     likes: Int!

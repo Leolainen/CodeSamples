@@ -85,3 +85,18 @@ mutation {
   signOut
 }
 ```
+
+> Post a new code sample
+
+```
+mutation {
+  post(title:"First sample", language:["html", "react"], framework:[], codeSample:"<h1>hello world</h1>") {
+    id,
+    userId,
+    title,
+    language,
+    framework,
+    codeSample,
+  }
+}
+```
