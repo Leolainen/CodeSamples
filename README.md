@@ -106,7 +106,49 @@ mutation {
 
 ```
 query {
-  samples {
+  allSamples {
+    id,
+    userId,
+    username,
+    title,
+    language,
+    framework,
+    codeSample,
+  }
+}
+```
+
+> fetch a sample by its ID
+
+```
+query {
+  sampleById(id:"5c4348d5d57fc1bd32ed10f4") {
+    id,
+    userId,
+    username,
+    title,
+    language,
+    framework,
+    codeSample,
+  }
+}
+```
+
+> fetch an array of samples that match the query arguments
+> Available arguments at the moment are:
+>
+> - username
+> - userid
+> - title
+>
+> plans for future arguments are:
+>
+> - language
+> - framework
+
+```
+query {
+  samples(username: "testuser") {
     id,
     userId,
     username,

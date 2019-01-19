@@ -8,16 +8,18 @@ import * as Auth from "../auth";
 
 export default {
   Query: {
-    samples: (root, args, context, info) => {
+    allSamples: (root, args, context, info) => {
       return CodeSample.find({});
     },
-    sample: (root, args, context, info) => {
-      // if (!mongoose.Types.ObjectId.isValid(id)) {
-      //   throw new UserInputError(`There are no samples with the id "${id}"`);
-      // }
+    samples: (root, args, context, info) => {
+      return CodeSample.find({ ...args });
+    },
+    sampleById: (root, { id }, context, info) => {
+      if (!mongoose.Types.ObjectId.isValid(id)) {
+        throw new UserInputError(`There are no samples with the id "${id}"`);
+      }
 
-      // args must be an object!
-      return CodeSample.find(args);
+      return CodeSample.findById(id);
     }
   },
   Mutation: {
