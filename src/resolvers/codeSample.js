@@ -11,12 +11,13 @@ export default {
     samples: (root, args, context, info) => {
       return CodeSample.find({});
     },
-    sample: (root, { id }, { req }, info) => {
-      if (!mongoose.Types.ObjectId.isValid(id)) {
-        throw new UserInputError(`There are no samples with the id "${id}"`);
-      }
+    sample: (root, args, context, info) => {
+      // if (!mongoose.Types.ObjectId.isValid(id)) {
+      //   throw new UserInputError(`There are no samples with the id "${id}"`);
+      // }
 
-      return CodeSample.findById(id);
+      // args must be an object!
+      return CodeSample.find(args);
     }
   },
   Mutation: {
@@ -25,6 +26,8 @@ export default {
 
       await Joi.validate(args, postCodeSample, { abortEarly: false });
       args.userId = req.session.userId;
+      args.username = req.session.username;
+
       const codeSample = await CodeSample.create(args);
       // codeSample.userId = req.session.userId;
 

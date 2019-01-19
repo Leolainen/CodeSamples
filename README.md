@@ -93,6 +93,23 @@ mutation {
   post(title:"First sample", language:["html", "react"], framework:[], codeSample:"<h1>hello world</h1>") {
     id,
     userId,
+    username,
+    title,
+    language,
+    framework,
+    codeSample,
+  }
+}
+```
+
+> fetch all code samples
+
+```
+query {
+  samples {
+    id,
+    userId,
+    username,
     title,
     language,
     framework,
