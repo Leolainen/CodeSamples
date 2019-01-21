@@ -1,0 +1,25 @@
+version: "3.7"
+services:
+  server:
+    container_name: "server"
+    build: .
+    volumes:
+      - ./:/usr/src/app/
+    ports:
+      - "5000"
+  client:
+    container_name: "client"
+    build: .
+    volumes:
+      - ./:/usr/src/app/
+    ports:
+      - "3000:3000"
+    command: "npm start --prefix client"
+  storybook:
+    container_name: "storybook"
+    build: .
+    volumes:
+      - ./:/usr/src/app/
+    ports:
+      - "9001:9001"
+    command: "npm run storybook --prefix client"

@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 const codeSampleSchema = new mongoose.Schema(
   {
     userId: String,
+    username: String,
     title: String,
     language: Array,
     framework: Array,

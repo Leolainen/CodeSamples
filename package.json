@@ -4,7 +4,10 @@
   "description": "A site where a user may find code sample solutions to various, typical problems.",
   "main": "index.js",
   "scripts": {
-    "dev": "eval $(cat .env) nodemon -r esm"
+    "dev": "eval $(cat .env) nodemon -r esm",
+    "lint:node": "eslint .",
+    "prettier": "prettier --write '**/*.js'",
+    "prettier:check": "prettier --list-different '**/*.js'"
   },
   "author": "Leo",
   "license": "ISC",
@@ -13,12 +16,19 @@
   },
   "dependencies": {
     "apollo-server-express": "^2.3.1",
+    "babel-eslint": "^10.0.1",
     "bcryptjs": "^2.4.3",
+    "eslint": "^5.12.1",
+    "eslint-plugin-babel": "^5.3.0",
+    "eslint-plugin-graphql": "^3.0.1",
+    "eslint-plugin-node": "^8.0.1",
+    "eslint-plugin-prettier": "^3.0.1",
     "esm": "^3.1.0",
     "express": "^4.16.4",
     "express-session": "^1.15.6",
     "graphql": "^14.1.1",
     "joi": "^14.3.1",
-    "mongoose": "^5.4.4"
+    "mongoose": "^5.4.4",
+    "prettier": "^1.16.0"
   }
 }

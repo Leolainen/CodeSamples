@@ -8,10 +8,13 @@ import * as Auth from "../auth";
 
 export default {
   Query: {
-    samples: (root, args, context, info) => {
+    allSamples: (root, args, context, info) => {
       return CodeSample.find({});
     },
-    sample: (root, { id }, { req }, info) => {
+    samples: (root, args, context, info) => {
+      return CodeSample.find({ ...args });
+    },
+    sampleById: (root, { id }, context, info) => {
       if (!mongoose.Types.ObjectId.isValid(id)) {
         throw new UserInputError(`There are no samples with the id "${id}"`);
       }
@@ -25,6 +28,8 @@ export default {
 
       await Joi.validate(args, postCodeSample, { abortEarly: false });
       args.userId = req.session.userId;
+      args.username = req.session.username;
+
       const codeSample = await CodeSample.create(args);
       // codeSample.userId = req.session.userId;
 

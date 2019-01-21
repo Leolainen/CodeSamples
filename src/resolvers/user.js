@@ -46,6 +46,7 @@ export default {
 
       const user = await User.create(args);
       req.session.userId = user.id;
+      req.session.username = user.username;
 
       return user;
     },
@@ -61,6 +62,7 @@ export default {
       const user = await Auth.attemptSignIn(email, password);
 
       req.session.userId = user.id;
+      req.session.username = user.username;
 
       return user;
     },

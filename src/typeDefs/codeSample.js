@@ -2,8 +2,9 @@ import { gql } from "apollo-server-express";
 
 export default gql`
   extend type Query {
-    sample(id: ID!): Sample
-    samples: [Sample!]!
+    allSamples: [Sample!]!
+    samples(userId: String, username: String, title: String): [Sample!]!
+    sampleById(id: ID): Sample
   }
   extend type Mutation {
     post(
@@ -18,6 +19,7 @@ export default gql`
   type Sample {
     id: ID!
     userId: String!
+    username: String!
     title: String!
     language: [String!]!
     framework: [String!]!
