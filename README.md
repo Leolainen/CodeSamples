@@ -12,7 +12,7 @@
 ## example queries
 
 Below are some examples that may be used in the graphql playground
-_localhost.com:5000/graphql by default_
+_localhost.com:4000/graphql by default_
 
 ### query:
 

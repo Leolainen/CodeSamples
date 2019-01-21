@@ -11,7 +11,7 @@ RUN npm ci
 
 # Bundle app source
 COPY . .
-EXPOSE 5000
+EXPOSE 4000
 
 # Runs after docker container is built
 CMD ["npm", "run", "dev"];

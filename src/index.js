@@ -40,7 +40,7 @@ import {
         secret: SESSION_SECRET,
         resave: false,
         saveUninitialized: false,
-        ookie: {
+        cookie: {
           maxAge: SESSION_LIFETIME,
           sameSite: true,
           secure: IN_PROD

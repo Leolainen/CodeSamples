@@ -6,7 +6,7 @@ services:
     volumes:
       - ./:/usr/src/app/
     ports:
-      - "5000"
+      - "4000:4000"
   client:
     container_name: "client"
     build: .
