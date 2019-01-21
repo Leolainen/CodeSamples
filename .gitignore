@@ -20,3 +20,10 @@ package-lock.json
 
 # Ignore Jests __snapshots__ folders which are created when running tests
 __snapshots__
+
+
+# client/
+client/node_modules/
+client/.next/
+client/dist/
+client/out/
