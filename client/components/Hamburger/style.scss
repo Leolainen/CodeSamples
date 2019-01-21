@@ -1,0 +1,67 @@
+.wrapper {
+  position: relative;
+  width: 36px;
+  height: 36px;
+  z-index: 100;
+}
+
+.bar {
+  display: inline-block;
+  z-index: 1;
+  width: 100%;
+  height: 4px;
+  margin: 0;
+  padding: 0;
+  background-color: white;
+  position: absolute;
+  border-radius: 2px;
+  transition: 0.2s ease-out;
+
+  &:first-child {
+    top: 0;
+    transform-origin: top left;
+
+    &.right {
+      transform-origin: top right;
+    }
+
+    &.isOpen {
+      transform: rotateZ(42deg) scaleX(1.4);
+
+      &.right {
+        transform: rotateZ(-42deg) scaleX(1.4);
+      }
+    }
+  }
+
+  &:nth-child(2) {
+    top: calc(50% - 2px);
+    transform-origin: left;
+
+    &.right {
+      transform-origin: right;
+    }
+
+    &.isOpen {
+      // opacity: 0;
+      transform: scaleX(0);
+    }
+  }
+
+  &:last-child {
+    bottom: 0;
+    transform-origin: bottom left;
+
+    &.right {
+      transform-origin: bottom right;
+    }
+
+    &.isOpen {
+      transform: rotateZ(-42deg) scaleX(1.4);
+
+      &.right {
+        transform: rotateZ(42deg) scaleX(1.4);
+      }
+    }
+  }
+}

@@ -1,0 +1,47 @@
+.wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100%;
+  overflow: hidden;
+  z-index: 5;
+  pointer-events: none;
+
+  .isOpen {
+    pointer-events: all;
+  }
+}
+
+.innerWrapper {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background-color: #333;
+  color: #e9e9e9;
+  transition: transform 0.3s ease-out;
+
+  &:not(.right) {
+    left: -100%;
+
+    &.isOpen {
+      transform: translateX(100%);
+    }
+  }
+
+  &.right {
+    right: -100%;
+
+    &.isOpen {
+      transform: translateX(-100%);
+    }
+  }
+}
+
+.itemsWrapper {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
