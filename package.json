@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "eval $(cat .env) nodemon -r esm",
-    "lint:node": "eslint .",
+    "lint:node": "eslint ./src/",
     "prettier": "prettier --write '**/*.js'",
     "prettier:check": "prettier --list-different '**/*.js'"
   },
