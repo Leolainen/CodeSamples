@@ -1,7 +1,7 @@
 const baseRules = require("eslint-config-lydell");
 
 module.exports = {
-  rules: Object.assign({}, baseRules({ import: true, react: true, import: true }), {
+  rules: Object.assign({}, baseRules({ import: true, react: true }), {
     "babel/no-invalid-this": "error",
     "css-modules/no-undef-class": "error",
     "no-invalid-this": "off",
@@ -35,10 +35,10 @@ module.exports = {
     {
       files: ["*.test.js"],
       env: { jest: true },
-      rules: baseRules({ builtin: false, jest: true }),
+      rules: baseRules({ builtin: false, jest: true })
     },
     {
-      files: ["stories.js"],
+      files: ["story.js"],
       globals: {
         module: false
       },

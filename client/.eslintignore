@@ -2,4 +2,10 @@
 !/.storybook/
 !/**/.eslintrc.js
 
+.next/
 dist/
+data/*
+coverage/
+node_modules/
+cache/
+out/
