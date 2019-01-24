@@ -14,6 +14,7 @@ export default gql`
       codeSample: String!
     ): Sample
     update(language: [String], framework: [String], codeSample: String!): Sample
+    like(id: ID): Sample
     # delete: Boolean
   }
   type Sample {
@@ -25,7 +26,7 @@ export default gql`
     framework: [String!]!
     codeSample: String!
     likes: Int!
-    dislikes: Int!
+    dislikes: [String]!
     edited: Boolean!
     createdAt: String!
     date: String!

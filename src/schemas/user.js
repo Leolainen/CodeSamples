@@ -34,11 +34,16 @@ const score = Joi.number()
   .integer()
   .label("Score");
 
+const likes = Joi.string().label("Likes");
+const dislikes = Joi.string().label("Disikes");
+
 export const signUp = Joi.object().keys({
   email,
   username,
   password,
-  score
+  score,
+  likes,
+  dislikes
 });
 
 export const signIn = Joi.object().keys({

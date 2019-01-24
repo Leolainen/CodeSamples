@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { UserInputError } from "apollo-server-express";
+import { UserInputError, ApolloError } from "apollo-server-express";
 import Joi from "joi";
 
 import { CodeSample, User } from "../models";
@@ -34,7 +34,7 @@ export default {
       // codeSample.userId = req.session.userId;
 
       return codeSample;
-    }
+    },
     // update: async (root, args, { req }, info) => {
     //   const { userId } = req.session;
     //   if (userId) {
@@ -49,6 +49,22 @@ export default {
     //   req.session.userId = user.id;
 
     //   return user;
-    // }
+    // },
+    like: async (root, args, { req, res }, info) => {
+      Auth.checkSignedIn(req);
+      if (!mongoose.Types.ObjectId.isValid(args.id)) {
+        throw new UserInputError(
+          `There are no samples with the id "${args.id}"`
+        );
+      }
+
+      const codeSampleToReturn = await CodeSample.findByIdAndUpdate(
+        args.id,
+        { $inc: { likes: 1 } },
+        { new: true }
+      );
+
+      return codeSampleToReturn;
+    }
   }
 };

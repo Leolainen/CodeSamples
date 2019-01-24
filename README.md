@@ -114,6 +114,7 @@ query {
     language,
     framework,
     codeSample,
+    likes
   }
 }
 ```
@@ -156,6 +157,23 @@ query {
     language,
     framework,
     codeSample,
+  }
+}
+```
+
+> Like a codeSample
+
+```
+mutation {
+  like(id:"5c48c47ccd81240055b52d52") {
+    id,
+    userId,
+    username,
+    title,
+    language,
+    framework,
+    codeSample,
+    likes
   }
 }
 ```
