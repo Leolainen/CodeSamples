@@ -26,7 +26,6 @@ export default gql`
     framework: [String!]!
     codeSample: String!
     likes: Int!
-    dislikes: [String]!
     edited: Boolean!
     createdAt: String!
     date: String!

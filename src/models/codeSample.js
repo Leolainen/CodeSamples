@@ -30,10 +30,6 @@ const codeSampleSchema = new mongoose.Schema(
   }
 );
 
-codeSampleSchema.statics.doesntExist = async function(options) {
-  return (await this.where(options).countDocuments()) === 0;
-};
-
 const CodeSample = mongoose.model("CodeSample", codeSampleSchema);
 
 export default CodeSample;

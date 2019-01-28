@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import { UserInputError, ApolloError } from "apollo-server-express";
 import Joi from "joi";
 
-import { CodeSample, User } from "../models";
+import { CodeSample, Likes } from "../models";
 import { postCodeSample, updateCodeSample } from "../schemas";
 import * as Auth from "../auth";
 
@@ -52,15 +52,30 @@ export default {
     // },
     like: async (root, args, { req, res }, info) => {
       Auth.checkSignedIn(req);
-      if (!mongoose.Types.ObjectId.isValid(args.id)) {
+
+      const userId = req.session.userId;
+      const codeSampleId = args.id;
+
+      if (!mongoose.Types.ObjectId.isValid(codeSampleId)) {
         throw new UserInputError(
-          `There are no samples with the id "${args.id}"`
+          `There are no samples with the id "${codeSampleId}"`
         );
       }
 
+      const alreadyLikedByUser = await Likes.findOne(
+        { userId, codeSampleId },
+        (err, res) => {
+          if (err) new ApolloError(err);
+          console.log("alreadyLikedByUser response: ", res);
+          return res;
+        }
+      );
+
+      const likes = alreadyLikedByUser ? -1 : 1;
+
       const codeSampleToReturn = await CodeSample.findByIdAndUpdate(
-        args.id,
-        { $inc: { likes: 1 } },
+        codeSampleId,
+        { $inc: { likes } },
         { new: true }
       );
 

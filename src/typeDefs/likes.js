@@ -8,7 +8,7 @@ export default gql`
     addLike(userId: String!, codeSampleId: String!): Likes
     removeLike(userId: String!, codeSampleId: String!): Likes
   }
-  extend type Likes {
+  type Likes {
     id: ID!
     userId: String!
     codeSampleId: String!
