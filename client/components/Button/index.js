@@ -1,38 +1,61 @@
 import PropTypes from "prop-types";
-import React, { useContext } from "react";
+import React, { useReducer } from "react";
 import classnames from "classnames";
 
-import { Context } from "../Context";
+import { WAS_CLICKED } from "./constants";
+import reducer from "./reducer";
 
 import styles from "./style.scss";
 
-const Button = props => {
-  const store = useContext(Context);
+const initialState = {
+  wasClicked: false
+};
 
-  const style = classnames({
-    [styles.header]: store.wasClicked
+export default function Button({ children, ...rest }) {
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  const style = classnames(styles.button, {
+    [styles.wasClicked]: state.wasClicked
   });
 
-  const handleClick = () => {
-    store.dispatch({ type: "WAS_CLICKED" });
-  };
-
   return (
-    <div className={styles.example}>
-      <h1 className={style}>
-        {store.wasClicked ? "Was clicked" : "was NOT clicked"}!
-      </h1>
-
-      <button
-        className={classnames({ [styles.wasClicked]: store.wasClicked })}
-        onClick={handleClick}
-        type="button"
-      >
-        {props.children}
-      </button>
-    </div>
+    <button
+      className={style}
+      {...rest}
+      onClick={() => dispatch({ type: WAS_CLICKED })}
+    >
+      {children}
+    </button>
   );
-};
+}
+
+// const Button = props => {
+//   const store = useContext(Context);
+
+//   const style = classnames({
+//     [styles.header]: store.wasClicked
+//   });
+
+//   const handleClick = () => {
+//     store.dispatch({ type: "WAS_CLICKED" });
+//   };
+
+//   return (
+//     <div className={styles.example}>
+//       <h1 className={style}>
+//         {store.wasClicked ? "Was clicked" : "was NOT clicked"}!
+//       </h1>
+
+//       <button
+//         className={classnames({ [styles.wasClicked]: store.wasClicked })}
+//         onClick={handleClick}
+//         type="button"
+//       >
+//         {props.children}
+//       </button>
+//     </div>
+//   );
+// };
 
 Button.propTypes = {
   children: PropTypes.node
@@ -41,5 +64,3 @@ Button.propTypes = {
 Button.defaultProps = {
   children: ""
 };
-
-export default Button;
