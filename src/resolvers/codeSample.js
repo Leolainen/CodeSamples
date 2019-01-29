@@ -53,7 +53,7 @@ export default {
     like: async (root, args, { req, res }, info) => {
       Auth.checkSignedIn(req);
 
-      const userId = req.session.userId;
+      // const userId = req.session.userId;
       const codeSampleId = args.id;
 
       if (!mongoose.Types.ObjectId.isValid(codeSampleId)) {
@@ -62,16 +62,18 @@ export default {
         );
       }
 
-      const alreadyLikedByUser = await Likes.findOne(
-        { userId, codeSampleId },
-        (err, res) => {
-          if (err) new ApolloError(err);
-          console.log("alreadyLikedByUser response: ", res);
-          return res;
-        }
-      );
+      // This is not a good approach.
+      // Needs a fundamental change on how to go about it
+      // const alreadyLikedByUser = await Likes.findOne(
+      //   { userId, codeSampleId },
+      //   (err, res) => {
+      //     if (err) new ApolloError(err);
+      //     console.log("alreadyLikedByUser response: ", res);
+      //     return res;
+      //   }
+      // );
 
-      const likes = alreadyLikedByUser ? -1 : 1;
+      // const likes = alreadyLikedByUser ? -1 : 1;
 
       const codeSampleToReturn = await CodeSample.findByIdAndUpdate(
         codeSampleId,
