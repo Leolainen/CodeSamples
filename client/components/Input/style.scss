@@ -1,0 +1,19 @@
+.wrapper {
+  position: relative;
+}
+
+.input {
+  border: none;
+  min-height: 1.5rem;
+  padding: 6px 12px;
+}
+
+.label {
+  position: absolute;
+  top: -18px;
+  left: 12px;
+}
+
+.rounded {
+  border-radius: 16px;
+}
