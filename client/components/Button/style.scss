@@ -4,9 +4,17 @@
   $red: $g-red;
 }
 
+.button {
+  border: none;
+  background: #f1f1f1;
+  box-shadow: 0 4px 8px hsla(0, 0%, 10%, 0.1);
+  padding: 6px 12px;
+}
+
 .example {
   background-color: var(--orange);
 }
+
 .header {
   color: $blue;
 }
