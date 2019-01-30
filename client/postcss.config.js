@@ -1,9 +1,11 @@
 const blue = "#17b1e7";
+const softBlue = "#3e77f1";
 const yellow = "#f2d011";
 const red = "#f84443";
 const pink = "#ff8988";
 
 const globals = {
+  "g-softBlue": softBlue,
   "g-blue": blue,
   "g-yellow": yellow,
   "g-red": red,

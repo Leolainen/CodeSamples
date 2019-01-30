@@ -3,16 +3,32 @@
 }
 
 .input {
-  border: none;
+  border: 2px solid $g-softBlue;
+  background: none;
   min-height: 1.5rem;
   padding: 6px 12px;
   border-radius: 4px;
 }
 
+// .input {
+//   border: none;
+//   min-height: 1.5rem;
+//   padding: 6px 12px;
+//   border-radius: 4px;
+// }
+
 .label {
   position: absolute;
-  top: -18px;
+  color: rgb(71, 71, 71);
+  top: 8px;
+  // top: -18px;
   left: 12px;
+  transition: 0.4s ease-out;
+  pointer-events: none;
+
+  &.isActive {
+    transform: translateY(-16px) scale(0.7);
+  }
 }
 
 .rounded {
