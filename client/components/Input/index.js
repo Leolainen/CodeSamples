@@ -11,7 +11,13 @@ const initialState = {
   hasLength: 0
 };
 
-export default function Input({ label, placeholder, rounded, ...rest }) {
+export default function Input({
+  children,
+  label,
+  placeholder,
+  rounded,
+  ...rest
+}) {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const style = classnames(styles.input, {
@@ -30,11 +36,11 @@ export default function Input({ label, placeholder, rounded, ...rest }) {
         placeholder={label ? "" : placeholder}
         onFocus={() => dispatch({ type: HAS_FOCUS })}
         onBlur={() => dispatch({ type: HAS_NO_FOCUS })}
-        onChange={e =>
-          dispatch({ type: HAS_LENGTH, value: e.target.value.length })
-        }
+        onChange={e => dispatch({ type: HAS_LENGTH, value: e.target.value })}
         {...rest}
-      />
+      >
+        {children}
+      </input>
     </div>
   );
 }
@@ -42,11 +48,13 @@ export default function Input({ label, placeholder, rounded, ...rest }) {
 Input.propTypes = {
   label: PropTypes.string,
   placeholder: PropTypes.string,
-  rounded: PropTypes.bool
+  rounded: PropTypes.bool,
+  children: PropTypes.node
 };
 
 Input.defaultProps = {
   label: "",
   placeholder: "",
-  rounded: false
+  rounded: false,
+  children: null
 };

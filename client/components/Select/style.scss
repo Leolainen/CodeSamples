@@ -1,0 +1,25 @@
+.option {
+  position: relative;
+  top: 0;
+  color: #000;
+  padding: 4px 16px;
+  background-color: #fff;
+
+  &:hover {
+    background-color: #e0e0e0;
+  }
+}
+
+.selectWrapper {
+  position: relative;
+  min-width: 150px;
+  box-shadow: 0 4px 8px hsla(0, 0%, 10%, 0.1);
+}
+
+.optionsWrapper {
+  position: absolute;
+  width: 100%;
+  border-radius: 2px;
+  border: 1px solid #e0e0e0;
+  border-top: none;
+}
