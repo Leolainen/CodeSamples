@@ -24,8 +24,6 @@ stories.add("Text input", () => (
       label={text("Label", "This is a label")}
       rounded={boolean("rounded", false)}
       type="text"
-      onFocus={action("Input has focus")}
-      onBlur={action("Input lost focus")}
     />
   </div>
 ));

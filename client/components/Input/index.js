@@ -18,18 +18,16 @@ export default function Input({ label, placeholder, rounded, ...rest }) {
     [styles.rounded]: rounded
   });
 
-  const labelStyle = classnames(styles.label, {
-    [styles.isActive]: state.hasFocus && state.hasLength
+  const labelStyle = classnames(styles.labelWrapper, {
+    [styles.isActive]: state.hasFocus || state.hasLength
   });
 
   return (
     <div className={styles.wrapper}>
       {label && <label className={labelStyle}>{label}</label>}
-      <p>{state.hasFocus}</p>
       <input
         className={style}
         placeholder={label ? "" : placeholder}
-        // onFocus={() => dispatch({ type: HAS_FOCUS })}
         onFocus={() => dispatch({ type: HAS_FOCUS })}
         onBlur={() => dispatch({ type: HAS_NO_FOCUS })}
         onChange={e =>
