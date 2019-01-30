@@ -18,8 +18,6 @@ const containerStyle = {
   backgroundColor: "lightgrey"
 };
 
-const mockOptions = ["one", "two", "three", "four", "five"];
-
 stories.add("Text input", () => (
   <div style={containerStyle}>
     <Input

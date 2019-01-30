@@ -29,19 +29,24 @@ export default function Select({
 
   const optionStyle = classnames(styles.option);
 
+  const filterOptions = () =>
+    options.filter(option => option.includes(state.searchField));
+
+  const filteredOptions = filterOptions();
+
   const handleChange = e => {
+    const { value } = e.target;
+
     setTimeout(() => {
-      dispatch({ type: SET_SEARCH_FIELD, value: e.target.value });
+      dispatch({ type: SET_SEARCH_FIELD, value });
+      console.log(state);
+      filteredOptions();
     }, 500);
   };
 
-  const filteredOptions = options.filter(option =>
-    option.includes(state.searchField)
-  );
-
   return (
     <div className={styles.selectWrapper}>
-      <Input type="text" {...rest} onChange={handleChange} />
+      <Input type="text" onChange={handleChange} {...rest} />
       <div className={styles.optionsWrapper}>
         {filteredOptions.map((option, index) => (
           <div
