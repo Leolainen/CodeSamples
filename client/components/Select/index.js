@@ -26,21 +26,22 @@ export default function Select({
   ...rest
 }) {
   const [state, dispatch] = useReducer(reducer, initialState);
+  let timeout = 0;
 
   const optionStyle = classnames(styles.option);
 
-  const filterOptions = () =>
-    options.filter(option => option.includes(state.searchField));
-
-  const filteredOptions = filterOptions();
+  const filteredOptions = options.filter(option =>
+    option.includes(state.searchField)
+  );
 
   const handleChange = e => {
     const { value } = e.target;
+    if (timeout) {
+      clearTimeout(timeout);
+    }
 
-    setTimeout(() => {
+    timeout = setTimeout(() => {
       dispatch({ type: SET_SEARCH_FIELD, value });
-      console.log(state);
-      filteredOptions();
     }, 500);
   };
 
