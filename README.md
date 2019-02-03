@@ -123,7 +123,7 @@ query {
 
 ```
 query {
-  sampleById(id:"5c4348d5d57fc1bd32ed10f4") {
+  sampleById(id:"5c56b82c5d8f66005a5a2702") {
     id,
     userId,
     username,
@@ -152,6 +152,7 @@ query {
   samples(username: "testuser") {
     id,
     userId,
+    likes,
     username,
     title,
     language,
@@ -165,7 +166,7 @@ query {
 
 ```
 mutation {
-  like(id:"5c48c47ccd81240055b52d52") {
+  like(id:"5c56c4d9c2563e00f069b91f") {
     id,
     userId,
     username,

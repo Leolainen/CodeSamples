@@ -3,5 +3,5 @@ module.exports = {
   rules: {
     "prettier/prettier": "error"
   },
-  plugins: ["prettier", "node", "graphql", "babel"]
+  plugins: ["prettier", "node", "graphql", "babel", "mongodb"]
 };
