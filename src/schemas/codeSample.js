@@ -27,11 +27,3 @@ export const postCodeSample = Joi.object().keys({
   edited,
   date
 });
-
-export const updateCodeSample = Joi.object().keys({
-  title,
-  codeSample,
-  language,
-  framework,
-  edited
-});

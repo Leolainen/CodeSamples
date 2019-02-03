@@ -14,13 +14,14 @@ export default gql`
       codeSample: String!
     ): Sample
     update(
-      id: ID
+      id: ID!
+      title: String
       language: [String]
       framework: [String]
       codeSample: String
     ): Sample
     like(id: ID): Sample
-    # delete: Boolean
+    delete(id: ID): Sample
   }
   type Sample {
     id: ID!

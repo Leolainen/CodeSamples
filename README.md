@@ -114,7 +114,8 @@ query {
     language,
     framework,
     codeSample,
-    likes
+    likes,
+    edited
   }
 }
 ```
@@ -175,6 +176,23 @@ mutation {
     framework,
     codeSample,
     likes
+  }
+}
+```
+
+> Update a codeSample
+
+```
+mutation {
+  update(id: "5c56b82c5d8f66005a5a2702", title:"second edited sample" ) {
+    id,
+    userId,
+    username,
+    title,
+    likes,
+    language,
+    framework,
+    codeSample,
   }
 }
 ```

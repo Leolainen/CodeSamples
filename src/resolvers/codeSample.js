@@ -3,7 +3,7 @@ import { UserInputError, ApolloError } from "apollo-server-express";
 import Joi from "joi";
 
 import { CodeSample, Likes } from "../models";
-import { postCodeSample, updateCodeSample } from "../schemas";
+import { postCodeSample } from "../schemas";
 import * as Auth from "../auth";
 
 export default {
@@ -26,47 +26,50 @@ export default {
     post: async (root, args, { req }, info) => {
       Auth.checkSignedIn(req);
 
+      const { userId, username } = req.session;
+
       await Joi.validate(args, postCodeSample, { abortEarly: false });
-      args.userId = req.session.userId;
-      args.username = req.session.username;
+
+      args.userId = userId;
+      args.username = username;
 
       const codeSample = await CodeSample.create(args);
-      // codeSample.userId = req.session.userId;
 
       return codeSample;
     },
-    // update: async (root, args, { req }, info) => {
-    //   const { userId } = req.session;
-    //   if (userId) {
-    //     return User.findById(userId);
-    //   }
-
-    //   await Joi.validate(args, signIn, { abortEarly: false });
-
-    //   const { email, password } = args;
-    //   const user = await Auth.attemptSignIn(email, password);
-
-    //   req.session.userId = user.id;
-
-    //   return user;
-    // },
-    like: async (root, args, { req, res }, info) => {
+    update: async (root, args, { req }, info) => {
       Auth.checkSignedIn(req);
 
-      const userId = req.session.userId;
-      const codeSampleId = args.id;
+      const { id } = args;
 
-      if (!mongoose.Types.ObjectId.isValid(codeSampleId)) {
-        throw new UserInputError(
-          `There are no samples with the id "${codeSampleId}"`
-        );
+      // maybe doesn't need validation?
+      // Since user is free to edit as they see fit.
+      // await Joi.validate(args, updateCodeSample, { abortEarly: false });
+
+      const updatedCodeSample = await CodeSample.findByIdAndUpdate(
+        id,
+        { ...args, edited: true },
+        { new: true }
+      );
+
+      return updatedCodeSample;
+    },
+    like: async (root, args, { req }, info) => {
+      Auth.checkSignedIn(req);
+
+      const { userId } = req.session;
+      const { id } = args.id;
+
+      if (!mongoose.Types.ObjectId.isValid(id)) {
+        throw new UserInputError(`There are no samples with the id "${id}"`);
       }
 
-      const codeSampleToReturn = await CodeSample.findById(
-        codeSampleId,
+      const likedCodeSample = await CodeSample.findById(
+        id,
         (err, codeSample) => {
           if (err) throw new ApolloError(`Error: ${err}`);
 
+          // Checks if current userId matches the userId of the like
           if (codeSample.likes.some(like => like === userId)) {
             codeSample.likes = codeSample.likes.filter(like => like !== userId);
           } else {
@@ -79,7 +82,7 @@ export default {
         }
       );
 
-      return codeSampleToReturn;
+      return likedCodeSample;
     }
   }
 };
