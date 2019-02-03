@@ -13,7 +13,12 @@ export default gql`
       framework: [String]
       codeSample: String!
     ): Sample
-    update(language: [String], framework: [String], codeSample: String!): Sample
+    update(
+      id: ID
+      language: [String]
+      framework: [String]
+      codeSample: String
+    ): Sample
     like(id: ID): Sample
     # delete: Boolean
   }
@@ -25,7 +30,7 @@ export default gql`
     language: [String!]!
     framework: [String!]!
     codeSample: String!
-    likes: Int!
+    likes: [String!]!
     edited: Boolean!
     createdAt: String!
     date: String!

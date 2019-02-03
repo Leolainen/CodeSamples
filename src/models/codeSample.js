@@ -8,14 +8,7 @@ const codeSampleSchema = new mongoose.Schema(
     language: Array,
     framework: Array,
     codeSample: String,
-    likes: {
-      type: Number,
-      default: 0
-    },
-    dislikes: {
-      type: Number,
-      default: 0
-    },
+    likes: Array,
     edited: {
       type: Boolean,
       default: false

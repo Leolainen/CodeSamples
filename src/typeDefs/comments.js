@@ -2,9 +2,9 @@ import { gql } from "apollo-server-express";
 
 export default gql`
   extend type Query {
-    allSamples: [Sample!]!
-    comments(userId: String, username: String, title: String): [Sample!]!
-    sampleById(id: ID): Sample
+    allComments: [Comment!]!
+    comments(userId: String, username: String, title: String): [Comment!]!
+    commentById(id: ID): Comment
   }
   extend type Mutation {
     post(
@@ -18,8 +18,7 @@ export default gql`
   type Comment {
     id: ID!
     userId: String!
-    likes: Number!
-    dislikes: Number!
+    likes: [String!]!
     comment: String
     edited: boolean
     timestamp: Number

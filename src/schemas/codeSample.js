@@ -12,12 +12,9 @@ const framework = Joi.array()
 const codeSample = Joi.string()
   .required()
   .label("Sample code");
-const likes = Joi.number()
-  .integer()
+const likes = Joi.array()
+  .items(Joi.string())
   .label("sample likes");
-const dislikes = Joi.number()
-  .integer()
-  .label("sample dislikes");
 const edited = Joi.boolean().label("Sample has been edited");
 const date = Joi.date().label("Sample creation date");
 
@@ -27,7 +24,6 @@ export const postCodeSample = Joi.object().keys({
   language,
   framework,
   likes,
-  dislikes,
   edited,
   date
 });
