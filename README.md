@@ -191,8 +191,32 @@ mutation {
     title,
     likes,
     language,
-    framework,
+    framework {
+      frameworks(codeSampleId: "5c56b82c5d8f66005a5a2702")
+    },
     codeSample,
+  }
+}
+```
+
+> Get all frameworks
+
+```
+query {
+  allFrameworks {
+    codeSampleId,
+    framework
+  }
+}
+```
+
+> Add a framework
+
+```
+mutation {
+  addFramework(codeSampleId: "5c56b82c5d8f66005a5a2702", framework: "react") {
+    codeSampleId,
+    framework
   }
 }
 ```

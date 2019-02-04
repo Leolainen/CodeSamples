@@ -23,7 +23,7 @@ export default {
     }
   },
   Mutation: {
-    post: async (root, args, { req }, info) => {
+    postSample: async (root, args, { req }, info) => {
       Auth.checkSignedIn(req);
 
       const { userId, username } = req.session;
@@ -37,7 +37,7 @@ export default {
 
       return codeSample;
     },
-    update: async (root, args, { req }, info) => {
+    updateSample: async (root, args, { req }, info) => {
       Auth.checkSignedIn(req);
 
       const { id } = args;
@@ -54,11 +54,10 @@ export default {
 
       return updatedCodeSample;
     },
-    like: async (root, args, { req }, info) => {
+    likeSample: async (root, { id }, { req }, info) => {
       Auth.checkSignedIn(req);
 
       const { userId } = req.session;
-      const { id } = args.id;
 
       if (!mongoose.Types.ObjectId.isValid(id)) {
         throw new UserInputError(`There are no samples with the id "${id}"`);
