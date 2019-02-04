@@ -4,7 +4,7 @@ export default gql`
   extend type Query {
     allFrameworks: [Framework!]!
     framework(id: ID!): Framework
-    frameworks(framework: String): [Framework!]!
+    frameworks(framework: String, codeSampleId: String): [Framework!]!
   }
   extend type Mutation {
     addFramework(codeSampleId: String!, framework: String!): Framework

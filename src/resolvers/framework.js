@@ -19,20 +19,22 @@ export default {
     }
   },
   Mutation: {
-    addFramework: async (root, args, { req }, info) => {
+    addFramework: async (root, { framework, codeSampleId }, { req }, info) => {
       Auth.checkSignedIn(req);
-      await Joi.validate(args, addFramework, { abortEarly: false });
+      await Joi.validate({ framework, codeSampleId }, addFramework, {
+        abortEarly: false
+      });
 
       const updatedFramework = await Framework.findOne(
-        { framework: args.framework.toLowerCase() },
+        { framework: framework.toLowerCase() },
         (err, frameworkToUpdate) => {
           if (err) throw new ApolloError(`Error: ${err}`);
 
           // if the framework doesn't exist: create it
           if (!frameworkToUpdate) {
             Framework.create({
-              framework: args.framework.toLowerCase(),
-              codeSampleId: [args.codeSampleId]
+              framework: framework.toLowerCase(),
+              codeSampleId: [codeSampleId]
             });
 
             return;
@@ -41,12 +43,12 @@ export default {
           // Checks if current framework contains the codeSampleId otherwise do nothing
           if (
             frameworkToUpdate.codeSampleId.some(
-              sampleId => sampleId === args.codeSampleId
+              sampleId => sampleId === codeSampleId
             )
           ) {
             return;
           } else {
-            frameworkToUpdate.push(args.codeSampleId);
+            frameworkToUpdate.push(codeSampleId);
           }
 
           frameworkToUpdate.save(err => {
