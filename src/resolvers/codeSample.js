@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import { UserInputError, ApolloError } from "apollo-server-express";
 import Joi from "joi";
 
-import { CodeSample, Likes } from "../models";
+import { CodeSample } from "../models";
 import { postCodeSample } from "../schemas";
 import * as Auth from "../auth";
 

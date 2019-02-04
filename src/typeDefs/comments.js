@@ -18,6 +18,7 @@ export default gql`
   type Comment {
     id: ID!
     userId: String!
+    codeSampleId: String!
     likes: [String!]!
     comment: String
     edited: boolean
