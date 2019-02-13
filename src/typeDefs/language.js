@@ -2,11 +2,12 @@ import { gql } from "apollo-server-express";
 
 export default gql`
   extend type Query {
-    language(id: ID, language: String): Language
-    languages: [Language!]!
+    allLanguages: [Language!]!
+    language(id: ID!): Language
+    languages(language: String, codeSampleId: String): [Language!]!
   }
   extend type Mutation {
-    addLanguage(language: String!): Language
+    addLanguage(codeSampleId: String!, language: String!): Language
   }
   type Language {
     id: ID!

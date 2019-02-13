@@ -111,8 +111,6 @@ query {
     userId,
     username,
     title,
-    language,
-    framework,
     codeSample,
     likes,
     edited

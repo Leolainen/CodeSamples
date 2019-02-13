@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const languageSchema = new mongoose.Schema({
   codeSampleId: Array,
-  languages: String
+  language: String
 });
 
 const language = mongoose.model("Language", languageSchema);

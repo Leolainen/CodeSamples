@@ -22,4 +22,4 @@ services:
       - ./:/usr/src/app/
     ports:
       - "9001:9001"
-    command: "npm run storybook --prefix client"
+    command: "npm run storybook --prefix client --ci"

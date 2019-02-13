@@ -29,7 +29,7 @@ export default gql`
     username: String!
     title: String!
     language: Language!
-    framework: Framework!
+    # framework: [Framework!]!
     codeSample: String!
     likes: [String!]!
     edited: Boolean!

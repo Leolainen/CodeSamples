@@ -1,5 +1,4 @@
-import mongoose from "mongoose";
-import { UserInputError, ApolloError } from "apollo-server-express";
+import { ApolloError } from "apollo-server-express";
 import Joi from "joi";
 
 import { Framework } from "../models";
@@ -40,7 +39,7 @@ export default {
             return;
           }
 
-          // Checks if current framework contains the codeSampleId otherwise do nothing
+          // Checks if current framework contains the codeSampleId and in that case do nothing
           if (
             frameworkToUpdate.codeSampleId.some(
               sampleId => sampleId === codeSampleId
@@ -48,7 +47,7 @@ export default {
           ) {
             return;
           } else {
-            frameworkToUpdate.push(codeSampleId);
+            frameworkToUpdate.codeSampleId.push(codeSampleId);
           }
 
           frameworkToUpdate.save(err => {
