@@ -90,13 +90,11 @@ mutation {
 
 ```
 mutation {
-  post(title:"First sample", language:["html", "react"], framework:[], codeSample:"<h1>hello world</h1>") {
+  post(title:"First sample", codeSample:"<h1>hello world</h1>") {
     id,
     userId,
     username,
     title,
-    language,
-    framework,
     codeSample,
   }
 }
@@ -127,8 +125,6 @@ query {
     userId,
     username,
     title,
-    language,
-    framework,
     codeSample,
   }
 }
@@ -140,11 +136,6 @@ query {
 > - username
 > - userid
 > - title
->
-> plans for future arguments are:
->
-> - language
-> - framework
 
 ```
 query {
@@ -154,8 +145,6 @@ query {
     likes,
     username,
     title,
-    language,
-    framework,
     codeSample,
   }
 }
@@ -170,8 +159,6 @@ mutation {
     userId,
     username,
     title,
-    language,
-    framework,
     codeSample,
     likes
   }
@@ -188,10 +175,6 @@ mutation {
     username,
     title,
     likes,
-    language,
-    framework {
-      frameworks(codeSampleId: "5c56b82c5d8f66005a5a2702")
-    },
     codeSample,
   }
 }
@@ -215,6 +198,28 @@ mutation {
   addFramework(codeSampleId: "5c56b82c5d8f66005a5a2702", framework: "react") {
     codeSampleId,
     framework
+  }
+}
+```
+
+> Get all languages
+
+```
+query {
+  allLanguages {
+    codeSampleId,
+    language
+  }
+}
+```
+
+> Add a language
+
+```
+mutation {
+  addLanguage(codeSampleId: "5c56b82c5d8f66005a5a2702", language: "JavaScript") {
+    codeSampleId,
+    language
   }
 }
 ```

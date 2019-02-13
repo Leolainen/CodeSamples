@@ -7,19 +7,8 @@ export default gql`
     sampleById(id: ID): Sample
   }
   extend type Mutation {
-    postSample(
-      title: String!
-      language: [String]
-      framework: [String]
-      codeSample: String!
-    ): Sample
-    updateSample(
-      id: ID!
-      title: String
-      language: [String]
-      framework: [String]
-      codeSample: String
-    ): Sample
+    postSample(title: String!, codeSample: String!): Sample
+    updateSample(id: ID!, title: String, codeSample: String): Sample
     likeSample(id: ID): Sample
     deleteSample(id: ID): Sample
   }
@@ -28,8 +17,6 @@ export default gql`
     userId: String!
     username: String!
     title: String!
-    language: Language!
-    # framework: [Framework!]!
     codeSample: String!
     likes: [String!]!
     edited: Boolean!
