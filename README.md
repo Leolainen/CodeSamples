@@ -223,3 +223,123 @@ mutation {
   }
 }
 ```
+
+> all comments
+
+```
+query {
+  allComments{
+    id,
+    codeSampleId,
+    comment,
+    username,
+    likes,
+    edited,
+    date
+  }
+}
+```
+
+> post new comment
+
+```
+mutation {
+  postComment(userId: "5c41f7e4e0ef9daa700688fb",
+    codeSampleId: "5c56b82c5d8f66005a5a2702",
+    comment: "this is a comment") {
+      id,
+      userId,
+      username,
+      codeSampleId,
+      likes,
+      comment,
+      edited,
+      date
+  }
+}
+```
+
+> fetch all comments
+
+```
+query {
+  allComments {
+    id,
+    userId,
+    username,
+    codeSampleId,
+    likes,
+    comment,
+    edited,
+    date
+  }
+}
+```
+
+> fetch comment either by userId or codeSampleId
+
+```
+query {
+  comments(codeSampleId: "5c56b82c5d8f66005a5a2702") {
+      id,
+      userId,
+      username,
+      codeSampleId,
+      likes,
+      comment,
+      edited,
+      date
+  }
+}
+```
+
+> update comment
+
+```
+mutation {
+  updateComment(id: "5c63cb5acbdbbd0281e4beb1", comment: "updated comment") {
+    id,
+      userId,
+      username,
+      codeSampleId,
+      likes,
+      comment,
+      edited,
+      date
+  }
+}
+```
+
+> like a comment
+
+```
+mutation {
+  likeComment(id: "5c63cb5acbdbbd0281e4beb1") {
+    id,
+      userId,
+      username,
+      codeSampleId,
+      likes,
+      comment,
+      edited,
+      date
+  }
+}
+```
+
+> delete comment
+
+```
+mutation {
+  deleteComment(id: "5c63cb5acbdbbd0281e4beb1") {
+    id,
+      userId,
+      username,
+      codeSampleId,
+      likes,
+      comment,
+      edited,
+      date
+  }
+}
+```
