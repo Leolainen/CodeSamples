@@ -27,3 +27,4 @@ client/node_modules/
 client/.next/
 client/dist/
 client/out/
+client/.cache/

@@ -14,4 +14,4 @@ COPY . .
 EXPOSE 4000
 
 # Runs after docker container is built
-CMD ["npm", "run", "dev"];
+CMD ["npm", "run", "server"];

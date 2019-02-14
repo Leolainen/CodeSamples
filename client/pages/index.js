@@ -29,13 +29,21 @@ export default () => {
           return <p>Error! :( {error}</p>;
         }
 
-        return data.allSamples.map(({ title, username }, index) => (
-          <div key={index}>
-            <p>
-              {title} by {username}
-            </p>
-          </div>
-        ));
+        return data.allSamples.map(
+          ({ title, username, likes, codeSample, edited }, index) => (
+            <div key={index} style={{ border: "1px solid black" }}>
+              <p>
+                Title: <b>{title}</b>
+              </p>
+              <p>
+                by: <b>{username}</b>
+              </p>
+              <p>likes: {likes.length}</p>
+              <p>edited: {JSON.stringify(edited)}</p>
+              <pre>{codeSample}</pre>
+            </div>
+          )
+        );
       }}
     </Query>
   );
