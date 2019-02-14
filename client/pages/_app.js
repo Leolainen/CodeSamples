@@ -1,5 +1,8 @@
 import "../main/css/globals.css";
+import "cross-fetch/polyfill";
 
+import { ApolloProvider } from "react-apollo";
+import ApolloClient from "apollo-boost";
 import App, { Container } from "next/app";
 import React from "react";
 
@@ -25,12 +28,20 @@ export default class MyApp extends App {
   render() {
     const { Component, pageProps } = this.props;
 
+    // @@@    OBS!!!   @@@
+    // This should definitely be an env variable in the future!
+    const client = new ApolloClient({
+      uri: "http://localhost:4000/graphql"
+    });
+
     return (
-      <Provider>
-        <Container>
-          <Component {...pageProps} />
-        </Container>
-      </Provider>
+      <ApolloProvider client={client}>
+        <Provider>
+          <Container>
+            <Component {...pageProps} />
+          </Container>
+        </Provider>
+      </ApolloProvider>
     );
   }
 }
