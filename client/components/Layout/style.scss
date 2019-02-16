@@ -6,6 +6,7 @@
 .wrapper {
   width: 100vw;
   height: 100vh;
+  display: flex;
 }
 
 .header {
@@ -39,6 +40,11 @@
   &.default {
     background-color: #8ec5fc;
     background-image: $background-blue;
+  }
+
+  &.center {
+    justify-content: center;
+    align-items: center;
   }
 
   @media $phabletDown {

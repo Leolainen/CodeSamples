@@ -15,6 +15,10 @@
   }
 }
 
+[tabindex="-1"] {
+  outline: none !important;
+}
+
 html,
 body {
   padding: 0;

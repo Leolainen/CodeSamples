@@ -57,6 +57,7 @@
     "apollo-boost": "^0.1.28",
     "classnames": "^2.2.6",
     "cross-fetch": "^3.0.1",
+    "final-form": "^4.11.1",
     "focus-visible": "^4.1.5",
     "graphql": "^14.1.1",
     "graphql-tag": "^2.10.1",
@@ -67,6 +68,7 @@
     "react": "^16.8.1",
     "react-apollo": "^2.4.1",
     "react-dom": "^16.8.1",
-    "react-final-form": "^4.0.2"
+    "react-final-form": "^4.0.2",
+    "react-select": "^2.0.0-beta.7"
   }
 }

@@ -1,17 +1,30 @@
 import PropTypes from "prop-types";
-import React from "react";
+import React, { useContext } from "react";
 import classnames from "classnames";
+
+import { Context } from "../Context";
 
 import styles from "./style.scss";
 
-const Layout = ({ header, aside, children, theme }) => {
+const Layout = ({ center, aside, children, theme }) => {
+  const { loggedIn } = useContext(Context);
   const layoutTheme = classnames(styles.content, {
     [styles.default]: theme === "default"
   });
 
+  const wrapperStyle = classnames(styles.wrapper, {
+    [styles.center]: center
+  });
+
   return (
-    <div className={styles.wrapper}>
-      <header className={styles.header}>{header}</header>
+    <div className={wrapperStyle}>
+      <header className={styles.header}>
+        {!loggedIn && (
+          <p>
+            <a href="#">Log in</a> or <a href="#">register!</a>
+          </p>
+        )}
+      </header>
       {aside && <aside className={styles.aside}>Aside</aside>}
       <div className={layoutTheme}>{children}</div>
     </div>
@@ -22,13 +35,13 @@ Layout.propTypes = {
   aside: PropTypes.any,
   theme: PropTypes.string,
   children: PropTypes.node.isRequired,
-  header: PropTypes.node
+  center: PropTypes.bool
 };
 
 Layout.defaultProps = {
   aside: undefined,
   theme: "default",
-  header: null
+  center: false
 };
 
 export default Layout;
