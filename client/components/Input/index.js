@@ -38,9 +38,7 @@ export default function Input({
         onBlur={() => dispatch({ type: HAS_NO_FOCUS })}
         onChange={e => dispatch({ type: HAS_LENGTH, value: e.target.value })}
         {...rest}
-      >
-        {children}
-      </input>
+      />
     </div>
   );
 }
@@ -48,13 +46,11 @@ export default function Input({
 Input.propTypes = {
   label: PropTypes.string,
   placeholder: PropTypes.string,
-  rounded: PropTypes.bool,
-  children: PropTypes.node
+  rounded: PropTypes.bool
 };
 
 Input.defaultProps = {
   label: "",
   placeholder: "",
-  rounded: false,
-  children: null
+  rounded: false
 };

@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "concurrently \"npm run server\" \"npm start --prefix client\" \"npm run storybook --prefix client\"",
+    "client": "npm start --prefix client",
     "server": "eval $(cat .env) nodemon -r esm",
     "lint:node": "eslint ./src/",
     "prettier": "prettier --write '**/*.js'",

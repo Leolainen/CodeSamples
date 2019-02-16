@@ -1,7 +1,9 @@
 export default function reducer(state, action) {
   switch (action.type) {
-    case "WAS_CLICKED":
-      return { ...state, wasClicked: !state.wasClicked };
+    case "LOGGED_IN":
+      return { ...state, loggedIn: true };
+    case "LOGGED_OUT":
+      return { ...state, loggedIn: false };
     default:
       return state;
   }

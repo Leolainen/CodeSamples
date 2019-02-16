@@ -8,7 +8,7 @@ export const Context = React.createContext();
 export class Provider extends React.Component {
   /* eslint-disable react/no-unused-state */
   state = {
-    wasClicked: false,
+    loggedIn: false,
     dispatch: action => {
       this.setState(state => reducer(state, action));
     }

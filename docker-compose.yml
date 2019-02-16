@@ -7,14 +7,14 @@ services:
       - ./:/usr/src/app/
     ports:
       - "4000:4000"
-  client:
-    container_name: "client"
-    build: .
-    volumes:
-      - ./:/usr/src/app/
-    ports:
-      - "3000:3000"
-    command: "npm start --prefix client"
+  # client:
+  #   container_name: "client"
+  #   build: .
+  #   volumes:
+  #     - ./:/usr/src/app/
+  #   ports:
+  #     - "3000:3000"
+  #   command: "npm start --prefix client"
   storybook:
     container_name: "storybook"
     build: .
