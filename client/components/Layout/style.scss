@@ -1,5 +1,6 @@
 :root {
   $black: $g-black;
+  $background-blue: linear-gradient(62deg, #8ec5fc 0%, #e0c3fc 100%);
 }
 
 .wrapper {
@@ -37,7 +38,11 @@
 
   &.default {
     background-color: #8ec5fc;
-    background-image: linear-gradient(62deg, #8ec5fc 0%, #e0c3fc 100%);
+    background-image: $background-blue;
+  }
+
+  @media $phabletDown {
+    padding: 24px;
   }
 }
 

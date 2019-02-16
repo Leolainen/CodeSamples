@@ -12,7 +12,8 @@ const initialState = {
 };
 
 export default function Input({
-  children,
+  inverted,
+  outlined,
   label,
   placeholder,
   rounded,
@@ -21,7 +22,9 @@ export default function Input({
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const style = classnames(styles.input, {
-    [styles.rounded]: rounded
+    [styles.rounded]: rounded,
+    [styles.outlined]: outlined,
+    [styles.inverted]: inverted
   });
 
   const labelStyle = classnames(styles.labelWrapper, {
@@ -30,7 +33,6 @@ export default function Input({
 
   return (
     <div className={styles.wrapper}>
-      {label && <label className={labelStyle}>{label}</label>}
       <input
         className={style}
         placeholder={label ? "" : placeholder}
@@ -39,6 +41,7 @@ export default function Input({
         onChange={e => dispatch({ type: HAS_LENGTH, value: e.target.value })}
         {...rest}
       />
+      {label && <label className={labelStyle}>{label}</label>}
     </div>
   );
 }
@@ -46,11 +49,15 @@ export default function Input({
 Input.propTypes = {
   label: PropTypes.string,
   placeholder: PropTypes.string,
-  rounded: PropTypes.bool
+  rounded: PropTypes.bool,
+  outlined: PropTypes.bool,
+  inverted: PropTypes.bool
 };
 
 Input.defaultProps = {
   label: "",
   placeholder: "",
-  rounded: false
+  rounded: false,
+  outlined: false,
+  inverted: false
 };

@@ -1,21 +1,44 @@
+:root {
+  $black: $g-black;
+  $white: $g-white;
+}
+
 .wrapper {
   position: relative;
 }
 
 .input {
-  border: 2px solid $g-softBlue;
+  border: none;
   background: none;
+  background-color: $white;
   min-height: 1.5rem;
   padding: 6px 12px;
   border-radius: 4px;
+
+  &.rounded {
+    border-radius: 16px;
+  }
+
+  &.outlined {
+    border: 2px solid $black;
+    padding: 4px 12px;
+    background: none;
+  }
+
+  &.inverted {
+    border: 2px solid $white;
+    padding: 4px 12px;
+    color: $white;
+    background: none;
+  }
 }
 
 .labelWrapper {
   position: absolute;
   width: 100%;
   max-width: 100%;
-  padding: 6px 12px;
-  color: rgb(71, 71, 71);
+  padding: 4px 12px;
+  color: #474747;
   left: 0;
   top: 2px;
   transition: 0.2s ease-out;
@@ -28,8 +51,8 @@
     justify-content: flex-start;
     transform: translateY(-28px) scale(0.8);
   }
-}
 
-.rounded {
-  border-radius: 16px;
+  .inverted + & {
+    color: $white !important;
+  }
 }

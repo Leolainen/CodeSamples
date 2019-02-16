@@ -1,0 +1,23 @@
+:root {
+  $grey: $g-grey-800;
+  $transparent-grey: hsla(0, 0%, 29%, 0.5);
+  //   color: #4b4b4b
+}
+
+.default {
+  padding: 24px;
+  background-color: $grey;
+  border-radius: $g-borderRadius-default;
+  box-shadow: 0 2px 16px 4px hsla(0, 0%, 0%, 0.2);
+  min-height: 120px;
+
+  &.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &.transparent {
+    background-color: $transparent-grey;
+  }
+}
