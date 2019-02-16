@@ -31,3 +31,20 @@ Sidebar.defaultProps = {
 };
 
 export default Sidebar;
+
+/**
+ * example on how to use this component if it ever gets used
+ * <Sidebar isOpen={leftSidebarIsOpen}>
+          <Nav />
+        </Sidebar>
+
+        {sidebarData && (
+          <Sidebar isOpen={rightSidebarIsOpen} right>
+            <ul>
+              {sidebarData.map((data, index) => (
+                <li key={index}>{data}</li>
+              ))}
+            </ul>
+          </Sidebar>
+        )}
+ */

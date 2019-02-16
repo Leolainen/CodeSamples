@@ -20,7 +20,8 @@ body {
   padding: 0;
   margin: 0;
   width: 100%;
-  /* font-family: $g-fontFamily; */
+  text-rendering: optimizeLegibility;
+  font-family: $g-fontFamily;
 }
 
 input,

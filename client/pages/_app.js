@@ -1,4 +1,4 @@
-import "../main/css/globals.css";
+import "../main/css/globals.scss";
 import "cross-fetch/polyfill";
 
 import { ApolloProvider } from "react-apollo";
@@ -27,7 +27,7 @@ export default class MyApp extends App {
   }
 
   render() {
-    const { Component, pageProps } = this.props;
+    const { Component, pageProps, title = "codeSamples" } = this.props;
 
     // @@@    OBS!!!   @@@
     // This should definitely be an env variable in the future!
@@ -44,6 +44,7 @@ export default class MyApp extends App {
                 name="viewport"
                 content="initial-scale=1.0, width=device-width"
               />
+              <title>{title}</title>
             </Head>
             <Component {...pageProps} />
           </Container>

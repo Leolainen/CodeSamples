@@ -1,3 +1,7 @@
+:root {
+  $black: $g-black;
+}
+
 .wrapper {
   width: 100vw;
   height: 100vh;
@@ -32,6 +36,17 @@
   }
 
   &.default {
-    background-color: beige;
+    background-color: #8ec5fc;
+    background-image: linear-gradient(62deg, #8ec5fc 0%, #e0c3fc 100%);
   }
+}
+
+.aside {
+  position: absolute;
+  right: 0;
+  width: 200px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  background-color: $black;
 }

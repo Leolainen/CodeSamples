@@ -1,4 +1,4 @@
-import "../main/css/globals.css";
+import "../main/css/globals.scss";
 import "focus-visible";
 import { addDecorator, configure } from "@storybook/react";
 import { withKnobs } from "@storybook/addon-knobs";

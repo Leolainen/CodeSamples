@@ -30,3 +30,25 @@ Hamburger.defaultProps = {
 };
 
 export default Hamburger;
+
+/**
+ * example on how to use this component
+ * <Hamburger
+          onClick={() => {
+            toggleRightSidebar(false);
+            toggleLeftSidebar(!leftSidebarIsOpen);
+          }}
+          isOpen={leftSidebarIsOpen}
+        />
+
+        {sidebarData && (
+          <Hamburger
+            onClick={() => {
+              toggleLeftSidebar(false);
+              toggleRightSidebar(!rightSidebarIsOpen);
+            }}
+            right
+            isOpen={rightSidebarIsOpen}
+          />
+        )}
+ */
