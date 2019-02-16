@@ -4,6 +4,7 @@ import "cross-fetch/polyfill";
 import { ApolloProvider } from "react-apollo";
 import ApolloClient from "apollo-boost";
 import App, { Container } from "next/app";
+import Head from "next/head";
 import React from "react";
 
 import { Provider } from "../components/Context";
@@ -38,6 +39,12 @@ export default class MyApp extends App {
       <ApolloProvider client={client}>
         <Provider>
           <Container>
+            <Head>
+              <meta
+                name="viewport"
+                content="initial-scale=1.0, width=device-width"
+              />
+            </Head>
             <Component {...pageProps} />
           </Container>
         </Provider>
