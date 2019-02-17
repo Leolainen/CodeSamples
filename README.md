@@ -90,12 +90,23 @@ mutation {
 
 ```
 mutation {
-  post(title:"First sample", codeSample:"<h1>hello world</h1>") {
-    id,
-    userId,
-    username,
-    title,
-    codeSample,
+  postSample(
+    title:"testing graphql 4",
+    codeSample:"<h1>Testing graphql refactor 4</h1>",
+    languages: ["JavaScript", "HTML"],
+    frameworks: ["React"])
+    {
+      id,
+      userId,
+      username,
+      title,
+      codeSample,
+      frameworks {
+        framework
+      },
+      languages {
+        language
+      },
   }
 }
 ```
@@ -111,7 +122,13 @@ query {
     title,
     codeSample,
     likes,
-    edited
+    edited,
+    frameworks {
+      framework
+    },
+    languages {
+      language
+    },
   }
 }
 ```
@@ -120,12 +137,18 @@ query {
 
 ```
 query {
-  sampleById(id:"5c56b82c5d8f66005a5a2702") {
+  sampleById(id:"5c68d1fa3c4eb00296893a8e") {
     id,
     userId,
     username,
     title,
     codeSample,
+    frameworks {
+      framework
+    },
+    languages {
+      language
+    },
   }
 }
 ```
@@ -146,6 +169,12 @@ query {
     username,
     title,
     codeSample,
+    frameworks {
+      framework
+    },
+    languages {
+      language
+    },
   }
 }
 ```

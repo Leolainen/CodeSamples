@@ -6,6 +6,8 @@ const codeSampleSchema = new mongoose.Schema(
     username: String,
     title: String,
     codeSample: String,
+    frameworks: Array,
+    languages: Array,
     likes: Array,
     edited: {
       type: Boolean,
@@ -21,6 +23,14 @@ const codeSampleSchema = new mongoose.Schema(
   }
 );
 
-const CodeSample = mongoose.model("CodeSample", codeSampleSchema);
+const frameworkSchema = new mongoose.Schema({
+  framework: String
+});
 
-export default CodeSample;
+const languageSchema = new mongoose.Schema({
+  language: String
+});
+
+export const CodeSample = mongoose.model("CodeSample", codeSampleSchema);
+export const Framework = mongoose.model("Framework", frameworkSchema);
+export const Language = mongoose.model("Language", languageSchema);
