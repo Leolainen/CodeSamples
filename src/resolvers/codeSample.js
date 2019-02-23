@@ -12,6 +12,9 @@ export default {
       return CodeSample.find({});
     },
     samples: async (root, args, context, info) => {
+      // regex so query will make a case-insensitive search for all samples containing the title
+      args.title = { $regex: new RegExp(args.title, "i") };
+
       let query = { ...args };
 
       if (args.frameworks) {

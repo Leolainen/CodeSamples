@@ -21,33 +21,26 @@ export default () => {
     languages && languages.map(lang => `"${lang.value}"`);
   const languageQuery = languages && `languages: [${processedLanguages}]`;
 
-  console.log("titleQuery", titleQuery);
-  console.log("frameworkQuery", frameworkQuery);
-  console.log("languageQuery", languageQuery);
-
   const dynamicQueryHandler = () => {
-    let samplesQuery = "samples";
-    if (!context.query) {
-      return samplesQuery;
-    }
-    samplesQuery = "samples(";
+    // This is the ugliest function ever but it works until I figure out something better.
+    let samplesQuery = "samples(";
 
     if (title) {
-      samplesQuery += `${titleQuery}, `;
-      //   samplesQuery.concat(", ", titleQuery);
+      samplesQuery = samplesQuery.concat(", ", titleQuery);
     }
     if (languages) {
-      samplesQuery += `${languageQuery}, `;
-      //   samplesQuery.concat(", ", languageQuery);
+      samplesQuery = samplesQuery.concat(", ", languageQuery);
     }
     if (frameworks) {
-      samplesQuery += `${frameworkQuery}, `;
-      //   samplesQuery.concat(", ", frameworkQuery);
+      samplesQuery = samplesQuery.concat(", ", frameworkQuery);
     }
 
     samplesQuery += ")";
 
-    console.log("finished sampleQuery", samplesQuery);
+    if (!title && !languages && !frameworks) {
+      samplesQuery = "samples";
+    }
+
     return samplesQuery;
   };
 
