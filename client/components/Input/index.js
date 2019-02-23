@@ -12,18 +12,24 @@ export default function Input({
   placeholder,
   rounded,
   name,
+  maxWidth,
   ...rest
 }) {
   const style = classnames(styles.input, {
     [styles.rounded]: rounded,
     [styles.outlined]: outlined,
-    [styles.inverted]: inverted
+    [styles.inverted]: inverted,
+    [styles.maxWidth]: maxWidth
+  });
+
+  const wrapperStyle = classnames(styles.wrapper, {
+    [styles.maxWidth]: maxWidth
   });
 
   return (
     <Field name={name}>
       {({ input, meta }) => (
-        <div className={styles.wrapper}>
+        <div className={wrapperStyle}>
           <input
             className={style}
             placeholder={label ? "" : placeholder}
@@ -51,7 +57,8 @@ Input.propTypes = {
   placeholder: PropTypes.string,
   rounded: PropTypes.bool,
   outlined: PropTypes.bool,
-  inverted: PropTypes.bool
+  inverted: PropTypes.bool,
+  maxWidth: PropTypes.bool
 };
 
 Input.defaultProps = {
@@ -59,5 +66,6 @@ Input.defaultProps = {
   placeholder: "",
   rounded: false,
   outlined: false,
-  inverted: false
+  inverted: false,
+  maxWidth: false
 };

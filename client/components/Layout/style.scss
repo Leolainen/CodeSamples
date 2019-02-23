@@ -7,10 +7,16 @@
   width: 100vw;
   height: 100vh;
   display: flex;
+  flex-direction: column;
+
+  &.default {
+    background-color: #8ec5fc;
+    background-image: $background-blue;
+  }
 }
 
 .header {
-  position: absolute;
+  position: relative;
   top: 0;
   width: 100vw;
   height: 80px;
@@ -35,11 +41,6 @@
     max-width: 1200px;
     margin: 0;
     padding: 0;
-  }
-
-  &.default {
-    background-color: #8ec5fc;
-    background-image: $background-blue;
   }
 
   &.center {

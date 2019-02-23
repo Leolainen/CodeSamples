@@ -22,3 +22,16 @@
     background-color: $transparent-grey;
   }
 }
+
+/* prettier-ignore */
+@for $i from 1 to 24 {
+  .spacing_$i {
+    margin: $(i)rem;
+    padding: $(i)rem;
+    background: green;
+  }
+}
+
+.spacing_10 {
+  background: red;
+}

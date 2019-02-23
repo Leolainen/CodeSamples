@@ -11,7 +11,7 @@
   border: none;
   background: none;
   background-color: $white;
-  min-height: 1.5rem;
+  min-height: 2rem;
   padding: 6px 12px;
   border-radius: 4px;
 
@@ -33,11 +33,15 @@
   }
 }
 
+.maxWidth {
+  width: 100%;
+}
+
 .labelWrapper {
   position: absolute;
   width: 100%;
   max-width: 100%;
-  padding: 4px 12px;
+  padding: 5px 12px;
   color: #474747;
   left: 0;
   top: 2px;

@@ -101,6 +101,7 @@ module.exports = {
   parser: "postcss-scss",
   syntax: "postcss-scss",
   plugins: {
+    "postcss-for": {},
     "postcss-nested": { preserveEmpty: true },
     "postcss-simple-vars": { variables: globals },
     "postcss-calc": { preserve: true },

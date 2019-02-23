@@ -27,13 +27,13 @@ export default () => {
       <FForm
         onSubmit={handleSubmit}
         children={({ submitting, pristine, values }) => (
-          <Container center transparent>
+          <Container spacing={10} center transparent>
             <Input
               name="title"
               type="search"
               label="Search for a sample"
-              rounded
               inverted
+              maxWidth
             />
             <Field
               name="frameworks"

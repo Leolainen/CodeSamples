@@ -8,12 +8,11 @@ import styles from "./style.scss";
 
 const Layout = ({ center, aside, children, theme }) => {
   const { loggedIn } = useContext(Context);
-  const layoutTheme = classnames(styles.content, {
-    [styles.default]: theme === "default"
-  });
+  const contentStyle = classnames(styles.content);
 
   const wrapperStyle = classnames(styles.wrapper, {
-    [styles.center]: center
+    [styles.center]: center,
+    [styles.default]: theme === "default"
   });
 
   return (
@@ -26,7 +25,7 @@ const Layout = ({ center, aside, children, theme }) => {
         )}
       </header>
       {aside && <aside className={styles.aside}>Aside</aside>}
-      <div className={layoutTheme}>{children}</div>
+      <div className={contentStyle}>{children}</div>
     </div>
   );
 };
