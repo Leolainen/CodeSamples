@@ -1,10 +1,10 @@
 import { Field } from "react-final-form";
 import { Query } from "react-apollo";
+import Link from "next/link";
 import React, { useContext } from "react";
-// import CustomSelect from "react-select";
+import Router from "next/router";
 import gql from "graphql-tag";
 
-import Select from "react-select";
 import { Context } from "../components/Context";
 import Button from "../components/Button";
 import Container from "../components/Container";
@@ -17,9 +17,8 @@ export default () => {
   const context = useContext(Context);
 
   const handleSubmit = data => {
-    console.log(data);
     context.dispatch({ type: "UPDATE_QUERY" }, data);
-    console.log("context:", context);
+    Router.push(`/search`);
   };
 
   return (
@@ -132,7 +131,7 @@ export default () => {
             />
 
             <Button type="submit" disabled={pristine || submitting}>
-              submit
+              Search
             </Button>
             <pre>{JSON.stringify(values, 0, 2)}</pre>
           </Container>
