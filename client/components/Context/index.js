@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React, { useReducer } from "react";
+import React from "react";
 
 import reducer from "./reducer";
 
@@ -9,8 +9,10 @@ export class Provider extends React.Component {
   /* eslint-disable react/no-unused-state */
   state = {
     loggedIn: false,
-    dispatch: action => {
-      this.setState(state => reducer(state, action));
+    query: {},
+    mutation: {},
+    dispatch: (action, args) => {
+      this.setState(state => reducer(state, action, args));
     }
   };
   /* eslint-enable react/no-unused-state */

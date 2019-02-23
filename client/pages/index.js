@@ -1,22 +1,25 @@
 import { Field } from "react-final-form";
-import React from "react";
-import Select from "react-select";
+import { Query } from "react-apollo";
+import React, { useContext } from "react";
+// import CustomSelect from "react-select";
+import gql from "graphql-tag";
 
+import Select from "react-select";
+import { Context } from "../components/Context";
 import Button from "../components/Button";
 import Container from "../components/Container";
+import CustomSelect from "../components/CustomSelect";
 import FForm from "../components/FForm";
 import Input from "../components/Input";
 import Layout from "../components/Layout";
 
-const mockOptions = [
-  { value: "javascript", label: "JavaScript" },
-  { value: "python", label: "Python" },
-  { value: "c#", label: "C#" }
-];
-
 export default () => {
+  const context = useContext(Context);
+
   const handleSubmit = data => {
     console.log(data);
+    context.dispatch({ type: "UPDATE_QUERY" }, data);
+    console.log("context:", context);
   };
 
   return (
@@ -33,9 +36,98 @@ export default () => {
               inverted
             />
             <Field
+              name="frameworks"
+              render={({ input }) => (
+                <Query
+                  query={gql`
+                    {
+                      allFrameworks {
+                        framework
+                      }
+                    }
+                  `}
+                >
+                  {({ loading, error, data }) => {
+                    if (loading) {
+                      return (
+                        <CustomSelect
+                          isDisabled
+                          placeholder="Loading frameworks..."
+                        />
+                      );
+                    }
+                    if (error) {
+                      return (
+                        <CustomSelect
+                          isDisabled
+                          placeholder={`Error: ${error}`}
+                        />
+                      );
+                    }
+
+                    const options = data.allFrameworks.map(fw => {
+                      return { label: fw.framework, value: fw.framework };
+                    });
+
+                    return (
+                      <CustomSelect
+                        placeholder="Select framework..."
+                        isSearchable
+                        isMulti
+                        {...input}
+                        options={options}
+                      />
+                    );
+                  }}
+                </Query>
+              )}
+            />
+
+            <Field
               name="languages"
               render={({ input }) => (
-                <Select {...input} options={mockOptions} />
+                <Query
+                  query={gql`
+                    {
+                      allLanguages {
+                        language
+                      }
+                    }
+                  `}
+                >
+                  {({ loading, error, data }) => {
+                    if (loading) {
+                      return (
+                        <CustomSelect
+                          isDisabled
+                          placeholder="Loading languages..."
+                        />
+                      );
+                    }
+                    if (error) {
+                      return (
+                        <CustomSelect
+                          isDisabled
+                          placeholder={`Error: ${error}`}
+                        />
+                      );
+                    }
+
+                    const options = data.allLanguages.map(lang => {
+                      return { label: lang.language, value: lang.language };
+                    });
+
+                    return (
+                      <CustomSelect
+                        placeholder="Select language..."
+                        isSearchable
+                        isMulti
+                        {...input}
+                        options={options}
+                      />
+                    );
+                  }}
+                </Query>
               )}
             />
 
