@@ -10,6 +10,15 @@
   box-shadow: 0 4px 8px hsla(0, 0%, 10%, 0.1);
   padding: 6px 12px;
   border-radius: 4px;
+  height: 2rem;
+
+  &.rounded {
+    border-radius: 16px;
+  }
+
+  &.fullWidth {
+    width: 100%;
+  }
 }
 
 .example {
@@ -18,12 +27,4 @@
 
 .header {
   color: $blue;
-}
-
-.wasClicked {
-  background-color: $red;
-}
-
-.rounded {
-  border-radius: 16px;
 }

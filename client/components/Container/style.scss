@@ -25,13 +25,7 @@
 
 /* prettier-ignore */
 @for $i from 1 to 24 {
-  .spacing_$i {
-    margin: $(i)rem;
-    padding: $(i)rem;
-    background: green;
+  .spacing_$(i) > * {
+    margin: calc(4 * $(i))px;
   }
-}
-
-.spacing_10 {
-  background: red;
 }

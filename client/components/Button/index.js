@@ -4,9 +4,10 @@ import classnames from "classnames";
 
 import styles from "./style.scss";
 
-export default function Button({ rounded, children, ...rest }) {
+export default function Button({ rounded, fullWidth, children, ...rest }) {
   const style = classnames(styles.button, {
-    [styles.rounded]: rounded
+    [styles.rounded]: rounded,
+    [styles.fullWidth]: fullWidth
   });
 
   return (

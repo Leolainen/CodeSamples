@@ -12,17 +12,12 @@ export default function Container({
   spacing,
   ...rest
 }) {
-  // eslint-disable-next-line
-  const style = classnames(styles.default, styles.spacing_[spacing], {
+  const style = classnames(styles.default, styles[`spacing_${spacing}`], {
     className,
     ...rest,
     [styles.center]: center,
     [styles.transparent]: transparent
   });
-
-  // console.log("spacing is set", spacing);
-  // console.log(`styles.spacing_[spacing]`, styles.spacing_[spacing]);
-  // console.log("classnames(style)", style);
 
   return <div className={style}>{children}</div>;
 }

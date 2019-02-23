@@ -26,12 +26,11 @@ export default () => {
       <FForm
         onSubmit={handleSubmit}
         children={({ submitting, pristine, values }) => (
-          <Container spacing={10} center transparent>
+          <Container spacing={2} center>
             <Input
               name="title"
               type="search"
-              label="Search for a sample"
-              inverted
+              placeholder="Search for a sample"
               maxWidth
             />
             <Field
@@ -130,7 +129,7 @@ export default () => {
               )}
             />
 
-            <Button type="submit" disabled={pristine || submitting}>
+            <Button type="submit" fullWidth disabled={pristine || submitting}>
               Search
             </Button>
             <pre>{JSON.stringify(values, 0, 2)}</pre>
