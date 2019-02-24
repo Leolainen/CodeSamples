@@ -1,6 +1,5 @@
 import { Field } from "react-final-form";
 import { Query } from "react-apollo";
-import Link from "next/link";
 import React, { useContext } from "react";
 import Router from "next/router";
 import gql from "graphql-tag";
@@ -31,7 +30,7 @@ export default () => {
               name="title"
               type="search"
               placeholder="Search for a sample"
-              maxWidth
+              fullWidth
             />
             <Field
               name="frameworks"

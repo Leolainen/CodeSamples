@@ -12,18 +12,18 @@ export default function Input({
   placeholder,
   rounded,
   name,
-  maxWidth,
+  fullWidth,
   ...rest
 }) {
   const style = classnames(styles.input, {
     [styles.rounded]: rounded,
     [styles.outlined]: outlined,
     [styles.inverted]: inverted,
-    [styles.maxWidth]: maxWidth
+    [styles.fullWidth]: fullWidth
   });
 
   const wrapperStyle = classnames(styles.wrapper, {
-    [styles.maxWidth]: maxWidth
+    [styles.fullWidth]: fullWidth
   });
 
   return (
@@ -58,7 +58,7 @@ Input.propTypes = {
   rounded: PropTypes.bool,
   outlined: PropTypes.bool,
   inverted: PropTypes.bool,
-  maxWidth: PropTypes.bool
+  fullWidth: PropTypes.bool
 };
 
 Input.defaultProps = {
@@ -67,5 +67,5 @@ Input.defaultProps = {
   rounded: false,
   outlined: false,
   inverted: false,
-  maxWidth: false
+  fullWidth: false
 };

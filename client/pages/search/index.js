@@ -60,8 +60,6 @@ export default () => {
     }
   `;
 
-  console.log("complete query:", query);
-
   return (
     <Layout center>
       <Query
@@ -75,8 +73,6 @@ export default () => {
           if (error) {
             return <p>Error: {error}</p>;
           }
-
-          console.log("data", data);
 
           return (
             <Container transparent>

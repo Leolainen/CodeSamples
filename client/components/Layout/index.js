@@ -1,3 +1,4 @@
+import Link from "next/link";
 import PropTypes from "prop-types";
 import React, { useContext } from "react";
 import classnames from "classnames";
@@ -20,7 +21,13 @@ const Layout = ({ center, aside, children, theme }) => {
       <header className={styles.header}>
         {!loggedIn && (
           <p>
-            <a href="#">Log in</a> or <a href="#">register!</a>
+            <Link href={"/login"}>
+              <a>Log in</a>
+            </Link>{" "}
+            or{" "}
+            <Link href={"/register"}>
+              <a>Register a new account</a>
+            </Link>
           </p>
         )}
       </header>

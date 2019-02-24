@@ -26,6 +26,6 @@
 /* prettier-ignore */
 @for $i from 1 to 24 {
   .spacing_$(i) > * {
-    margin: calc(4 * $(i))px;
+    margin: calc(4 * $(i))px 0;
   }
 }
