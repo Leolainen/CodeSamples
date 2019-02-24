@@ -16,7 +16,7 @@ export default () => {
   const context = useContext(Context);
 
   const handleSubmit = data => {
-    context.dispatch({ type: "UPDATE_QUERY" }, data);
+    context.dispatch({ type: "SET_QUERY" }, data);
     Router.push(`/search`);
   };
 

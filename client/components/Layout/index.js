@@ -1,11 +1,22 @@
+import { Query } from "react-apollo";
 import Link from "next/link";
 import PropTypes from "prop-types";
 import React, { useContext } from "react";
 import classnames from "classnames";
+import gql from "graphql-tag";
 
 import { Context } from "../Context";
 
 import styles from "./style.scss";
+
+const ME_QUERY = gql`
+  query {
+    me {
+      username
+      email
+    }
+  }
+`;
 
 const Layout = ({ center, aside, children, theme }) => {
   const { loggedIn } = useContext(Context);
@@ -19,17 +30,32 @@ const Layout = ({ center, aside, children, theme }) => {
   return (
     <div className={wrapperStyle}>
       <header className={styles.header}>
-        {!loggedIn && (
-          <p>
-            <Link href={"/login"}>
-              <a>Log in</a>
-            </Link>{" "}
-            or{" "}
-            <Link href={"/register"}>
-              <a>Register a new account</a>
-            </Link>
-          </p>
-        )}
+        <Query query={ME_QUERY}>
+          {({ error, loading, data }) => {
+            if (loading) {
+              return <p>Checking login status...</p>;
+            }
+            if (error) {
+              console.error("error", error);
+              return <p>Error</p>;
+            }
+
+            if (!data) {
+              return (
+                <p>
+                  <Link href={"/login"}>
+                    <a>Log in</a>
+                  </Link>{" "}
+                  or{" "}
+                  <Link href={"/register"}>
+                    <a>Register a new account</a>
+                  </Link>
+                </p>
+              );
+            }
+            return <p>welcome, {data.username}</p>;
+          }}
+        </Query>
       </header>
       {aside && <aside className={styles.aside}>Aside</aside>}
       <div className={contentStyle}>{children}</div>

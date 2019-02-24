@@ -9,6 +9,8 @@ export class Provider extends React.Component {
   /* eslint-disable react/no-unused-state */
   state = {
     loggedIn: false,
+    username: "",
+    email: "",
     query: {},
     mutation: {},
     dispatch: (action, args) => {
