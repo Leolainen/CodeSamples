@@ -9,7 +9,9 @@
     "server": "eval $(cat .env) nodemon -r esm",
     "lint:node": "eslint ./src/",
     "prettier": "prettier --write '**/*.js'",
-    "prettier:check": "prettier --list-different '**/*.js'"
+    "prettier:check": "prettier --list-different '**/*.js'",
+    "test:client": "npm test --prefix client",
+    "test:client:watch": "npm run test:watch --prefix client"
   },
   "author": "Leo",
   "license": "ISC",
