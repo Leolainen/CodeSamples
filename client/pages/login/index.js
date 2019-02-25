@@ -24,7 +24,12 @@ export default () => {
   `;
 
   return (
-    <Mutation mutation={LOGIN_MUTATION} onCompleted={() => Router.push("/")}>
+    <Mutation
+      mutation={LOGIN_MUTATION}
+      onError={({ message }) => console.log("error:", message)}
+      // onError={err => console.log("error:", err.graphQLErrors[0].message)}
+      onCompleted={() => Router.push("/")}
+    >
       {signIn => (
         <Layout>
           <FForm
@@ -36,8 +41,9 @@ export default () => {
                 }
               })
             }
-            children={({ submitting, pristine, values }) => (
+            children={({ submitting, pristine }) => (
               <Container spacing={6}>
+                <h5>Login to your account</h5>
                 <Input
                   name="email"
                   type="email"
@@ -61,7 +67,6 @@ export default () => {
                 >
                   Log in
                 </Button>
-                <pre>{JSON.stringify(values, 0, 2)}</pre>
               </Container>
             )}
           />

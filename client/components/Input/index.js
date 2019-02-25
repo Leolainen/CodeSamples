@@ -13,6 +13,7 @@ export default function Input({
   rounded,
   name,
   fullWidth,
+  validate,
   ...rest
 }) {
   const style = classnames(styles.input, {
@@ -27,7 +28,7 @@ export default function Input({
   });
 
   return (
-    <Field name={name}>
+    <Field name={name} validate={validate}>
       {({ input, meta }) => (
         <div className={wrapperStyle}>
           <input
@@ -42,8 +43,11 @@ export default function Input({
                 [styles.isActive]: meta.active || meta.dirty
               })}
             >
-              {meta.error && meta.touched ? `${label} (${meta.error})` : label}
+              {label}
             </label>
+          )}
+          {meta.error && meta.touched && (
+            <span className={styles.errorText}>{meta.error}</span>
           )}
         </div>
       )}
@@ -58,7 +62,8 @@ Input.propTypes = {
   rounded: PropTypes.bool,
   outlined: PropTypes.bool,
   inverted: PropTypes.bool,
-  fullWidth: PropTypes.bool
+  fullWidth: PropTypes.bool,
+  validate: PropTypes.func
 };
 
 Input.defaultProps = {
@@ -67,5 +72,6 @@ Input.defaultProps = {
   rounded: false,
   outlined: false,
   inverted: false,
-  fullWidth: false
+  fullWidth: false,
+  validate: null
 };
