@@ -52,11 +52,21 @@ export default {
     },
     signIn: async (root, args, { req }, info) => {
       const { userId } = req.session;
+
       if (userId) {
         return User.findById(userId);
       }
 
-      await Joi.validate(args, signIn, { abortEarly: false });
+      /**
+       * special validation case for password when signing in. It should only be required.
+       * No need to make sure it matches some type of regex.
+       * Auth.attemptSignIn function will check whether it's correct or not
+       */
+      await Joi.validate(
+        { email: args.email, passwordForSignIn: args.password },
+        signIn,
+        { abortEarly: false }
+      );
 
       const { email, password } = args;
       const user = await Auth.attemptSignIn(email, password);

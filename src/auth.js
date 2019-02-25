@@ -16,7 +16,12 @@ export const attemptSignIn = async (email, password) => {
   return user;
 };
 
-const signedIn = req => req.session.userId;
+const signedIn = req => {
+  if (req.session) {
+    return req.session.userId;
+  }
+  return false;
+};
 
 export const checkSignedIn = req => {
   if (!signedIn(req)) {

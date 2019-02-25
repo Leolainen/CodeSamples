@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import express from "express";
 import session from "express-session";
+import cors from "cors";
 import { ApolloServer } from "apollo-server-express";
 
 import typeDefs from "./typeDefs";
@@ -61,7 +62,10 @@ import {
       context: ({ req, res }) => ({ req, res })
     });
 
-    server.applyMiddleware({ app });
+    server.applyMiddleware({
+      app,
+      cors: { origin: "http://localhost:3000", credentials: true }
+    });
 
     app.listen({ port: APP_PORT }, () => {
       return console.log(`http://localhost:${APP_PORT}${server.graphqlPath}`);

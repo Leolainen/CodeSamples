@@ -25,7 +25,7 @@ const password = Joi.string()
       string: {
         regex: {
           base:
-            "Password must be at least 8 characters long and have at least one letter and one character"
+            "Password must be at least 8 characters long and have at least one letter and no special characters"
         }
       }
     }
@@ -36,6 +36,10 @@ const score = Joi.number()
 
 const likes = Joi.string().label("Likes");
 const dislikes = Joi.string().label("Disikes");
+
+const passwordForSignIn = Joi.string()
+  .required()
+  .label("password for signIn");
 
 export const signUp = Joi.object().keys({
   email,
@@ -48,5 +52,5 @@ export const signUp = Joi.object().keys({
 
 export const signIn = Joi.object().keys({
   email,
-  password
+  passwordForSignIn
 });
