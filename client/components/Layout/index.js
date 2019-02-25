@@ -36,24 +36,24 @@ const Layout = ({ center, aside, children, theme }) => {
               return <p>Checking login status...</p>;
             }
             if (error) {
-              console.error("error", error);
-              return <p>Error</p>;
-            }
-
-            if (!data) {
+              console.error("error", { ...error });
               return (
-                <p>
-                  <Link href={"/login"}>
-                    <a>Log in</a>
-                  </Link>{" "}
-                  or{" "}
-                  <Link href={"/register"}>
-                    <a>Register a new account</a>
-                  </Link>
-                </p>
+                <div>
+                  <p>{error.graphQLErrors[0].message}</p>
+                  <p>
+                    <Link href={"/login"}>
+                      <a>Log in</a>
+                    </Link>{" "}
+                    or{" "}
+                    <Link href={"/register"}>
+                      <a>Register a new account</a>
+                    </Link>
+                  </p>
+                </div>
               );
             }
-            return <p>welcome, {data.username}</p>;
+            const { me } = data;
+            return <p>welcome, {me.username}</p>;
           }}
         </Query>
       </header>

@@ -1,8 +1,10 @@
 import "../main/css/globals.scss";
 import "cross-fetch/polyfill";
 
+import { ApolloClient } from "apollo-client";
 import { ApolloProvider } from "react-apollo";
-import ApolloClient from "apollo-boost";
+import { HttpLink } from "apollo-link-http";
+import { InMemoryCache } from "apollo-cache-inmemory";
 import App, { Container } from "next/app";
 import Head from "next/head";
 import React from "react";
@@ -29,10 +31,12 @@ export default class MyApp extends App {
   render() {
     const { Component, pageProps, title = "codeSamples" } = this.props;
 
-    // @@@    OBS!!!   @@@
-    // This should definitely be an env variable in the future!
     const client = new ApolloClient({
-      uri: "http://localhost:4000/graphql"
+      cache: new InMemoryCache(),
+      link: new HttpLink({
+        credentials: "include",
+        uri: "http://localhost:4000/graphql"
+      })
     });
 
     return (
