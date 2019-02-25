@@ -1,11 +1,13 @@
-import { Query } from "react-apollo";
+import { Mutation, Query } from "react-apollo";
 import Link from "next/link";
 import PropTypes from "prop-types";
 import React, { useContext } from "react";
+import Router from "next/router";
 import classnames from "classnames";
 import gql from "graphql-tag";
 
 import { Context } from "../Context";
+import Button from "../Button";
 
 import styles from "./style.scss";
 
@@ -36,7 +38,7 @@ const Layout = ({ center, aside, children, theme }) => {
               return <p>Checking login status...</p>;
             }
             if (error) {
-              console.error("error", { ...error });
+              // console.error("error", { ...error });
               return (
                 <div>
                   <p>{error.graphQLErrors[0].message}</p>
@@ -53,7 +55,29 @@ const Layout = ({ center, aside, children, theme }) => {
               );
             }
             const { me } = data;
-            return <p>welcome, {me.username}</p>;
+            return (
+              <div>
+                <p>welcome, {me.username}</p>
+                <Mutation
+                  mutation={gql`
+                    mutation {
+                      signOut
+                    }
+                  `}
+                >
+                  {mutate => (
+                    <Button
+                      onClick={() => {
+                        mutate();
+                        Router.push("/");
+                      }}
+                    >
+                      Log out
+                    </Button>
+                  )}
+                </Mutation>
+              </div>
+            );
           }}
         </Query>
       </header>

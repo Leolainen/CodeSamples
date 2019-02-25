@@ -23,32 +23,19 @@ export default () => {
     }
   `;
 
-  const handleLogin = data => {
-    console.log("Login successful!", data);
-    // Router.push("/");
-  };
-
-  const handleSubmit = values => {
-    console.log("submitting: ", values);
-  };
-
-  /**
-   * 
-    mutation {
-      signIn(password:"testpassword1", email:"testemail@email.com") {
-        id, username, email
-      }
-    }
-   */
   return (
-    <Mutation
-      mutation={LOGIN_MUTATION}
-      onCompleted={loginResponse => handleLogin(loginResponse)}
-    >
-      {(signIn, { data }) => (
+    <Mutation mutation={LOGIN_MUTATION} onCompleted={() => Router.push("/")}>
+      {signIn => (
         <Layout>
           <FForm
-            onSubmit={handleSubmit}
+            onSubmit={values =>
+              signIn({
+                variables: {
+                  email: values.email,
+                  password: values.password
+                }
+              })
+            }
             children={({ submitting, pristine, values }) => (
               <Container spacing={6}>
                 <Input
@@ -71,14 +58,6 @@ export default () => {
                   type="submit"
                   disabled={pristine || submitting}
                   fullWidth
-                  onClick={() =>
-                    signIn({
-                      variables: {
-                        email: values.email,
-                        password: values.password
-                      }
-                    })
-                  }
                 >
                   Log in
                 </Button>
