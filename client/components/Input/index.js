@@ -6,6 +6,7 @@ import classnames from "classnames";
 import styles from "./style.scss";
 
 export default function Input({
+  className,
   inverted,
   outlined,
   label,
@@ -16,12 +17,16 @@ export default function Input({
   validate,
   ...rest
 }) {
-  const style = classnames(styles.input, {
-    [styles.rounded]: rounded,
-    [styles.outlined]: outlined,
-    [styles.inverted]: inverted,
-    [styles.fullWidth]: fullWidth
-  });
+  const style = classnames(
+    styles.input,
+    {
+      [styles.rounded]: rounded,
+      [styles.outlined]: outlined,
+      [styles.inverted]: inverted,
+      [styles.fullWidth]: fullWidth
+    },
+    className
+  );
 
   const wrapperStyle = classnames(styles.wrapper, {
     [styles.fullWidth]: fullWidth
@@ -63,7 +68,8 @@ Input.propTypes = {
   outlined: PropTypes.bool,
   inverted: PropTypes.bool,
   fullWidth: PropTypes.bool,
-  validate: PropTypes.func
+  validate: PropTypes.func,
+  className: PropTypes.string
 };
 
 Input.defaultProps = {
@@ -73,5 +79,6 @@ Input.defaultProps = {
   outlined: false,
   inverted: false,
   fullWidth: false,
-  validate: null
+  validate: null,
+  className: ""
 };

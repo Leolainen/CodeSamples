@@ -22,10 +22,27 @@ const nextConfig = {
         rules: [
           ...config.module.rules,
           {
-            test: /\.s?css$/,
+            test: /\.scss$/,
             use: cssLoaderConfig(config, {
               extensions: ["scss"],
               cssModules: true,
+              cssLoaderOptions: {
+                importLoaders: 1,
+                localIdentName: "[local]___[hash:base64:5]"
+              },
+              dev,
+              isServer
+            })
+          },
+
+          {
+            test: /\.css$/,
+            use: cssLoaderConfig(config, {
+              extensions: ["css"],
+              cssModules: false,
+              cssLoaderOptions: {
+                importLoaders: 1
+              },
               dev,
               isServer
             })

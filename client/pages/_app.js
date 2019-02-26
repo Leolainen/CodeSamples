@@ -1,10 +1,11 @@
 import "../main/css/globals.scss";
 import "cross-fetch/polyfill";
-
+import "react-toastify/dist/ReactToastify.css";
 import { ApolloClient } from "apollo-client";
 import { ApolloProvider } from "react-apollo";
 import { HttpLink } from "apollo-link-http";
 import { InMemoryCache } from "apollo-cache-inmemory";
+import { ToastContainer } from "react-toastify";
 import App, { Container } from "next/app";
 import Head from "next/head";
 import React from "react";
@@ -52,6 +53,12 @@ export default class MyApp extends App {
             </Head>
             <Component {...pageProps} />
           </Container>
+          <ToastContainer
+            position="bottom-center"
+            closeOnClick={true}
+            pauseOnHover={true}
+            draggable={true}
+          />
         </Provider>
       </ApolloProvider>
     );

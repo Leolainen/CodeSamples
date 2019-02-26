@@ -1,4 +1,5 @@
 import { Mutation } from "react-apollo";
+import { toast } from "react-toastify";
 import React from "react";
 import Router from "next/router";
 import gql from "graphql-tag";
@@ -26,9 +27,13 @@ export default () => {
   return (
     <Mutation
       mutation={LOGIN_MUTATION}
-      onError={({ message }) => console.log("error:", message)}
-      // onError={err => console.log("error:", err.graphQLErrors[0].message)}
-      onCompleted={() => Router.push("/")}
+      onError={({ message }) => {
+        toast.error(message);
+      }}
+      onCompleted={() => {
+        toast.success("Logged in!");
+        Router.push("/");
+      }}
     >
       {signIn => (
         <Layout>
