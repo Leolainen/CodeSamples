@@ -101,6 +101,7 @@ mutation {
       username,
       title,
       codeSample,
+      description,
       frameworks {
         framework
       },
@@ -121,6 +122,7 @@ query {
     username,
     title,
     codeSample,
+    description,
     likes,
     edited,
     frameworks {

@@ -76,7 +76,38 @@ export default {
 
       await Joi.validate(args, postCodeSample, { abortEarly: false });
 
-      // Convert frameworks array into Framework types
+      // Convert frameworks array into Framework types or create it if it doesn't exist
+
+      const convertToType = async (arg, model) => {
+        console.log("arg:", arg);
+        this.arg = arg.toLowerCase();
+
+        const fetchModel = async () => {
+          await model.findOne({
+            [this.arg]: this.arg
+          });
+        };
+
+        let fetchedType = await fetchModel();
+
+        console.log("fetchedType:", fetchedType);
+
+        if (!fetchedType) {
+          console.log("fetchedType is undefined and should be created");
+          await model.create({
+            [this.arg]: this.arg
+          });
+
+          fetchedType = await fetchModel();
+
+          console.log("newly created fetchedType:", fetchedType);
+        }
+
+        console.log("fetchedType that will be returned:", fetchedType);
+
+        return fetchedType;
+      };
+
       const handleFramework = async framework => {
         const fetchFramework = async () =>
           await Framework.findOne({
@@ -95,7 +126,7 @@ export default {
         return fetchedFramework;
       };
 
-      // Convert languages array into Language types
+      // Same as above but with languages
       const handleLanguage = async language => {
         const fetchLang = async () =>
           await Language.findOne({
@@ -116,8 +147,10 @@ export default {
 
       const promisedFrameworks = frameworks.map(
         async framework => await handleFramework(framework)
+        // async framework => await convertToType(framework, Framework)
       );
       const promisedLanguages = languages.map(
+        // async language => await convertToType(language, Language)
         async language => await handleLanguage(language)
       );
 

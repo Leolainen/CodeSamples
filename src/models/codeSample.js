@@ -6,6 +6,7 @@ const codeSampleSchema = new mongoose.Schema(
     username: String,
     title: String,
     codeSample: String,
+    description: String,
     frameworks: Array,
     languages: Array,
     likes: Array,

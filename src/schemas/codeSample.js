@@ -9,6 +9,9 @@ const codeSample = Joi.string()
 const frameworks = Joi.array()
   .items(Joi.string())
   .label("sample frameworks");
+const description = Joi.string()
+  .allow("")
+  .label("Sample description");
 const languages = Joi.array()
   .items(Joi.string())
   .label("sample languages");
@@ -26,6 +29,7 @@ export const postCodeSample = Joi.object().keys({
   title,
   codeSample,
   likes,
+  description,
   frameworks,
   languages,
   edited,

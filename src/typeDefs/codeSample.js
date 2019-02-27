@@ -25,6 +25,7 @@ export default gql`
     postSample(
       title: String!
       codeSample: String!
+      description: String
       frameworks: [String]
       languages: [String]
     ): Sample
@@ -32,6 +33,7 @@ export default gql`
       id: ID!
       title: String
       codeSample: String
+      description: String
       frameworks: [String]
       languages: [String]
     ): Sample
@@ -49,6 +51,7 @@ export default gql`
     username: String!
     title: String!
     codeSample: String!
+    description: String!
     frameworks: [Framework!]!
     languages: [Language!]!
     likes: [String!]!
