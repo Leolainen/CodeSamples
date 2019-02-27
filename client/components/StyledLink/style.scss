@@ -1,0 +1,12 @@
+.root {
+  text-decoration: none;
+  color: $g-blue;
+  cursor: pointer;
+}
+
+.inheritColor {
+  &,
+  &[href]:hover {
+    color: inherit;
+  }
+}

@@ -1,0 +1,36 @@
+.header {
+  position: relative;
+  top: 0;
+  width: 100vw;
+  min-height: 80px;
+  margin: 0;
+  padding: 12px;
+  margin-bottom: 16px;
+  background-color: $g-grey-700;
+  color: white;
+  display: flex;
+}
+
+.innerWrapper {
+  align-self: flex-end;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  text-align: right;
+}
+
+.logo {
+  color: $g-white;
+}
+
+.loggedInUsername {
+  position: absolute;
+  right: 16px;
+  top: 8px;
+}
+
+.hamburger {
+  position: absolute;
+  right: 16px;
+  top: 24px;
+}

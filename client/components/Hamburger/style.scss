@@ -3,6 +3,8 @@
   width: 36px;
   height: 36px;
   z-index: 100;
+  background: none;
+  border: none;
 }
 
 .bar {
@@ -12,6 +14,7 @@
   height: 4px;
   margin: 0;
   padding: 0;
+  left: 0;
   background-color: white;
   position: absolute;
   border-radius: 2px;

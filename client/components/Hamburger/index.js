@@ -4,51 +4,32 @@ import classnames from "classnames";
 
 import styles from "./style.scss";
 
-const Hamburger = ({ right, isOpen, ...rest }) => {
+const Hamburger = ({ right, isOpen, className, ...rest }) => {
+  const wrapperStyle = classnames(styles.wrapper, className);
   const barStyle = classnames(styles.bar, {
     [styles.isOpen]: isOpen,
     [styles.right]: right
   });
 
   return (
-    <div className={styles.wrapper} {...rest}>
+    <button type="button" className={wrapperStyle} {...rest}>
       <span className={barStyle} />
       <span className={barStyle} />
       <span className={barStyle} />
-    </div>
+    </button>
   );
 };
 
 Hamburger.propTypes = {
   isOpen: PropTypes.bool,
-  right: PropTypes.bool
+  right: PropTypes.bool,
+  className: PropTypes.string
 };
 
 Hamburger.defaultProps = {
   isOpen: false,
-  right: false
+  right: false,
+  className: ""
 };
 
 export default Hamburger;
-
-/**
- * example on how to use this component
- * <Hamburger
-          onClick={() => {
-            toggleRightSidebar(false);
-            toggleLeftSidebar(!leftSidebarIsOpen);
-          }}
-          isOpen={leftSidebarIsOpen}
-        />
-
-        {sidebarData && (
-          <Hamburger
-            onClick={() => {
-              toggleLeftSidebar(false);
-              toggleRightSidebar(!rightSidebarIsOpen);
-            }}
-            right
-            isOpen={rightSidebarIsOpen}
-          />
-        )}
- */
