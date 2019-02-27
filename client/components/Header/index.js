@@ -1,11 +1,8 @@
-// import PropTypes from "prop-types";
-
 import { Mutation, Query } from "react-apollo";
-import React, { useContext, useReducer } from "react";
+import React, { useReducer, useState } from "react";
 import Router from "next/router";
 import gql from "graphql-tag";
 
-import { Context } from "../Context";
 import Button from "../Button";
 import Hamburger from "../Hamburger";
 import Sidebar from "../Sidebar";
@@ -29,8 +26,8 @@ export default function Header() {
     }
   `;
 
-  const context = useContext(Context);
   const [state, dispatch] = useReducer(reducer, initialState);
+  const [me, setMe] = useState({});
 
   const handleHamburger = () => {
     dispatch({ type: TOGGLE_HAMBURGER });
@@ -61,8 +58,8 @@ export default function Header() {
                 </div>
               );
             }
-            const { me } = data;
-            // context.dispatch({ type: "USER_IS_LOGGED_IN" }, me);
+
+            setMe(data.me);
 
             return (
               <div className={styles.innerWrapper}>
@@ -73,7 +70,8 @@ export default function Header() {
                   right
                 />
                 <Sidebar right isOpen={state.hamburgerIsOpen}>
-                  <p>{me.username}</p>
+                  <StyledLink href="#">Post a sample</StyledLink>
+                  <StyledLink href="#">My samples</StyledLink>
                   <Mutation
                     mutation={gql`
                       mutation {
@@ -82,17 +80,15 @@ export default function Header() {
                     `}
                   >
                     {mutate => (
-                      <>
-                        <Button
-                          onClick={() => {
-                            mutate();
-                            context.dispatch({ type: "USER_IS_LOGGED_OUT" });
-                            Router.push("/");
-                          }}
-                        >
-                          Log out
-                        </Button>
-                      </>
+                      <Button
+                        onClick={() => {
+                          mutate();
+                          setMe({});
+                          Router.push("/");
+                        }}
+                      >
+                        Log out
+                      </Button>
                     )}
                   </Mutation>
                 </Sidebar>
@@ -101,6 +97,7 @@ export default function Header() {
           }}
         </Query>
       </header>
+      {me && <span className={styles.username}>{me.username}</span>}
     </div>
   );
 }

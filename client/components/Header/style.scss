@@ -23,10 +23,11 @@
   color: $g-white;
 }
 
-.loggedInUsername {
-  position: absolute;
-  right: 16px;
-  top: 8px;
+.username {
+  position: relative;
+  left: 16px;
+  top: 0;
+  margin: 0;
 }
 
 .hamburger {
