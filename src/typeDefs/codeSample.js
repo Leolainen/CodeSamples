@@ -51,9 +51,9 @@ export default gql`
     username: String!
     title: String!
     codeSample: String!
-    description: String!
-    frameworks: [Framework!]!
-    languages: [Language!]!
+    description: String
+    frameworks: [Framework]!
+    languages: [Language]!
     likes: [String!]!
     edited: Boolean!
     createdAt: String!
