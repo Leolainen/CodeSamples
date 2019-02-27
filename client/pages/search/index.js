@@ -50,6 +50,7 @@ export default () => {
         username
         codeSample
         title
+        description
         frameworks {
           framework
         }
