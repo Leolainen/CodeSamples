@@ -1,6 +1,6 @@
 import { Field } from "react-final-form";
 import PropTypes from "prop-types";
-import React from "react";
+import React, { Fragment } from "react";
 import classnames from "classnames";
 
 import styles from "./style.scss";
@@ -15,6 +15,7 @@ export default function Input({
   name,
   fullWidth,
   validate,
+  textarea,
   ...rest
 }) {
   const style = classnames(
@@ -36,12 +37,21 @@ export default function Input({
     <Field name={name} validate={validate}>
       {({ input, meta }) => (
         <div className={wrapperStyle}>
-          <input
-            className={style}
-            placeholder={label ? "" : placeholder}
-            {...rest}
-            {...input}
-          />
+          {textarea ? (
+            <textarea
+              className={style}
+              placeholder={label ? "" : placeholder}
+              {...rest}
+              {...input}
+            />
+          ) : (
+            <input
+              className={style}
+              placeholder={label ? "" : placeholder}
+              {...rest}
+              {...input}
+            />
+          )}
           {label && (
             <label
               className={classnames(styles.labelWrapper, {
@@ -69,7 +79,8 @@ Input.propTypes = {
   inverted: PropTypes.bool,
   fullWidth: PropTypes.bool,
   validate: PropTypes.func,
-  className: PropTypes.string
+  className: PropTypes.string,
+  textarea: PropTypes.bool
 };
 
 Input.defaultProps = {
@@ -80,5 +91,6 @@ Input.defaultProps = {
   inverted: false,
   fullWidth: false,
   validate: null,
-  className: ""
+  className: "",
+  textarea: false
 };
