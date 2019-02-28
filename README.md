@@ -93,6 +93,7 @@ mutation {
   postSample(
     title:"testing graphql 4",
     codeSample:"<h1>Testing graphql refactor 4</h1>",
+    description: "description here",
     languages: ["JavaScript", "HTML"],
     frameworks: ["React"])
     {
