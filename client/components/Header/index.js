@@ -85,7 +85,7 @@ export default function Header() {
                     isOpen={state.sidebarIsOpen}
                     onClick={toggleSidebar}
                   >
-                    <StyledLink href="#" icon={<FaCode />}>
+                    <StyledLink href="/newSample" icon={<FaCode />}>
                       Post a sample
                     </StyledLink>
                     <StyledLink href="#" icon={<FaUser />}>

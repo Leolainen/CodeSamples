@@ -1,7 +1,7 @@
 import { Field } from "react-final-form";
 import { Mutation, Query } from "react-apollo";
+import { toast } from "react-toastify";
 import React from "react";
-import Router from "next/router";
 import gql from "graphql-tag";
 
 import Button from "../../components/Button";
@@ -42,8 +42,8 @@ mutation {
       $title: String!
       $codeSample: String!
       $description: String
-      $languages: Array
-      $frameworks: Array
+      $languages: [String]
+      $frameworks: [String]
     ) {
       postSample(
         title: $title
@@ -68,54 +68,64 @@ mutation {
     }
   `;
 
+  const preventTab = e => {
+    if (e.key === "Tab") {
+      e.preventDefault();
+      return "\t";
+    }
+  };
+
   return (
     <Mutation
       mutation={POST_MUTATION}
-      onCompleted={() => console.log("Completed! Search for it!")}
-      onError={err => console.log("error:", { ...err })}
+      onCompleted={() => toast.success("Your sample was posted!")}
+      onError={({ err }) => toast.warn(err)}
     >
       {postSample => (
         <Layout>
           <FForm
-            onSubmit={({
-              title,
-              codeSample,
-              description,
-              languages,
-              frameworks
-            }) =>
-              postSample({
-                variables: {
-                  title,
-                  codeSample,
-                  description,
-                  languages,
-                  frameworks
-                }
-              })
+            onSubmit={
+              ({ title, codeSample, description, languages, frameworks }) =>
+                postSample({
+                  variables: {
+                    title,
+                    codeSample,
+                    description,
+                    languages: languages
+                      ? languages.map(language => language.value)
+                      : [],
+                    frameworks: frameworks
+                      ? frameworks.map(framework => framework.value)
+                      : []
+                  }
+                })
+              // frameworks: [...frameworks.framework]
             }
-            children={({ submitting, pristine }) => (
+            children={({ submitting, pristine, values }) => (
               <Container spacing={6}>
-                <h5>Register a new account</h5>
+                <h5>Post a new sample!</h5>
                 <Input
                   name="title"
                   type="text"
-                  label="Title"
+                  placeholder="Title"
                   fullWidth
                   required
                 />
                 <Input
                   name="codeSample"
-                  label="Sample"
+                  placeholder="Sample"
                   fullWidth
                   textarea
                   required
+                  rows={4}
+                  onKeyDown={preventTab}
                 />
                 <Input
                   name="description"
-                  label="description"
+                  placeholder="description"
                   fullWidth
                   textarea
+                  rows={4}
                 />
                 <Field
                   name="frameworks"
@@ -148,7 +158,10 @@ mutation {
                         }
 
                         const options = data.allFrameworks.map(fw => {
-                          return { label: fw.framework, value: fw.framework };
+                          return {
+                            label: fw.framework,
+                            value: fw.framework
+                          };
                         });
 
                         return (
@@ -196,7 +209,10 @@ mutation {
                         }
 
                         const options = data.allLanguages.map(lang => {
-                          return { label: lang.language, value: lang.language };
+                          return {
+                            label: lang.language,
+                            value: lang.language
+                          };
                         });
 
                         return (
@@ -219,6 +235,7 @@ mutation {
                 >
                   Post sample
                 </Button>
+                <pre>{JSON.stringify(values, 0, 2)}</pre>
               </Container>
             )}
           />
