@@ -6,7 +6,7 @@ import {
   FaUserPlus
 } from "react-icons/fa";
 import { Mutation, Query } from "react-apollo";
-import React, { useReducer, useState } from "react";
+import React, { Fragment, useReducer, useState } from "react";
 import gql from "graphql-tag";
 
 import Hamburger from "../Hamburger";
@@ -44,76 +44,79 @@ export default function Header() {
         <StyledLink className={styles.logo} inheritColor href={"/"}>
           <h2>CodeSamples</h2>
         </StyledLink>
-        <Query query={ME_QUERY}>
-          {({ error, loading, data }) => {
-            if (loading) {
-              return <p>Checking login status...</p>;
-            }
-            if (error) {
-              // not being signed in is an error
-              // <p>{error.graphQLErrors[0].message}</p>
-              return (
-                <div className={styles.innerWrapper}>
-                  <Hamburger
-                    className={styles.hamburger}
-                    onClick={toggleSidebar}
-                    isOpen={state.sidebarIsOpen}
+
+        <div className={styles.innerWrapper}>
+          <Hamburger
+            className={styles.hamburger}
+            onClick={toggleSidebar}
+            isOpen={state.sidebarIsOpen}
+            right
+          />
+          <Query query={ME_QUERY}>
+            {({ error, loading, data }) => {
+              if (loading) {
+                return <p>Checking login status...</p>;
+              }
+              if (error) {
+                // not being signed in is an error
+                // <p>{error.graphQLErrors[0].message}</p>
+                return (
+                  <Sidebar
                     right
-                  />
-                  <Sidebar right isOpen={state.sidebarIsOpen}>
+                    isOpen={state.sidebarIsOpen}
+                    onClick={toggleSidebar}
+                  >
                     <StyledLink href={"/login"} icon={<FaSignInAlt />}>
-                      <span>Log in</span>
+                      Log in
                     </StyledLink>
                     <StyledLink href={"/register"} icon={<FaUserPlus />}>
-                      <span>Register</span>
+                      Register
                     </StyledLink>
                   </Sidebar>
-                </div>
-              );
-            }
+                );
+              }
 
-            setMe(data.me);
+              setMe(data.me);
 
-            return (
-              <div className={styles.innerWrapper}>
-                <Hamburger
-                  className={styles.hamburger}
-                  onClick={toggleSidebar}
-                  isOpen={state.sidebarIsOpen}
-                  right
-                />
-                <Sidebar right isOpen={state.sidebarIsOpen}>
-                  <StyledLink href="#" icon={<FaCode />}>
-                    <span>Post a sample</span>
-                  </StyledLink>
-                  <StyledLink href="#" icon={<FaUser />}>
-                    <span>My samples</span>
-                  </StyledLink>
-                  <Mutation
-                    mutation={gql`
-                      mutation {
-                        signOut
-                      }
-                    `}
+              return (
+                <Fragment>
+                  <Sidebar
+                    right
+                    isOpen={state.sidebarIsOpen}
+                    onClick={toggleSidebar}
                   >
-                    {mutate => (
-                      <StyledLink
-                        href="/"
-                        icon={<FaSignOutAlt />}
-                        onClick={() => {
-                          mutate();
-                          setMe({});
-                        }}
-                      >
-                        <span>Log out</span>
-                      </StyledLink>
-                    )}
-                  </Mutation>
-                </Sidebar>
-              </div>
-            );
-          }}
-        </Query>
+                    <StyledLink href="#" icon={<FaCode />}>
+                      Post a sample
+                    </StyledLink>
+                    <StyledLink href="#" icon={<FaUser />}>
+                      My samples
+                    </StyledLink>
+                    <Mutation
+                      mutation={gql`
+                        mutation {
+                          signOut
+                        }
+                      `}
+                    >
+                      {mutate => (
+                        <StyledLink
+                          href="/"
+                          icon={<FaSignOutAlt />}
+                          onClick={() => {
+                            mutate();
+                            setMe({});
+                          }}
+                        >
+                          Log out
+                        </StyledLink>
+                      )}
+                    </Mutation>
+                  </Sidebar>
+                </Fragment>
+              );
+            }}
+          </Query>
+        </div>
       </header>
       {me && <span className={styles.username}>{me.username}</span>}
     </div>

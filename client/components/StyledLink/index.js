@@ -19,10 +19,12 @@ export default function StyledLink({
 
   return (
     <Link href={href}>
-      <a className={style} onClick={onClick}>
-        {icon && icon}
-        {children}
-      </a>
+      <div>
+        <a className={style} onClick={onClick}>
+          {icon && icon}
+          <span>{children}</span>
+        </a>
+      </div>
     </Link>
   );
 }

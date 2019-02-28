@@ -4,7 +4,7 @@ import classnames from "classnames";
 
 import styles from "./style.scss";
 
-const Sidebar = ({ children, isOpen, right }) => {
+const Sidebar = ({ children, isOpen, right, onClick }) => {
   const style = classnames(styles.innerWrapper, {
     [styles.isOpen]: isOpen,
     [styles.right]: right
@@ -15,7 +15,7 @@ const Sidebar = ({ children, isOpen, right }) => {
       <div className={style}>
         <div className={styles.itemsWrapper}>
           {children.map((child, index) => (
-            <div key={index} className={styles.item}>
+            <div key={index} className={styles.item} onClick={onClick}>
               {child}
             </div>
           ))}
@@ -28,12 +28,14 @@ const Sidebar = ({ children, isOpen, right }) => {
 Sidebar.propTypes = {
   children: PropTypes.node.isRequired,
   isOpen: PropTypes.bool,
-  right: PropTypes.bool
+  right: PropTypes.bool,
+  onClick: PropTypes.func
 };
 
 Sidebar.defaultProps = {
   isOpen: false,
-  right: false
+  right: false,
+  onClick: null
 };
 
 export default Sidebar;
