@@ -44,7 +44,7 @@ export default class MyApp extends App {
     return (
       <ApolloProvider client={client}>
         <Provider>
-          <IconContext.Provider value={{ size: "2em" }}>
+          <IconContext.Provider value={{ size: "1.5em" }}>
             <Container>
               <Head>
                 <meta

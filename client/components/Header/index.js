@@ -1,20 +1,24 @@
-import { MdCode } from "react-icons/md";
+import {
+  FaCode,
+  FaSignInAlt,
+  FaSignOutAlt,
+  FaUser,
+  FaUserPlus
+} from "react-icons/fa";
 import { Mutation, Query } from "react-apollo";
 import React, { useReducer, useState } from "react";
-import Router from "next/router";
 import gql from "graphql-tag";
 
-import Button from "../Button";
 import Hamburger from "../Hamburger";
 import Sidebar from "../Sidebar";
 import StyledLink from "../StyledLink";
 
-import { TOGGLE_HAMBURGER } from "./constants";
+import { TOGGLE_SIDEBAR } from "./constants";
 import reducer from "./reducer";
 import styles from "./style.scss";
 
 const initialState = {
-  hamburgerIsOpen: false
+  sidebarIsOpen: false
 };
 
 export default function Header() {
@@ -30,8 +34,8 @@ export default function Header() {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [me, setMe] = useState({});
 
-  const handleHamburger = () => {
-    dispatch({ type: TOGGLE_HAMBURGER });
+  const toggleSidebar = () => {
+    dispatch({ type: TOGGLE_SIDEBAR });
   };
 
   return (
@@ -50,12 +54,20 @@ export default function Header() {
               // <p>{error.graphQLErrors[0].message}</p>
               return (
                 <div className={styles.innerWrapper}>
-                  <p>
-                    <StyledLink href={"/login"}>Log in</StyledLink>{" "}
-                  </p>
-                  <p>
-                    <StyledLink href={"/register"}>Register</StyledLink>
-                  </p>
+                  <Hamburger
+                    className={styles.hamburger}
+                    onClick={toggleSidebar}
+                    isOpen={state.sidebarIsOpen}
+                    right
+                  />
+                  <Sidebar right isOpen={state.sidebarIsOpen}>
+                    <StyledLink href={"/login"} icon={<FaSignInAlt />}>
+                      <span>Log in</span>
+                    </StyledLink>
+                    <StyledLink href={"/register"} icon={<FaUserPlus />}>
+                      <span>Register</span>
+                    </StyledLink>
+                  </Sidebar>
                 </div>
               );
             }
@@ -66,15 +78,17 @@ export default function Header() {
               <div className={styles.innerWrapper}>
                 <Hamburger
                   className={styles.hamburger}
-                  onClick={handleHamburger}
-                  isOpen={state.hamburgerIsOpen}
+                  onClick={toggleSidebar}
+                  isOpen={state.sidebarIsOpen}
                   right
                 />
-                <Sidebar right isOpen={state.hamburgerIsOpen}>
-                  <StyledLink href="#" icon={<MdCode />}>
+                <Sidebar right isOpen={state.sidebarIsOpen}>
+                  <StyledLink href="#" icon={<FaCode />}>
                     <span>Post a sample</span>
                   </StyledLink>
-                  <StyledLink href="#">My samples</StyledLink>
+                  <StyledLink href="#" icon={<FaUser />}>
+                    <span>My samples</span>
+                  </StyledLink>
                   <Mutation
                     mutation={gql`
                       mutation {
@@ -83,15 +97,16 @@ export default function Header() {
                     `}
                   >
                     {mutate => (
-                      <Button
+                      <StyledLink
+                        href="/"
+                        icon={<FaSignOutAlt />}
                         onClick={() => {
                           mutate();
                           setMe({});
-                          Router.push("/");
                         }}
                       >
-                        Log out
-                      </Button>
+                        <span>Log out</span>
+                      </StyledLink>
                     )}
                   </Mutation>
                 </Sidebar>
@@ -104,3 +119,15 @@ export default function Header() {
     </div>
   );
 }
+
+/**
+ * <Button
+                        onClick={() => {
+                          mutate();
+                          setMe({});
+                          Router.push("/");
+                        }}
+                      >
+                        Log out
+                      </Button>
+ */

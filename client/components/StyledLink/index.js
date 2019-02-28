@@ -1,6 +1,6 @@
 import Link from "next/link";
 import PropTypes from "prop-types";
-import React, { Fragment } from "react";
+import React from "react";
 import classnames from "classnames";
 
 import styles from "./style.scss";
@@ -10,7 +10,8 @@ export default function StyledLink({
   children,
   className,
   inheritColor,
-  icon
+  icon,
+  onClick
 }) {
   const style = classnames(styles.root, className, {
     [styles.inheritColor]: inheritColor
@@ -18,11 +19,9 @@ export default function StyledLink({
 
   return (
     <Link href={href}>
-      <a className={style}>
-        <Fragment>
-          {icon && icon}
-          {children}
-        </Fragment>
+      <a className={style} onClick={onClick}>
+        {icon && icon}
+        {children}
       </a>
     </Link>
   );
@@ -33,11 +32,13 @@ StyledLink.propTypes = {
   children: PropTypes.node.isRequired,
   className: PropTypes.string,
   inheritColor: PropTypes.bool,
-  icon: PropTypes.node
+  icon: PropTypes.node,
+  onClick: PropTypes.func
 };
 
 StyledLink.defaultProps = {
   className: "",
   inheritColor: false,
-  icon: null
+  icon: null,
+  onClick: null
 };
