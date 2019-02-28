@@ -6,6 +6,10 @@ import reducer from "./reducer";
 export const Context = React.createContext();
 
 export class Provider extends React.Component {
+  shouldComponentUpdate(nextProps, nextState) {
+    return nextState !== this.state;
+  }
+
   /* eslint-disable react/no-unused-state */
   state = {
     loggedIn: false,

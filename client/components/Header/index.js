@@ -1,3 +1,4 @@
+import { MdCode } from "react-icons/md";
 import { Mutation, Query } from "react-apollo";
 import React, { useReducer, useState } from "react";
 import Router from "next/router";
@@ -70,7 +71,9 @@ export default function Header() {
                   right
                 />
                 <Sidebar right isOpen={state.hamburgerIsOpen}>
-                  <StyledLink href="#">Post a sample</StyledLink>
+                  <StyledLink href="#" icon={<MdCode />}>
+                    <span>Post a sample</span>
+                  </StyledLink>
                   <StyledLink href="#">My samples</StyledLink>
                   <Mutation
                     mutation={gql`

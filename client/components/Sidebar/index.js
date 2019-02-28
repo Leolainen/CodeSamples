@@ -13,7 +13,13 @@ const Sidebar = ({ children, isOpen, right }) => {
   return (
     <div className={styles.wrapper}>
       <div className={style}>
-        <div className={styles.itemsWrapper}>{children}</div>
+        <div className={styles.itemsWrapper}>
+          {children.map((child, index) => (
+            <div key={index} className={styles.item}>
+              {child}
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

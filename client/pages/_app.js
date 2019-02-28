@@ -4,6 +4,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { ApolloClient } from "apollo-client";
 import { ApolloProvider } from "react-apollo";
 import { HttpLink } from "apollo-link-http";
+import { IconContext } from "react-icons";
 import { InMemoryCache } from "apollo-cache-inmemory";
 import { ToastContainer } from "react-toastify";
 import App, { Container } from "next/app";
@@ -43,22 +44,24 @@ export default class MyApp extends App {
     return (
       <ApolloProvider client={client}>
         <Provider>
-          <Container>
-            <Head>
-              <meta
-                name="viewport"
-                content="initial-scale=1.0, width=device-width"
-              />
-              <title>{title}</title>
-            </Head>
-            <Component {...pageProps} />
-          </Container>
-          <ToastContainer
-            position="bottom-center"
-            closeOnClick={true}
-            pauseOnHover={true}
-            draggable={true}
-          />
+          <IconContext.Provider value={{ size: "2em" }}>
+            <Container>
+              <Head>
+                <meta
+                  name="viewport"
+                  content="initial-scale=1.0, width=device-width"
+                />
+                <title>{title}</title>
+              </Head>
+              <Component {...pageProps} />
+            </Container>
+            <ToastContainer
+              position="bottom-center"
+              closeOnClick={true}
+              pauseOnHover={true}
+              draggable={true}
+            />
+          </IconContext.Provider>
         </Provider>
       </ApolloProvider>
     );

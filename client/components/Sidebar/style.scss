@@ -46,20 +46,21 @@
   text-align: left;
   align-self: center;
   width: 50%;
+}
 
-  > * {
-    position: relative;
-    margin: 12px 0 24px 0;
+.item {
+  position: relative;
+  margin: 12px 0 24px 0;
+  height: 24px;
 
-    &::after {
-      content: "";
-      display: inline-block;
-      position: absolute;
-      bottom: -12px;
-      left: 0;
-      height: 1px;
-      width: 100%;
-      background-color: $g-grey-100;
-    }
+  &::after {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    bottom: -12px;
+    left: 0;
+    height: 1px;
+    width: 100%;
+    background-color: $g-grey-100;
   }
 }
