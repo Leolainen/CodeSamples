@@ -29,12 +29,16 @@ export default function Container({
   spacing,
   ...rest
 }) {
-  const style = classnames(styles.default, styles[`spacing_${spacing}`], {
+  const style = classnames(
+    styles.default,
+    styles[`spacing_${spacing}`],
     className,
-    ...rest,
-    [styles.center]: center,
-    [styles.transparent]: transparent
-  });
+    {
+      ...rest,
+      [styles.center]: center,
+      [styles.transparent]: transparent
+    }
+  );
 
   return <div className={style}>{children}</div>;
 }

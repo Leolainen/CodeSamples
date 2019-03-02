@@ -9,6 +9,7 @@ const pink = "#ff8988";
 // greyscales
 const grey100 = "#ccc";
 const grey500 = "#474747";
+const grey600 = "#666666";
 const grey700 = "#555555";
 const grey800 = "#4b4b4b";
 const grey900 = "#3d3d3d";
@@ -34,6 +35,7 @@ const globals = {
   // greyscales
   "g-grey-100": grey100,
   "g-grey-500": grey500,
+  "g-grey-600": grey600,
   "g-grey-700": grey700,
   "g-grey-800": grey800,
   "g-grey-900": grey900,

@@ -3,8 +3,8 @@ import React, { useContext } from "react";
 import gql from "graphql-tag";
 
 import { Context } from "../../components/Context";
-import Container from "../../components/Container";
 import Layout from "../../components/Layout";
+import SamplePreview from "../../components/SamplePreview";
 
 export default () => {
   const context = useContext(Context);
@@ -76,9 +76,11 @@ export default () => {
           }
 
           return (
-            <Container transparent>
-              <pre>{JSON.stringify(data, 0, 2)}</pre>
-            </Container>
+            <div>
+              {data.samples.map((sample, index) => (
+                <SamplePreview key={index} {...sample} />
+              ))}
+            </div>
           );
         }}
       </Query>
