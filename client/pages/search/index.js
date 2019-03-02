@@ -47,6 +47,7 @@ export default () => {
   const dynamicQuery = dynamicQueryHandler();
   const query = gql`{
       ${dynamicQuery} {
+        id
         username
         codeSample
         title

@@ -277,7 +277,7 @@ query {
 ```
 mutation {
   postComment(userId: "5c41f7e4e0ef9daa700688fb",
-    codeSampleId: "5c56b82c5d8f66005a5a2702",
+    codeSampleId: "5c760814e33ffb051dc6976b",
     comment: "this is a comment") {
       id,
       userId,
