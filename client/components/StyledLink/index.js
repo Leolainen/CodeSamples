@@ -11,10 +11,12 @@ export default function StyledLink({
   className,
   inheritColor,
   icon,
-  onClick
+  onClick,
+  noStyle
 }) {
   const style = classnames(styles.root, className, {
-    [styles.inheritColor]: inheritColor
+    [styles.inheritColor]: inheritColor,
+    [styles.noStyle]: noStyle
   });
 
   return (
@@ -35,12 +37,14 @@ StyledLink.propTypes = {
   className: PropTypes.string,
   inheritColor: PropTypes.bool,
   icon: PropTypes.node,
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
+  noStyle: PropTypes.bool
 };
 
 StyledLink.defaultProps = {
   className: "",
   inheritColor: false,
   icon: null,
-  onClick: null
+  onClick: null,
+  noStyle: false
 };

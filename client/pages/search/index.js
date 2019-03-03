@@ -1,12 +1,14 @@
 import { Query } from "react-apollo";
+import { withRouter } from "next/router";
 import React, { useContext } from "react";
 import gql from "graphql-tag";
 
 import { Context } from "../../components/Context";
 import Layout from "../../components/Layout";
 import SamplePreview from "../../components/SamplePreview";
+import StyledLink from "../../components/StyledLink";
 
-export default () => {
+export default withRouter(props => {
   const context = useContext(Context);
 
   const { title, frameworks, languages } = context.query;
@@ -51,6 +53,7 @@ export default () => {
         username
         codeSample
         title
+        likes
         description
         frameworks {
           framework
@@ -79,7 +82,13 @@ export default () => {
           return (
             <div>
               {data.samples.map((sample, index) => (
-                <SamplePreview key={index} {...sample} />
+                <StyledLink
+                  key={sample.id}
+                  href={`/codeSample?sample=${sample.id}`}
+                  noStyle
+                >
+                  <SamplePreview key={index} {...sample} />
+                </StyledLink>
               ))}
             </div>
           );
@@ -87,4 +96,4 @@ export default () => {
       </Query>
     </Layout>
   );
-};
+});

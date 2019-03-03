@@ -1,4 +1,5 @@
-import { Query } from "react-apollo";
+import { FaThumbsUp } from "react-icons/fa";
+import { Mutation, Query } from "react-apollo";
 import PropTypes from "prop-types";
 import React from "react";
 import gql from "graphql-tag";
@@ -12,10 +13,12 @@ export default function SamplePreview({
   title,
   username,
   id,
+  likes,
   description,
   frameworks,
   languages,
   codeSample,
+  onClick,
   ...rest
 }) {
   const COMMENT_QUERY = gql`
@@ -30,28 +33,47 @@ export default function SamplePreview({
     }
   `;
 
+  const LIKE_MUTATION = gql`
+    mutation {
+      likeComment(id: "5c63cb5acbdbbd0281e4beb1") {
+        id
+        userId
+        username
+        codeSampleId
+        likes
+        comment
+        edited
+        date
+      }
+    }
+  `;
+
   // console.log("id", id);
 
   return (
-    <Container className={styles.wrapper} {...rest}>
+    <Container className={styles.wrapper} {...rest} onClick={onClick}>
       <div className={styles.header}>
         <h3>{title}</h3>
         <span>by: {username}</span>
       </div>
-      {frameworks.length > 0 && (
-        <div className={styles.tagWrapper}>
-          {frameworks.map((fw, index) => (
-            <div key={index} className={styles.tag}>
-              {fw.framework}
-            </div>
-          ))}
-        </div>
-      )}
+      <div className={styles.likes}>
+        <FaThumbsUp style={{ fontSize: "12px" }} />
+        <span>{likes.length}</span>
+      </div>
       {languages.length > 0 && (
         <div className={styles.tagWrapper}>
           {languages.map((lang, index) => (
             <div key={index} className={styles.tag}>
               {lang.language}
+            </div>
+          ))}
+        </div>
+      )}
+      {frameworks.length > 0 && (
+        <div className={styles.tagWrapper}>
+          {frameworks.map((fw, index) => (
+            <div key={index} className={styles.tag}>
+              {fw.framework}
             </div>
           ))}
         </div>
@@ -69,8 +91,14 @@ export default function SamplePreview({
             return <p>error</p>;
           }
 
+          const overOneComment = data.comments.length > 1;
+
           return (
-            <StyledLink href="#">{data.comments.length} comments</StyledLink>
+            <div className={styles.commentsWrapper}>
+              <StyledLink href="#">
+                {data.comments.length} {overOneComment ? "comments" : "comment"}
+              </StyledLink>
+            </div>
           );
         }}
       </Query>
@@ -84,6 +112,7 @@ SamplePreview.propTypes = {
   title: PropTypes.string.isRequired,
   username: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
+  likes: PropTypes.array,
   description: PropTypes.string,
   frameworks: PropTypes.array.isRequired,
   languages: PropTypes.array.isRequired,
@@ -91,5 +120,6 @@ SamplePreview.propTypes = {
 };
 
 SamplePreview.defaultProps = {
+  likes: [],
   description: null
 };

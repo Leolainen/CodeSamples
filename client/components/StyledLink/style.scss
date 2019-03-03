@@ -1,4 +1,4 @@
-.root {
+.root:not(.noStyle) {
   display: inline-flex;
   text-decoration: none;
   color: $g-blue;
@@ -17,4 +17,8 @@
   &[href]:hover {
     color: inherit;
   }
+}
+
+.noStyle {
+  color: inherit;
 }
