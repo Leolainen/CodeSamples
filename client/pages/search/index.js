@@ -5,7 +5,7 @@ import gql from "graphql-tag";
 
 import { Context } from "../../components/Context";
 import Layout from "../../components/Layout";
-import SamplePreview from "../../components/SamplePreview";
+import Sample from "../../components/Sample";
 import StyledLink from "../../components/StyledLink";
 
 export default withRouter(props => {
@@ -87,7 +87,7 @@ export default withRouter(props => {
                   href={`/codeSample?sample=${sample.id}`}
                   noStyle
                 >
-                  <SamplePreview key={index} {...sample} />
+                  <Sample key={index} {...sample} />
                 </StyledLink>
               ))}
             </div>

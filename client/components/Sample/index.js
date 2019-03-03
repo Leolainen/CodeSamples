@@ -9,7 +9,7 @@ import StyledLink from "../StyledLink";
 
 import styles from "./style.scss";
 
-export default function SamplePreview({
+export default function Sample({
   title,
   username,
   id,
@@ -108,7 +108,7 @@ export default function SamplePreview({
   );
 }
 
-SamplePreview.propTypes = {
+Sample.propTypes = {
   title: PropTypes.string.isRequired,
   username: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
@@ -119,7 +119,7 @@ SamplePreview.propTypes = {
   codeSample: PropTypes.string.isRequired
 };
 
-SamplePreview.defaultProps = {
+Sample.defaultProps = {
   likes: [],
   description: null
 };
