@@ -6,7 +6,7 @@ import {
   FaUserPlus
 } from "react-icons/fa";
 import { Mutation, Query } from "react-apollo";
-import React, { Fragment, useContext, useReducer, useState } from "react";
+import React, { Fragment, useContext, useReducer } from "react";
 import gql from "graphql-tag";
 
 import { Context } from "../Context";

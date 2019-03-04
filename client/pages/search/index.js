@@ -6,49 +6,15 @@ import gql from "graphql-tag";
 import { Context } from "../../components/Context";
 import Layout from "../../components/Layout";
 import Sample from "../../components/Sample";
-import StyledLink from "../../components/StyledLink";
 
-export default withRouter(props => {
+export default withRouter(() => {
   const context = useContext(Context);
 
   const { title, frameworks, languages } = context.query;
-  const processedFrameworks =
-    frameworks && frameworks.map(fw => `"${fw.value}"`);
-  const frameworkQuery = frameworks && `frameworks: [${processedFrameworks}]`;
 
-  // eslint-disable-next-line object-shorthand
-  const titleQuery = title && `title: "${title}"`;
-
-  const processedLanguages =
-    languages && languages.map(lang => `"${lang.value}"`);
-  const languageQuery = languages && `languages: [${processedLanguages}]`;
-
-  const dynamicQueryHandler = () => {
-    // This is the ugliest function ever but it works until I figure out something better.
-    let samplesQuery = "samples(";
-
-    if (title) {
-      samplesQuery = samplesQuery.concat(", ", titleQuery);
-    }
-    if (languages) {
-      samplesQuery = samplesQuery.concat(", ", languageQuery);
-    }
-    if (frameworks) {
-      samplesQuery = samplesQuery.concat(", ", frameworkQuery);
-    }
-
-    samplesQuery += ")";
-
-    if (!title && !languages && !frameworks) {
-      samplesQuery = "samples";
-    }
-
-    return samplesQuery;
-  };
-
-  const dynamicQuery = dynamicQueryHandler();
-  const query = gql`{
-      ${dynamicQuery} {
+  const SAMPLE_QUERY = gql`
+    query Sample($title: String, $languages: [String], $frameworks: [String]) {
+      samples(title: $title, languages: $languages, frameworks: $frameworks) {
         id
         username
         codeSample
@@ -67,10 +33,7 @@ export default withRouter(props => {
 
   return (
     <Layout center>
-      <Query
-        query={query}
-        variables={{ titleQuery, languageQuery, frameworkQuery }}
-      >
+      <Query query={SAMPLE_QUERY} variables={{ title, languages, frameworks }}>
         {({ loading, error, data }) => {
           if (loading) {
             return <p>Loading...</p>;
