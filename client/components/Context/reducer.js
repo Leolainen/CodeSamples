@@ -1,9 +1,9 @@
 export default function reducer(state, action, args) {
   switch (action.type) {
-    case "LOG_IN":
-      return { ...state, loggedIn: true };
-    case "LOG_OUT":
-      return { ...state, loggedIn: false };
+    case "LOGGED_IN":
+      return { ...state, loggedIn: true, me: args };
+    case "LOGGED_OUT":
+      return { ...state, loggedIn: false, me: {} };
     case "USER_IS_LOGGED_IN":
       return { ...state, user: args };
     case "USER_IS_LOGGED_OUT":
