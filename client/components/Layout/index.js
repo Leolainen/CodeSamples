@@ -6,8 +6,10 @@ import Header from "../Header";
 
 import styles from "./style.scss";
 
-const Layout = ({ center, aside, children, theme }) => {
-  const contentStyle = classnames(styles.content);
+const Layout = ({ center, aside, children, theme, fullScreen }) => {
+  const contentStyle = classnames(styles.content, {
+    [styles.fullScreen]: fullScreen
+  });
 
   const wrapperStyle = classnames(styles.wrapper, {
     [styles.center]: center,
@@ -27,13 +29,15 @@ Layout.propTypes = {
   aside: PropTypes.any,
   theme: PropTypes.string,
   children: PropTypes.node.isRequired,
-  center: PropTypes.bool
+  center: PropTypes.bool,
+  fullScreen: PropTypes.bool
 };
 
 Layout.defaultProps = {
   aside: undefined,
   theme: "default",
-  center: false
+  center: false,
+  fullScreen: false
 };
 
 export default Layout;

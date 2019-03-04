@@ -2,6 +2,7 @@ import { FaThumbsUp } from "react-icons/fa";
 import { Mutation, Query } from "react-apollo";
 import PropTypes from "prop-types";
 import React from "react";
+import classnames from "classnames";
 import gql from "graphql-tag";
 
 import Container from "../Container";
@@ -19,6 +20,8 @@ export default function Sample({
   languages,
   codeSample,
   onClick,
+  href,
+  preview,
   ...rest
 }) {
   const COMMENT_QUERY = gql`
@@ -48,14 +51,26 @@ export default function Sample({
     }
   `;
 
-  // console.log("id", id);
+  const style = classnames(styles.wrapper, {
+    [styles.preview]: preview
+  });
 
   return (
-    <Container className={styles.wrapper} {...rest} onClick={onClick}>
-      <div className={styles.header}>
-        <h3>{title}</h3>
-        <span>by: {username}</span>
-      </div>
+    <Container className={style} {...rest} onClick={onClick}>
+      {href ? (
+        <StyledLink href={href} noStyle>
+          <div className={styles.header}>
+            <h3>{title}</h3>
+            <span>by: {username}</span>
+          </div>
+        </StyledLink>
+      ) : (
+        <div className={styles.header}>
+          <h3>{title}</h3>
+          <span>by: {username}</span>
+        </div>
+      )}
+
       <div className={styles.likes}>
         <FaThumbsUp style={{ fontSize: "12px" }} />
         <span>{likes.length}</span>
@@ -78,8 +93,8 @@ export default function Sample({
           ))}
         </div>
       )}
-      <div className={styles.codeSample}>
-        <pre>{codeSample}</pre>
+      <div className={styles.codeSampleWrapper}>
+        <pre className={styles.codeSample}>{codeSample}</pre>
       </div>
 
       <Query variables={{ id }} query={COMMENT_QUERY}>
@@ -95,7 +110,7 @@ export default function Sample({
 
           return (
             <div className={styles.commentsWrapper}>
-              <StyledLink href="#">
+              <StyledLink href={href ? href : "#"}>
                 {data.comments.length} {overOneComment ? "comments" : "comment"}
               </StyledLink>
             </div>
@@ -116,10 +131,14 @@ Sample.propTypes = {
   description: PropTypes.string,
   frameworks: PropTypes.array.isRequired,
   languages: PropTypes.array.isRequired,
-  codeSample: PropTypes.string.isRequired
+  codeSample: PropTypes.string.isRequired,
+  href: PropTypes.string,
+  preview: PropTypes.bool
 };
 
 Sample.defaultProps = {
   likes: [],
-  description: null
+  description: null,
+  href: null,
+  preview: false
 };

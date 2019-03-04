@@ -82,13 +82,12 @@ export default withRouter(props => {
           return (
             <div>
               {data.samples.map((sample, index) => (
-                <StyledLink
-                  key={sample.id}
+                <Sample
+                  preview
+                  key={index}
+                  {...sample}
                   href={`/codeSample?sample=${sample.id}`}
-                  noStyle
-                >
-                  <Sample key={index} {...sample} />
-                </StyledLink>
+                />
               ))}
             </div>
           );

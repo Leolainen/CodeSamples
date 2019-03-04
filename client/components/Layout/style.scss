@@ -1,6 +1,7 @@
 :root {
   $black: $g-black;
   $background-blue: linear-gradient(62deg, #8ec5fc 0%, #e0c3fc 100%);
+  background-attachment: fixed;
 }
 
 .wrapper {
@@ -21,7 +22,6 @@
   top: 0;
   margin: 0;
   padding: 0;
-  padding-top: 80px;
   height: 100%;
   width: 100%;
 
@@ -36,8 +36,11 @@
     align-items: center;
   }
 
-  @media $phabletDown {
-    padding: 24px;
+  &:not(.fullScreen) {
+    padding-top: 80px;
+    @media $phabletDown {
+      padding: 24px;
+    }
   }
 }
 

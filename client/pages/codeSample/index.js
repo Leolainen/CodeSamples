@@ -29,19 +29,21 @@ export default withRouter(props => {
   `;
 
   return (
-    <Layout>
-      <Query query={SAMPLE_QUERY} variables={{ sampleId }}>
-        {({ loading, error, data }) => {
-          if (loading) {
-            return <p>Loading...</p>;
-          }
-          if (error) {
-            return <p>Error: {error}</p>;
-          }
+    <Layout center fullScreen>
+      <div>
+        <Query query={SAMPLE_QUERY} variables={{ sampleId }}>
+          {({ loading, error, data }) => {
+            if (loading) {
+              return <p>Loading...</p>;
+            }
+            if (error) {
+              return <p>Error: {error}</p>;
+            }
 
-          return <Sample {...data.sampleById} />;
-        }}
-      </Query>
+            return <Sample {...data.sampleById} />;
+          }}
+        </Query>
+      </div>
     </Layout>
   );
 });

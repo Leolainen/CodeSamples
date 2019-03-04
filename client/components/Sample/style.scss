@@ -45,10 +45,17 @@
   color: $g-white;
 }
 
-.codeSample {
+.codeSampleWrapper {
   margin: 16px 0;
   padding: 6px;
   background-color: $g-grey-700;
-  max-height: 60px;
-  overflow: hidden;
+
+  .preview & {
+    max-height: 60px;
+    overflow: hidden;
+  }
+}
+
+.codeSample {
+  white-space: pre-wrap;
 }
