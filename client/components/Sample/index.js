@@ -2,11 +2,12 @@ import { FaThumbsUp } from "react-icons/fa";
 import { Mutation, Query } from "react-apollo";
 import { toast } from "react-toastify";
 import PropTypes from "prop-types";
-import React from "react";
+import React, { Fragment } from "react";
 import classnames from "classnames";
 import gql from "graphql-tag";
 
 import Button from "../Button";
+import Comment from "../Comment";
 import Container from "../Container";
 import Spinner from "../Spinner";
 import StyledLink from "../StyledLink";
@@ -30,6 +31,7 @@ export default function Sample({
   const COMMENT_QUERY = gql`
     query Comment($id: String!) {
       comments(codeSampleId: $id) {
+        id
         username
         likes
         comment
@@ -74,6 +76,25 @@ export default function Sample({
         <div className={styles.header}>
           <h3>{title}</h3>
           <span>by: {username}</span>
+        </div>
+      )}
+
+      {languages.length > 0 && (
+        <div className={styles.tagWrapper}>
+          {languages.map((lang, index) => (
+            <div key={index} className={styles.tag}>
+              {lang.language}
+            </div>
+          ))}
+        </div>
+      )}
+      {frameworks.length > 0 && (
+        <div className={styles.tagWrapper}>
+          {frameworks.map((fw, index) => (
+            <div key={index} className={styles.tag}>
+              {fw.framework}
+            </div>
+          ))}
         </div>
       )}
 
@@ -122,24 +143,15 @@ export default function Sample({
         }}
       </Query>
 
-      {languages.length > 0 && (
-        <div className={styles.tagWrapper}>
-          {languages.map((lang, index) => (
-            <div key={index} className={styles.tag}>
-              {lang.language}
-            </div>
-          ))}
-        </div>
+      {description && !preview && (
+        <Fragment>
+          <span>Authors description:</span>
+          <div className={styles.description}>
+            <p>{description}</p>
+          </div>
+        </Fragment>
       )}
-      {frameworks.length > 0 && (
-        <div className={styles.tagWrapper}>
-          {frameworks.map((fw, index) => (
-            <div key={index} className={styles.tag}>
-              {fw.framework}
-            </div>
-          ))}
-        </div>
-      )}
+
       <div className={styles.codeSampleWrapper}>
         <pre className={styles.codeSample}>{codeSample}</pre>
       </div>
@@ -173,7 +185,27 @@ export default function Sample({
         }}
       </Query>
 
-      <div className={styles.comments} />
+      {!preview && (
+        <Query
+          query={COMMENT_QUERY}
+          variables={{ id }}
+          onError={({ message }) => toast.error(message)}
+        >
+          {({ loading, data }) => {
+            if (loading) {
+              return <Spinner relative />;
+            }
+
+            console.log("data comments", data);
+
+            const comments = data.comments.map((comment, index) => (
+              <Comment key={index} {...comment} />
+            ));
+
+            return comments;
+          }}
+        </Query>
+      )}
     </Container>
   );
 }

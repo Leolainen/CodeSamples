@@ -7,7 +7,8 @@ module.exports = {
     "no-invalid-this": "off",
     "prettier/prettier": "error",
     "react-hooks/rules-of-hooks": "error",
-    "sort-imports-es6-autofix/sort-imports-es6": "error"
+    "sort-imports-es6-autofix/sort-imports-es6": "error",
+    radix: "off"
   }),
   parser: "babel-eslint",
   env: { es6: true },
