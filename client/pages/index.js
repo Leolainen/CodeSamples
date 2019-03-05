@@ -49,7 +49,10 @@ export default () => {
                     {({ loading, error, data }) => {
                       if (loading) {
                         return (
-                          <CustomSelect isDisabled placeholder={<Spinner />} />
+                          <CustomSelect
+                            isDisabled
+                            placeholder={<Spinner relative />}
+                          />
                         );
                       }
                       if (error) {
@@ -97,7 +100,7 @@ export default () => {
                           <CustomSelect
                             options={[]}
                             isDisabled
-                            placeholder={<Spinner />}
+                            placeholder={<Spinner relative />}
                           />
                         );
                       }

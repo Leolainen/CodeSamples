@@ -57,7 +57,7 @@ export default withRouter(() => {
       >
         {({ loading, data, error, variables }) => {
           if (loading) {
-            return <Spinner center />;
+            return <Spinner />;
           }
 
           if (error) {
@@ -67,26 +67,25 @@ export default withRouter(() => {
               </div>
             );
           }
-          console.log("data", data);
-          console.log("variables", variables);
 
           return (
-            <div>
+            <Fragment>
               {data.samples.length > 0 ? (
                 <Fragment>
                   {data.samples.map((sample, index) => (
-                    <Sample
-                      key={index}
-                      preview
-                      {...sample}
-                      href={`/codeSample?sample=${sample.id}`}
-                    />
+                    <div key={index}>
+                      <Sample
+                        preview
+                        {...sample}
+                        href={`/codeSample?sample=${sample.id}`}
+                      />
+                    </div>
                   ))}
                 </Fragment>
               ) : (
                 <p>No samples match your search. :'(</p>
               )}
-            </div>
+            </Fragment>
           );
         }}
       </Query>

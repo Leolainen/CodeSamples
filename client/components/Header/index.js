@@ -91,7 +91,7 @@ export default function Header() {
             <Query query={ME_QUERY}>
               {({ error, loading, data }) => {
                 if (loading) {
-                  return <Spinner center />;
+                  return <span />;
                 }
                 if (error) {
                   // not being signed in is an error

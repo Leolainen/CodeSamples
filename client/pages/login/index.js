@@ -67,7 +67,7 @@ export default () => {
                   disabled={pristine || submitting}
                   fullWidth
                 >
-                  {loading ? <Spinner /> : "Log in"}
+                  {loading ? <Spinner center /> : "Log in"}
                 </Button>
               </Container>
             )}

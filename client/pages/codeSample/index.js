@@ -6,6 +6,7 @@ import gql from "graphql-tag";
 
 import Layout from "../../components/Layout";
 import Sample from "../../components/Sample";
+import Spinner from "../../components/Spinner";
 
 export default withRouter(props => {
   const sampleId = props.router.query.sample;
@@ -39,7 +40,7 @@ export default withRouter(props => {
         >
           {({ loading, data }) => {
             if (loading) {
-              return <p>Loading...</p>;
+              return <Spinner />;
             }
 
             return <Sample {...data.sampleById} />;
