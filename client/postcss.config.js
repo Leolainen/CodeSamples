@@ -8,7 +8,7 @@ const pink = "#ff8988";
 
 // greyscales
 const grey100 = "#ccc";
-const grey500 = "#474747";
+const grey500 = "#858484";
 const grey600 = "#666666";
 const grey700 = "#555555";
 const grey800 = "#4b4b4b";
