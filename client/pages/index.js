@@ -17,6 +17,7 @@ export default () => {
   const context = useContext(Context);
 
   const handleSubmit = data => {
+    window.localStorage.setItem("query", JSON.stringify(data));
     context.dispatch({ type: "SET_QUERY" }, data);
     Router.push(`/search`);
   };

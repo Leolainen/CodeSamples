@@ -4,10 +4,6 @@ export default function reducer(state, action, args) {
       return { ...state, loggedIn: true, me: args };
     case "LOGGED_OUT":
       return { ...state, loggedIn: false, me: {} };
-    case "USER_IS_LOGGED_IN":
-      return { ...state, user: args };
-    case "USER_IS_LOGGED_OUT":
-      return { ...state, user: null };
     case "SET_USERNAME":
       return { ...state, username: args };
     case "SET_EMAIL":

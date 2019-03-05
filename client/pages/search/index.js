@@ -1,18 +1,29 @@
 import { Query } from "react-apollo";
 import { toast } from "react-toastify";
 import { withRouter } from "next/router";
-import React, { Fragment, useContext } from "react";
+import React, { Fragment, useContext, useEffect, useState } from "react";
 import gql from "graphql-tag";
 
 import { Context } from "../../components/Context";
+import { isEmpty } from "../../utils/objects";
 import Layout from "../../components/Layout";
 import Sample from "../../components/Sample";
 import Spinner from "../../components/Spinner";
 
 export default withRouter(() => {
   const context = useContext(Context);
+  const [currentQuery, setCurrentQueries] = useState(context.query);
 
-  const { title, frameworks, languages } = context.query;
+  useEffect(() => {
+    if (isEmpty(currentQuery)) {
+      const localStorageQuery = JSON.parse(
+        window.localStorage.getItem("query")
+      );
+      setCurrentQueries(localStorageQuery);
+    }
+  });
+
+  const { title, frameworks, languages } = currentQuery;
 
   const frameworksQuery = frameworks
     ? frameworks.map(fw => fw.value)
@@ -55,7 +66,7 @@ export default withRouter(() => {
         variables={{ title, languagesQuery, frameworksQuery }}
         onError={({ message }) => toast.error(message)}
       >
-        {({ loading, data, error, variables }) => {
+        {({ loading, data, error }) => {
           if (loading) {
             return <Spinner />;
           }
