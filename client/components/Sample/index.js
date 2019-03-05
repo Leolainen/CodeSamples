@@ -2,12 +2,13 @@ import { FaThumbsUp } from "react-icons/fa";
 import { Mutation, Query } from "react-apollo";
 import { toast } from "react-toastify";
 import PropTypes from "prop-types";
-import React, { useState } from "react";
+import React from "react";
 import classnames from "classnames";
 import gql from "graphql-tag";
 
 import Button from "../Button";
 import Container from "../Container";
+import Spinner from "../Spinner";
 import StyledLink from "../StyledLink";
 
 import styles from "./style.scss";
@@ -26,8 +27,6 @@ export default function Sample({
   preview,
   ...rest
 }) {
-  const [localLikes, setLocalLikes] = useState(likes);
-
   const COMMENT_QUERY = gql`
     query Comment($id: String!) {
       comments(codeSampleId: $id) {
@@ -40,9 +39,19 @@ export default function Sample({
     }
   `;
 
+  const LIKE_QUERY = gql`
+    query sampleById($id: ID!) {
+      sampleById(id: $id) {
+        id
+        likes
+      }
+    }
+  `;
+
   const LIKE_MUTATION = gql`
     mutation likeSample($id: ID!) {
       likeSample(id: $id) {
+        id
         likes
       }
     }
@@ -68,23 +77,50 @@ export default function Sample({
         </div>
       )}
 
-      <Mutation
-        mutation={LIKE_MUTATION}
+      <Query
+        query={LIKE_QUERY}
         variables={{ id }}
         onError={({ message }) => toast.error(message)}
-        onCompleted={({ likeSample }) => {
-          setLocalLikes(likeSample.likes);
-        }}
       >
-        {mutate => (
-          <Button className={styles.likes} onClick={() => mutate()}>
-            <div>
-              <FaThumbsUp style={{ fontSize: "12px" }} />
-              <span>{localLikes.length}</span>
-            </div>
-          </Button>
-        )}
-      </Mutation>
+        {({ data, loading }) => {
+          if (loading) {
+            return (
+              <Button className={styles.likes}>
+                <div className={styles.likes}>
+                  <FaThumbsUp style={{ fontSize: "12px" }} />
+                  <Spinner relative />
+                </div>
+              </Button>
+            );
+          }
+
+          return (
+            <Mutation
+              mutation={LIKE_MUTATION}
+              refetchQueries={() => [
+                { query: LIKE_QUERY, variables: { id: data.sampleById.id } }
+              ]}
+              variables={{ id }}
+              onError={({ message }) => toast.error(message)}
+            >
+              {mutate => {
+                const fetchedLikes = data.sampleById
+                  ? [...data.sampleById.likes]
+                  : likes;
+
+                return (
+                  <Button className={styles.likes} onClick={() => mutate()}>
+                    <div>
+                      <FaThumbsUp style={{ fontSize: "12px" }} />
+                      <span>{fetchedLikes.length}</span>
+                    </div>
+                  </Button>
+                );
+              }}
+            </Mutation>
+          );
+        }}
+      </Query>
 
       {languages.length > 0 && (
         <div className={styles.tagWrapper}>
