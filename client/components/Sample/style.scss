@@ -1,5 +1,9 @@
 .wrapper {
   margin-bottom: 16px;
+
+  &:not(.preview) {
+    min-height: 100vh;
+  }
 }
 
 .header {

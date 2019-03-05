@@ -12,7 +12,6 @@ import gql from "graphql-tag";
 import { Context } from "../Context";
 import Hamburger from "../Hamburger";
 import Sidebar from "../Sidebar";
-import Spinner from "../Spinner";
 import StyledLink from "../StyledLink";
 
 import { LOGGED_IN, LOGGED_OUT, TOGGLE_SIDEBAR } from "./constants";
@@ -32,34 +31,39 @@ export default function Header() {
   };
 
   const LoggedInMenu = () => (
-    <Sidebar right isOpen={state.sidebarIsOpen} onClick={toggleSidebar}>
-      <StyledLink href="/newSample" icon={<FaCode />}>
-        Post a sample
-      </StyledLink>
-      <StyledLink href="#" icon={<FaUser />}>
-        My samples
-      </StyledLink>
-      <Mutation
-        mutation={gql`
-          mutation {
-            signOut
-          }
-        `}
-      >
-        {mutate => (
-          <StyledLink
-            href="/"
-            icon={<FaSignOutAlt />}
-            onClick={() => {
-              context.dispatch({ type: LOGGED_OUT });
-              mutate();
-            }}
-          >
-            Log out
-          </StyledLink>
-        )}
-      </Mutation>
-    </Sidebar>
+    <Fragment>
+      {context.me && (
+        <span className={styles.username}>{context.me.username}</span>
+      )}
+      <Sidebar right isOpen={state.sidebarIsOpen} onClick={toggleSidebar}>
+        <StyledLink href="/newSample" icon={<FaCode />}>
+          Post a sample
+        </StyledLink>
+        <StyledLink href="#" icon={<FaUser />}>
+          My samples
+        </StyledLink>
+        <Mutation
+          mutation={gql`
+            mutation {
+              signOut
+            }
+          `}
+        >
+          {mutate => (
+            <StyledLink
+              href="/"
+              icon={<FaSignOutAlt />}
+              onClick={() => {
+                context.dispatch({ type: LOGGED_OUT });
+                mutate();
+              }}
+            >
+              Log out
+            </StyledLink>
+          )}
+        </Mutation>
+      </Sidebar>
+    </Fragment>
   );
 
   const ME_QUERY = gql`
@@ -95,7 +99,6 @@ export default function Header() {
                 }
                 if (error) {
                   // not being signed in is an error
-                  // <p>{error.graphQLErrors[0].message}</p>
                   return (
                     <Sidebar
                       right
@@ -120,21 +123,6 @@ export default function Header() {
           )}
         </div>
       </header>
-      {context.me && (
-        <span className={styles.username}>{context.me.username}</span>
-      )}
     </div>
   );
 }
-
-/**
- * <Button
-                        onClick={() => {
-                          mutate();
-                          setMe({});
-                          Router.push("/");
-                        }}
-                      >
-                        Log out
-                      </Button>
- */

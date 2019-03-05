@@ -157,9 +157,17 @@ export default function Sample({
 
           return (
             <div className={styles.commentsWrapper}>
-              <StyledLink href={href ? href : "#"}>
-                {data.comments.length} {overOneComment ? "comments" : "comment"}
-              </StyledLink>
+              {href ? (
+                <StyledLink href={href}>
+                  {data.comments.length}{" "}
+                  {overOneComment ? "comments" : "comment"}
+                </StyledLink>
+              ) : (
+                <p>
+                  {data.comments.length}{" "}
+                  {overOneComment ? "comments" : "comment"}
+                </p>
+              )}
             </div>
           );
         }}
