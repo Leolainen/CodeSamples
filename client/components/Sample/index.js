@@ -1,10 +1,12 @@
 import { FaThumbsUp } from "react-icons/fa";
 import { Mutation, Query } from "react-apollo";
+import { toast } from "react-toastify";
 import PropTypes from "prop-types";
-import React from "react";
+import React, { useState } from "react";
 import classnames from "classnames";
 import gql from "graphql-tag";
 
+import Button from "../Button";
 import Container from "../Container";
 import StyledLink from "../StyledLink";
 
@@ -24,6 +26,8 @@ export default function Sample({
   preview,
   ...rest
 }) {
+  const [localLikes, setLocalLikes] = useState(likes);
+
   const COMMENT_QUERY = gql`
     query Comment($id: String!) {
       comments(codeSampleId: $id) {
@@ -37,16 +41,9 @@ export default function Sample({
   `;
 
   const LIKE_MUTATION = gql`
-    mutation {
-      likeComment(id: "5c63cb5acbdbbd0281e4beb1") {
-        id
-        userId
-        username
-        codeSampleId
+    mutation likeSample($id: ID!) {
+      likeSample(id: $id) {
         likes
-        comment
-        edited
-        date
       }
     }
   `;
@@ -71,10 +68,24 @@ export default function Sample({
         </div>
       )}
 
-      <div className={styles.likes}>
-        <FaThumbsUp style={{ fontSize: "12px" }} />
-        <span>{likes.length}</span>
-      </div>
+      <Mutation
+        mutation={LIKE_MUTATION}
+        variables={{ id }}
+        onError={({ message }) => toast.error(message)}
+        onCompleted={({ likeSample }) => {
+          setLocalLikes(likeSample.likes);
+        }}
+      >
+        {mutate => (
+          <Button className={styles.likes} onClick={() => mutate()}>
+            <div>
+              <FaThumbsUp style={{ fontSize: "12px" }} />
+              <span>{localLikes.length}</span>
+            </div>
+          </Button>
+        )}
+      </Mutation>
+
       {languages.length > 0 && (
         <div className={styles.tagWrapper}>
           {languages.map((lang, index) => (

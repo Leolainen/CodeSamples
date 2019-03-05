@@ -11,10 +11,6 @@ import Input from "../../components/Input";
 import Layout from "../../components/Layout";
 
 export default () => {
-  // const stringifyQuery = query => {
-  //   return JSON.stringify(query).replace(/[{}]/g, "");
-  // };
-
   const LOGIN_MUTATION = gql`
     mutation signIn($email: String!, $password: String!) {
       signIn(email: $email, password: $password) {

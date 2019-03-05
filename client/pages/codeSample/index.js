@@ -1,4 +1,5 @@
-import { Mutation, Query } from "react-apollo";
+import { Query } from "react-apollo";
+import { toast } from "react-toastify";
 import { withRouter } from "next/router";
 import React from "react";
 import gql from "graphql-tag";
@@ -31,13 +32,14 @@ export default withRouter(props => {
   return (
     <Layout center fullScreen>
       <div>
-        <Query query={SAMPLE_QUERY} variables={{ sampleId }}>
-          {({ loading, error, data }) => {
+        <Query
+          query={SAMPLE_QUERY}
+          variables={{ sampleId }}
+          onError={({ message }) => toast.warn(message)}
+        >
+          {({ loading, data }) => {
             if (loading) {
               return <p>Loading...</p>;
-            }
-            if (error) {
-              return <p>Error: {error}</p>;
             }
 
             return <Sample {...data.sampleById} />;
