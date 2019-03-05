@@ -132,7 +132,6 @@ export default () => {
               <Button type="submit" fullWidth disabled={pristine || submitting}>
                 Search
               </Button>
-              <pre>{JSON.stringify(values, 0, 2)}</pre>
             </Container>
           )}
         />

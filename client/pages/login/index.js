@@ -9,6 +9,7 @@ import Container from "../../components/Container";
 import FForm from "../../components/FForm";
 import Input from "../../components/Input";
 import Layout from "../../components/Layout";
+import Spinner from "../../components/Spinner";
 
 export default () => {
   const LOGIN_MUTATION = gql`
@@ -31,7 +32,7 @@ export default () => {
         Router.push("/");
       }}
     >
-      {signIn => (
+      {(signIn, { loading }) => (
         <Layout>
           <FForm
             onSubmit={values =>
@@ -66,7 +67,7 @@ export default () => {
                   disabled={pristine || submitting}
                   fullWidth
                 >
-                  Log in
+                  {loading ? <Spinner /> : "Log in"}
                 </Button>
               </Container>
             )}

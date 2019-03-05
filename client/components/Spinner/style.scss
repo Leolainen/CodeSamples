@@ -1,0 +1,30 @@
+.spinnerWrapper {
+  display: inline-block;
+  position: relative;
+  animation: spin 1s linear infinite;
+
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    border-top: 2px solid $g-grey-500;
+    border-right: 2px solid transparent;
+    border-bottom: 2px solid transparent;
+    border-left: 2px solid transparent;
+    border-radius: 50%;
+    transition: ;
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spinner {
+}

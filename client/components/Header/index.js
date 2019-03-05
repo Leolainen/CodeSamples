@@ -12,6 +12,7 @@ import gql from "graphql-tag";
 import { Context } from "../Context";
 import Hamburger from "../Hamburger";
 import Sidebar from "../Sidebar";
+import Spinner from "../Spinner";
 import StyledLink from "../StyledLink";
 
 import { LOGGED_IN, LOGGED_OUT, TOGGLE_SIDEBAR } from "./constants";
@@ -90,7 +91,7 @@ export default function Header() {
             <Query query={ME_QUERY}>
               {({ error, loading, data }) => {
                 if (loading) {
-                  return <p>Checking login status...</p>;
+                  return <Spinner />;
                 }
                 if (error) {
                   // not being signed in is an error

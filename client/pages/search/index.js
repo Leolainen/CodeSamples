@@ -1,4 +1,5 @@
 import { Query } from "react-apollo";
+import { toast } from "react-toastify";
 import { withRouter } from "next/router";
 import React, { useContext } from "react";
 import gql from "graphql-tag";
@@ -6,6 +7,7 @@ import gql from "graphql-tag";
 import { Context } from "../../components/Context";
 import Layout from "../../components/Layout";
 import Sample from "../../components/Sample";
+import Spinner from "../../components/Spinner";
 
 export default withRouter(() => {
   const context = useContext(Context);
@@ -33,25 +35,30 @@ export default withRouter(() => {
 
   return (
     <Layout center>
-      <Query query={SAMPLE_QUERY} variables={{ title, languages, frameworks }}>
-        {({ loading, error, data }) => {
+      <Query
+        query={SAMPLE_QUERY}
+        variables={{ title, languages, frameworks }}
+        onError={({ message }) => toast.error(message)}
+      >
+        {({ loading, data }) => {
           if (loading) {
-            return <p>Loading...</p>;
-          }
-          if (error) {
-            return <p>Error: {error}</p>;
+            return <Spinner />;
           }
 
           return (
             <div>
-              {data.samples.map((sample, index) => (
-                <Sample
-                  preview
-                  key={index}
-                  {...sample}
-                  href={`/codeSample?sample=${sample.id}`}
-                />
-              ))}
+              {loading ? (
+                <Spinner />
+              ) : (
+                data.samples.map((sample, index) => (
+                  <Sample
+                    preview
+                    key={index}
+                    {...sample}
+                    href={`/codeSample?sample=${sample.id}`}
+                  />
+                ))
+              )}
             </div>
           );
         }}
