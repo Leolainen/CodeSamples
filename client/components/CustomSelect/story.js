@@ -20,11 +20,12 @@ const containerStyle = {
 
 const mockOptions = [
   {
-    one: "One"
+    label: "One",
+    value: "one"
   },
-  { two: "Two" },
-  { three: "Three" },
-  { four: "Four" }
+  { label: "Two", value: "two" },
+  { label: "Three", value: "three" },
+  { label: "Four", value: "four" }
 ];
 
 stories.add("Custom Select", () => (
@@ -32,6 +33,36 @@ stories.add("Custom Select", () => (
     <CustomSelect
       isMulti={boolean("isMulti")}
       isSearchable={boolean("isSearchable")}
+      placeholder={text(
+        "Placeholder",
+        "text dislayed when no options are selected"
+      )}
+      defaultValue={boolean("defaultValue", mockOptions[0])}
+      options={mockOptions}
+    />
+  </div>
+));
+
+stories.add("Creatable select", () => (
+  <div style={containerStyle}>
+    <CustomSelect
+      creatable
+      isMulti={boolean("isMulti")}
+      isSearchable={boolean("isSearchable")}
+      placeholder={text(
+        "Placeholder",
+        "text dislayed when no options are selected"
+      )}
+      defaultValue={boolean("defaultValue", mockOptions[0])}
+      options={mockOptions}
+    />
+  </div>
+));
+stories.add("Custom Select", () => (
+  <div style={containerStyle}>
+    <CustomSelect
+      isMulti={boolean("isMulti")}
+      isSearchable={(boolean("isSearchable"), true)}
       placeholder={text(
         "Placeholder",
         "text dislayed when no options are selected"

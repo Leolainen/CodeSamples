@@ -1,7 +1,7 @@
 import { Query } from "react-apollo";
 import { toast } from "react-toastify";
 import { withRouter } from "next/router";
-import React, { useContext } from "react";
+import React, { Fragment, useContext } from "react";
 import gql from "graphql-tag";
 
 import { Context } from "../../components/Context";
@@ -14,9 +14,24 @@ export default withRouter(() => {
 
   const { title, frameworks, languages } = context.query;
 
+  const frameworksQuery = frameworks
+    ? frameworks.map(fw => fw.value)
+    : undefined;
+  const languagesQuery = languages
+    ? languages.map(lang => lang.value)
+    : undefined;
+
   const SAMPLE_QUERY = gql`
-    query Sample($title: String, $languages: [String], $frameworks: [String]) {
-      samples(title: $title, languages: $languages, frameworks: $frameworks) {
+    query Sample(
+      $title: String
+      $languagesQuery: [String]
+      $frameworksQuery: [String]
+    ) {
+      samples(
+        title: $title
+        languages: $languagesQuery
+        frameworks: $frameworksQuery
+      ) {
         id
         username
         codeSample
@@ -37,27 +52,39 @@ export default withRouter(() => {
     <Layout center>
       <Query
         query={SAMPLE_QUERY}
-        variables={{ title, languages, frameworks }}
+        variables={{ title, languagesQuery, frameworksQuery }}
         onError={({ message }) => toast.error(message)}
       >
-        {({ loading, data }) => {
+        {({ loading, data, error, variables }) => {
           if (loading) {
-            return <Spinner />;
+            return <Spinner center />;
           }
+
+          if (error) {
+            return (
+              <div>
+                <p>Something went wrong...</p>
+              </div>
+            );
+          }
+          console.log("data", data);
+          console.log("variables", variables);
 
           return (
             <div>
-              {loading ? (
-                <Spinner />
+              {data.samples.length > 0 ? (
+                <Fragment>
+                  {data.samples.map((sample, index) => (
+                    <Sample
+                      key={index}
+                      preview
+                      {...sample}
+                      href={`/codeSample?sample=${sample.id}`}
+                    />
+                  ))}
+                </Fragment>
               ) : (
-                data.samples.map((sample, index) => (
-                  <Sample
-                    preview
-                    key={index}
-                    {...sample}
-                    href={`/codeSample?sample=${sample.id}`}
-                  />
-                ))
+                <p>No samples match your search. :'(</p>
               )}
             </div>
           );

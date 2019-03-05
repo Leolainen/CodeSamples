@@ -10,6 +10,7 @@ import CustomSelect from "../../components/CustomSelect";
 import FForm from "../../components/FForm";
 import Input from "../../components/Input";
 import Layout from "../../components/Layout";
+import Spinner from "../../components/Spinner";
 
 export default () => {
   /**
@@ -144,7 +145,7 @@ mutation {
                           return (
                             <CustomSelect
                               isDisabled
-                              placeholder="Loading frameworks..."
+                              placeholder={<Spinner />}
                             />
                           );
                         }
@@ -167,6 +168,7 @@ mutation {
                         return (
                           <CustomSelect
                             placeholder="Select framework..."
+                            creatable
                             isSearchable
                             isMulti
                             {...input}
@@ -195,7 +197,7 @@ mutation {
                           return (
                             <CustomSelect
                               isDisabled
-                              placeholder="Loading languages..."
+                              placeholder={<Spinner />}
                             />
                           );
                         }

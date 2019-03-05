@@ -11,6 +11,7 @@ import CustomSelect from "../components/CustomSelect";
 import FForm from "../components/FForm";
 import Input from "../components/Input";
 import Layout from "../components/Layout";
+import Spinner from "../components/Spinner";
 
 export default () => {
   const context = useContext(Context);
@@ -48,10 +49,7 @@ export default () => {
                     {({ loading, error, data }) => {
                       if (loading) {
                         return (
-                          <CustomSelect
-                            isDisabled
-                            placeholder="Loading frameworks..."
-                          />
+                          <CustomSelect isDisabled placeholder={<Spinner />} />
                         );
                       }
                       if (error) {
@@ -97,14 +95,16 @@ export default () => {
                       if (loading) {
                         return (
                           <CustomSelect
+                            options={[]}
                             isDisabled
-                            placeholder="Loading languages..."
+                            placeholder={<Spinner />}
                           />
                         );
                       }
                       if (error) {
                         return (
                           <CustomSelect
+                            options={[]}
                             isDisabled
                             placeholder={`Error: ${error}`}
                           />
@@ -132,6 +132,7 @@ export default () => {
               <Button type="submit" fullWidth disabled={pristine || submitting}>
                 Search
               </Button>
+              <pre>{JSON.stringify(values, 0, 2)}</pre>
             </Container>
           )}
         />
