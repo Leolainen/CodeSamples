@@ -2,6 +2,7 @@ import { Mutation, Query } from "react-apollo";
 import { toast } from "react-toastify";
 import PropTypes from "prop-types";
 import React, { Fragment, useContext, useReducer } from "react";
+import Router from "next/router";
 import classnames from "classnames";
 import gql from "graphql-tag";
 
@@ -107,9 +108,9 @@ export default function Sample({
           mutation={DELETE_SAMPLE_MUTATION}
           onError={({ message }) => toast.error(message)}
           variables={{ id }}
-          onCompleted={data => {
-            console.log("data oncompleted", data);
-            toast.success(`Sample ${data.title} has successfully been deleted`);
+          onCompleted={() => {
+            toast.success(`Sample was successfully deleted`);
+            Router.push("/");
           }}
         >
           {mutate => <Button onClick={mutate}>Delete sample</Button>}

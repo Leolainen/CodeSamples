@@ -208,6 +208,15 @@ export default {
       );
 
       return likedCodeSample;
+    },
+    deleteSample: async (root, { id }, { req }, info) => {
+      Auth.checkSignedIn(req);
+
+      await CodeSample.findByIdAndDelete(id, (err, codeSample) => {
+        if (err) throw new ApolloError(`Error: ${err}`);
+
+        return codeSample;
+      });
     }
   }
 };
