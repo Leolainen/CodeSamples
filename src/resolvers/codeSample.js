@@ -212,11 +212,16 @@ export default {
     deleteSample: async (root, { id }, { req }, info) => {
       Auth.checkSignedIn(req);
 
-      await CodeSample.findByIdAndDelete(id, (err, codeSample) => {
-        if (err) throw new ApolloError(`Error: ${err}`);
+      const removedCodeSample = await CodeSample.findByIdAndDelete(
+        id,
+        (err, codeSample) => {
+          if (err) throw new ApolloError(`Error: ${err}`);
 
-        return codeSample;
-      });
+          return codeSample;
+        }
+      );
+
+      return removedCodeSample;
     }
   }
 };

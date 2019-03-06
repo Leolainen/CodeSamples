@@ -46,6 +46,7 @@ export default function Sample({
     query Comment($id: String!) {
       comments(codeSampleId: $id) {
         id
+        userId
         username
         likes
         comment
@@ -199,34 +200,22 @@ export default function Sample({
           const overOneComment = data.comments.length > 1;
 
           const comments = data.comments.map((comment, index) => (
-            <Comment key={index} {...comment} />
+            <Comment key={index} {...comment} refetch={refetch} />
           ));
 
           return (
             <Fragment>
               <div className={styles.commentsWrapper}>
-                {href ? (
-                  <StyledLink href={href}>
-                    <p className={styles.innerCommentsWrapper}>
-                      {data.comments.length}{" "}
-                      {overOneComment ? "comments" : "comment"}
-                      <Button className={styles.writeCommentButton}>
-                        Write a comment
-                      </Button>
-                    </p>
-                  </StyledLink>
-                ) : (
-                  <p className={styles.innerCommentsWrapper}>
-                    {data.comments.length}{" "}
-                    {overOneComment ? "comments" : "comment"}
-                    <Button
-                      className={styles.writeCommentButton}
-                      onClick={toggleCommentModal}
-                    >
-                      Write a comment
-                    </Button>
-                  </p>
-                )}
+                <p className={styles.innerCommentsWrapper}>
+                  {data.comments.length}{" "}
+                  {overOneComment ? "comments" : "comment"}
+                  <Button
+                    className={styles.writeCommentButton}
+                    onClick={toggleCommentModal}
+                  >
+                    Write a comment
+                  </Button>
+                </p>
               </div>
 
               {!preview &&
