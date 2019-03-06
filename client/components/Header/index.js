@@ -69,6 +69,7 @@ export default function Header() {
   const ME_QUERY = gql`
     query {
       me {
+        id
         username
         email
       }

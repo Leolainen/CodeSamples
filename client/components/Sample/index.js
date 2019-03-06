@@ -1,7 +1,7 @@
 import { Mutation, Query } from "react-apollo";
 import { toast } from "react-toastify";
 import PropTypes from "prop-types";
-import React, { Fragment } from "react";
+import React, { Fragment, useReducer } from "react";
 import classnames from "classnames";
 import gql from "graphql-tag";
 
@@ -9,10 +9,18 @@ import Button from "../Button";
 import Comment from "../Comment";
 import Container from "../Container";
 import Like from "../Like";
+import Modal from "../Modal";
 import Spinner from "../Spinner";
 import StyledLink from "../StyledLink";
+import WriteComment from "../WriteComment";
 
+import { TOGGLE_COMMENT_MODAL } from "./constants";
+import reducer from "./reducer";
 import styles from "./style.scss";
+
+const initialState = {
+  commentModalIsOpen: false
+};
 
 export default function Sample({
   title,
@@ -28,6 +36,8 @@ export default function Sample({
   preview,
   ...rest
 }) {
+  const [state, dispatch] = useReducer(reducer, initialState);
+
   const COMMENT_QUERY = gql`
     query Comment($id: String!) {
       comments(codeSampleId: $id) {
@@ -62,6 +72,8 @@ export default function Sample({
   const style = classnames(styles.wrapper, {
     [styles.preview]: preview
   });
+
+  const writeComment = () => dispatch({ type: TOGGLE_COMMENT_MODAL });
 
   return (
     <Container className={style} {...rest} onClick={onClick}>
@@ -181,7 +193,10 @@ export default function Sample({
                   <p className={styles.innerCommentsWrapper}>
                     {data.comments.length}{" "}
                     {overOneComment ? "comments" : "comment"}
-                    <Button className={styles.writeCommentButton}>
+                    <Button
+                      className={styles.writeCommentButton}
+                      onClick={writeComment}
+                    >
                       Write a comment
                     </Button>
                   </p>
@@ -194,6 +209,12 @@ export default function Sample({
           );
         }}
       </Query>
+
+      {state.commentModalIsOpen && (
+        <Modal clickOutside={() => dispatch({ type: TOGGLE_COMMENT_MODAL })}>
+          <WriteComment codeSampleId={id} />
+        </Modal>
+      )}
     </Container>
   );
 }
