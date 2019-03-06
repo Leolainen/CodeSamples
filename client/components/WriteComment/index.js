@@ -1,4 +1,4 @@
-import { Mutation } from "react-apollo";
+import { Mutation, Query } from "react-apollo";
 import { toast } from "react-toastify";
 import PropTypes from "prop-types";
 import React, { useContext } from "react";
@@ -13,28 +13,8 @@ import Layout from "../Layout";
 
 import styles from "./style.scss";
 
-export default function WriteComment({ codeSampleId, ...rest }) {
+export default function WriteComment({ submitted, refetch, codeSampleId }) {
   const context = useContext(Context);
-
-  console.log("context.me", context.me);
-
-  /**
-     * 
-mutation {
-  postComment(userId: "5c41f7e4e0ef9daa700688fb",
-    codeSampleId: "5c760814e33ffb051dc6976b",
-    comment: "this is a comment") {
-      id,
-      userId,
-      username,
-      codeSampleId,
-      likes,
-      comment,
-      edited,
-      date
-  }
-}
-     */
 
   const COMMENT_MUTATION = gql`
     mutation postComment(
@@ -62,21 +42,24 @@ mutation {
     <Mutation
       mutation={COMMENT_MUTATION}
       onError={({ message }) => toast.warn(message)}
+      onCompleted={() => submitted()}
     >
       {postComment => (
         <FForm
-          onSubmit={values =>
+          onSubmit={async values => {
             postComment({
               variables: {
                 userId: context.me.id,
                 codeSampleId,
                 comment: values.comment
               }
-            })
-          }
+            });
+
+            await refetch();
+          }}
           children={({ submitting, pristine }) => (
-            <Container spacing={6}>
-              <h5>Comment</h5>
+            <Container spacing={6} className={styles.commentWrapper}>
+              <h5>Say something</h5>
               <Input
                 name="comment"
                 placeholder="Comment"
@@ -97,5 +80,12 @@ mutation {
 }
 
 WriteComment.propTypes = {
-  codeSampleId: PropTypes.string.isRequired
+  codeSampleId: PropTypes.string.isRequired,
+  submitted: PropTypes.func,
+  refetch: PropTypes.func
+};
+
+WriteComment.defaultProps = {
+  refetch: null,
+  submitted: null
 };

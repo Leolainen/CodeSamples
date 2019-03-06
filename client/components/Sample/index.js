@@ -73,7 +73,7 @@ export default function Sample({
     [styles.preview]: preview
   });
 
-  const writeComment = () => dispatch({ type: TOGGLE_COMMENT_MODAL });
+  const toggleCommentModal = () => dispatch({ type: TOGGLE_COMMENT_MODAL });
 
   return (
     <Container className={style} {...rest} onClick={onClick}>
@@ -165,7 +165,7 @@ export default function Sample({
         variables={{ id }}
         onError={({ message }) => toast.error(message)}
       >
-        {({ loading, data }) => {
+        {({ loading, data, refetch }) => {
           if (loading) {
             return <Spinner relative />;
           }
@@ -195,7 +195,7 @@ export default function Sample({
                     {overOneComment ? "comments" : "comment"}
                     <Button
                       className={styles.writeCommentButton}
-                      onClick={writeComment}
+                      onClick={toggleCommentModal}
                     >
                       Write a comment
                     </Button>
@@ -205,16 +205,20 @@ export default function Sample({
 
               {!preview &&
                 (comments.length > 0 ? comments : "Be the first to comment!")}
+
+              {state.commentModalIsOpen && (
+                <Modal clickOutside={toggleCommentModal}>
+                  <WriteComment
+                    submitted={toggleCommentModal}
+                    refetch={() => refetch()}
+                    codeSampleId={id}
+                  />
+                </Modal>
+              )}
             </Fragment>
           );
         }}
       </Query>
-
-      {state.commentModalIsOpen && (
-        <Modal clickOutside={() => dispatch({ type: TOGGLE_COMMENT_MODAL })}>
-          <WriteComment codeSampleId={id} />
-        </Modal>
-      )}
     </Container>
   );
 }
