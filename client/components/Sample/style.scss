@@ -15,21 +15,6 @@
   }
 }
 
-.likes {
-  width: 100%;
-  margin-bottom: 16px;
-  text-align: right;
-  color: $g-white;
-
-  > * {
-    display: inline-block;
-  }
-
-  span {
-    margin-left: 4px;
-  }
-}
-
 .tagWrapper {
   display: flex;
   align-items: center;
@@ -51,7 +36,7 @@
 }
 
 .codeSampleWrapper {
-  margin: 16px 0;
+  margin: 24px 0;
   padding: 6px;
   background-color: $g-grey-700;
 
@@ -68,4 +53,27 @@
 .description {
   background-color: $g-grey-900;
   padding: 12px;
+}
+
+.likeWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.commentsWrapper {
+  width: 100%;
+
+  span {
+    width: inherit;
+  }
+}
+
+.innerCommentsWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.writeCommentButton {
+  color: $g-white;
 }

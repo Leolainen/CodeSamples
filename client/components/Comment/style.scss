@@ -1,6 +1,6 @@
 .wrapper {
   display: block;
-  margin: 12px 0;
+  margin: 24px 0;
   padding: 12px 0;
   border-bottom: 2px solid $g-grey-900;
   color: $g-white;
@@ -8,16 +8,27 @@
 }
 
 .header {
-  padding: 12px 6px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 12px;
+
   border-bottom: 1px solid $g-grey-500;
 }
 
 .content {
-  padding: 6px 12px;
+  padding: 24px 12px;
 }
 
 .footer {
-  padding: 6px;
+  border-top: 1px solid $g-grey-500;
+  padding: 12px;
   padding-bottom: 0;
+
+  > p {
+    margin: 0;
+    padding: 0;
+  }
   //   background-color: $g-grey-700;
 }

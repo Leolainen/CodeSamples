@@ -1,0 +1,12 @@
+.likes {
+  text-align: right;
+  color: $g-white;
+
+  > * {
+    display: inline-block;
+  }
+
+  span {
+    margin-left: 6px;
+  }
+}

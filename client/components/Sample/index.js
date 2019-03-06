@@ -1,4 +1,3 @@
-import { FaThumbsUp } from "react-icons/fa";
 import { Mutation, Query } from "react-apollo";
 import { toast } from "react-toastify";
 import PropTypes from "prop-types";
@@ -9,6 +8,7 @@ import gql from "graphql-tag";
 import Button from "../Button";
 import Comment from "../Comment";
 import Container from "../Container";
+import Like from "../Like";
 import Spinner from "../Spinner";
 import StyledLink from "../StyledLink";
 
@@ -78,7 +78,6 @@ export default function Sample({
           <span>by: {username}</span>
         </div>
       )}
-
       {languages.length > 0 && (
         <div className={styles.tagWrapper}>
           {languages.map((lang, index) => (
@@ -97,7 +96,6 @@ export default function Sample({
           ))}
         </div>
       )}
-
       <Query
         query={LIKE_QUERY}
         variables={{ id }}
@@ -106,12 +104,9 @@ export default function Sample({
         {({ data, loading }) => {
           if (loading) {
             return (
-              <Button className={styles.likes}>
-                <div className={styles.likes}>
-                  <FaThumbsUp style={{ fontSize: "12px" }} />
-                  <Spinner relative />
-                </div>
-              </Button>
+              <div className={styles.likeWrapper}>
+                <Spinner relative />
+              </div>
             );
           }
 
@@ -130,19 +125,21 @@ export default function Sample({
                   : likes;
 
                 return (
-                  <Button className={styles.likes} onClick={() => mutate()}>
-                    <div>
-                      <FaThumbsUp style={{ fontSize: "12px" }} />
-                      <span>{fetchedLikes.length}</span>
-                    </div>
-                  </Button>
+                  <div className={styles.likeWrapper}>
+                    <Like
+                      amount={fetchedLikes.length}
+                      onClick={() => mutate()}
+                    />
+                  </div>
                 );
               }}
             </Mutation>
           );
         }}
       </Query>
-
+      <div className={styles.codeSampleWrapper}>
+        <pre className={styles.codeSample}>{codeSample}</pre>
+      </div>
       {description && !preview && (
         <Fragment>
           <span>Authors description:</span>
@@ -151,61 +148,52 @@ export default function Sample({
           </div>
         </Fragment>
       )}
-
-      <div className={styles.codeSampleWrapper}>
-        <pre className={styles.codeSample}>{codeSample}</pre>
-      </div>
-
-      <Query variables={{ id }} query={COMMENT_QUERY}>
-        {({ loading, error, data }) => {
+      <Query
+        query={COMMENT_QUERY}
+        variables={{ id }}
+        onError={({ message }) => toast.error(message)}
+      >
+        {({ loading, data }) => {
           if (loading) {
-            return <p>loading</p>;
-          }
-          if (error) {
-            return <p>error</p>;
+            return <Spinner relative />;
           }
 
           const overOneComment = data.comments.length > 1;
 
+          const comments = data.comments.map((comment, index) => (
+            <Comment key={index} {...comment} />
+          ));
+
           return (
-            <div className={styles.commentsWrapper}>
-              {href ? (
-                <StyledLink href={href}>
-                  {data.comments.length}{" "}
-                  {overOneComment ? "comments" : "comment"}
-                </StyledLink>
-              ) : (
-                <p>
-                  {data.comments.length}{" "}
-                  {overOneComment ? "comments" : "comment"}
-                </p>
-              )}
-            </div>
+            <Fragment>
+              <div className={styles.commentsWrapper}>
+                {href ? (
+                  <StyledLink href={href}>
+                    <p className={styles.innerCommentsWrapper}>
+                      {data.comments.length}{" "}
+                      {overOneComment ? "comments" : "comment"}
+                      <Button className={styles.writeCommentButton}>
+                        Write a comment
+                      </Button>
+                    </p>
+                  </StyledLink>
+                ) : (
+                  <p className={styles.innerCommentsWrapper}>
+                    {data.comments.length}{" "}
+                    {overOneComment ? "comments" : "comment"}
+                    <Button className={styles.writeCommentButton}>
+                      Write a comment
+                    </Button>
+                  </p>
+                )}
+              </div>
+
+              {!preview &&
+                (comments.length > 0 ? comments : "Be the first to comment!")}
+            </Fragment>
           );
         }}
       </Query>
-
-      {!preview && (
-        <Query
-          query={COMMENT_QUERY}
-          variables={{ id }}
-          onError={({ message }) => toast.error(message)}
-        >
-          {({ loading, data }) => {
-            if (loading) {
-              return <Spinner relative />;
-            }
-
-            console.log("data comments", data);
-
-            const comments = data.comments.map((comment, index) => (
-              <Comment key={index} {...comment} />
-            ));
-
-            return comments;
-          }}
-        </Query>
-      )}
     </Container>
   );
 }
