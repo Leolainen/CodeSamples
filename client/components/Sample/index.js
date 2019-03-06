@@ -1,10 +1,11 @@
 import { Mutation, Query } from "react-apollo";
 import { toast } from "react-toastify";
 import PropTypes from "prop-types";
-import React, { Fragment, useReducer } from "react";
+import React, { Fragment, useContext, useReducer } from "react";
 import classnames from "classnames";
 import gql from "graphql-tag";
 
+import { Context } from "../Context";
 import Button from "../Button";
 import Comment from "../Comment";
 import Container from "../Container";
@@ -26,6 +27,7 @@ export default function Sample({
   title,
   username,
   id,
+  userId,
   likes,
   description,
   frameworks,
@@ -36,6 +38,7 @@ export default function Sample({
   preview,
   ...rest
 }) {
+  const context = useContext(Context);
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const COMMENT_QUERY = gql`
@@ -69,6 +72,15 @@ export default function Sample({
     }
   `;
 
+  const DELETE_SAMPLE_MUTATION = gql`
+    mutation deleteSample($id: ID!) {
+      deleteSample(id: $id) {
+        id
+        title
+      }
+    }
+  `;
+
   const style = classnames(styles.wrapper, {
     [styles.preview]: preview
   });
@@ -89,6 +101,19 @@ export default function Sample({
           <h3>{title}</h3>
           <span>by: {username}</span>
         </div>
+      )}
+      {context.me.id === userId && !preview && (
+        <Mutation
+          mutation={DELETE_SAMPLE_MUTATION}
+          onError={({ message }) => toast.error(message)}
+          variables={{ id }}
+          onCompleted={data => {
+            console.log("data oncompleted", data);
+            toast.success(`Sample ${data.title} has successfully been deleted`);
+          }}
+        >
+          {mutate => <Button onClick={mutate}>Delete sample</Button>}
+        </Mutation>
       )}
       {languages.length > 0 && (
         <div className={styles.tagWrapper}>
@@ -227,6 +252,7 @@ Sample.propTypes = {
   title: PropTypes.string.isRequired,
   username: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
+  userId: PropTypes.string.isRequired,
   likes: PropTypes.array,
   description: PropTypes.string,
   frameworks: PropTypes.array.isRequired,

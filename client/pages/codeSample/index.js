@@ -15,6 +15,7 @@ export default withRouter(props => {
     query Sample($sampleId: ID!) {
       sampleById(id: $sampleId) {
         id
+        userId
         username
         codeSample
         title

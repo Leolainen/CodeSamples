@@ -44,6 +44,7 @@ export default withRouter(() => {
         frameworks: $frameworksQuery
       ) {
         id
+        userId
         username
         codeSample
         title
