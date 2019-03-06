@@ -110,7 +110,7 @@ export default function Sample({
           variables={{ id }}
           onCompleted={() => {
             toast.success(`Sample was successfully deleted`);
-            Router.push("/");
+            Router.back();
           }}
         >
           {mutate => <Button onClick={mutate}>Delete sample</Button>}
