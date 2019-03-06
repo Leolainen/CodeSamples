@@ -2,6 +2,7 @@ import { Field } from "react-final-form";
 import { Mutation, Query } from "react-apollo";
 import { toast } from "react-toastify";
 import React from "react";
+import Router from "next/router";
 import gql from "graphql-tag";
 
 import Button from "../../components/Button";
@@ -13,31 +14,6 @@ import Layout from "../../components/Layout";
 import Spinner from "../../components/Spinner";
 
 export default () => {
-  /**
-     * 
-mutation {
-  postSample(
-    title:"testing graphql 4",
-    codeSample:"<h1>Testing graphql refactor 4</h1>",
-    description: "description here",
-    languages: ["JavaScript", "HTML"],
-    frameworks: ["React"])
-    {
-      id,
-      userId,
-      username,
-      title,
-      codeSample,
-      description,
-      frameworks {
-        framework
-      },
-      languages {
-        language
-      },
-  }
-}
-     */
   const POST_MUTATION = gql`
     mutation postSample(
       $title: String!
@@ -79,8 +55,11 @@ mutation {
   return (
     <Mutation
       mutation={POST_MUTATION}
-      onCompleted={() => toast.success("Your sample was posted!")}
-      onError={({ err }) => toast.warn(err)}
+      onCompleted={data => {
+        toast.success("Your sample was posted!");
+        Router.push(`/codeSample?sample=${data.postSample.id}`);
+      }}
+      onError={({ message }) => toast.error(message)}
     >
       {postSample => (
         <Layout>
@@ -132,6 +111,7 @@ mutation {
                   name="frameworks"
                   render={({ input }) => (
                     <Query
+                      onError={({ message }) => toast.error(message)}
                       query={gql`
                         {
                           allFrameworks {
@@ -140,20 +120,12 @@ mutation {
                         }
                       `}
                     >
-                      {({ loading, error, data }) => {
+                      {({ loading, data }) => {
                         if (loading) {
                           return (
                             <CustomSelect
                               isDisabled
                               placeholder={<Spinner />}
-                            />
-                          );
-                        }
-                        if (error) {
-                          return (
-                            <CustomSelect
-                              isDisabled
-                              placeholder={`Error: ${error}`}
                             />
                           );
                         }
@@ -184,6 +156,7 @@ mutation {
                   name="languages"
                   render={({ input }) => (
                     <Query
+                      onError={({ message }) => toast.error(message)}
                       query={gql`
                         {
                           allLanguages {
@@ -201,15 +174,6 @@ mutation {
                             />
                           );
                         }
-                        if (error) {
-                          return (
-                            <CustomSelect
-                              isDisabled
-                              placeholder={`Error: ${error}`}
-                            />
-                          );
-                        }
-
                         const options = data.allLanguages.map(lang => {
                           return {
                             label: lang.language,
@@ -220,6 +184,7 @@ mutation {
                         return (
                           <CustomSelect
                             placeholder="Select language..."
+                            creatable
                             isSearchable
                             isMulti
                             {...input}
@@ -237,7 +202,6 @@ mutation {
                 >
                   Post sample
                 </Button>
-                <pre>{JSON.stringify(values, 0, 2)}</pre>
               </Container>
             )}
           />
