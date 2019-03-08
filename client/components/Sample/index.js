@@ -14,6 +14,7 @@ import Like from "../Like";
 import Modal from "../Modal";
 import Spinner from "../Spinner";
 import StyledLink from "../StyledLink";
+import Tags from "../Tags";
 import WriteComment from "../WriteComment";
 
 import { TOGGLE_COMMENT_MODAL } from "./constants";
@@ -88,6 +89,8 @@ export default function Sample({
   });
 
   const toggleCommentModal = () => dispatch({ type: TOGGLE_COMMENT_MODAL });
+  const renderLanguages = languages && languages.map(lang => lang.language);
+  const renderFrameworks = frameworks && frameworks.map(fw => fw.framework);
 
   return (
     <Container className={style} {...rest} onClick={onClick}>
@@ -117,24 +120,8 @@ export default function Sample({
           {mutate => <Button onClick={mutate}>Delete sample</Button>}
         </Mutation>
       )}
-      {languages.length > 0 && (
-        <div className={styles.tagWrapper}>
-          {languages.map((lang, index) => (
-            <div key={index} className={styles.tag}>
-              {lang.language}
-            </div>
-          ))}
-        </div>
-      )}
-      {frameworks.length > 0 && (
-        <div className={styles.tagWrapper}>
-          {frameworks.map((fw, index) => (
-            <div key={index} className={styles.tag}>
-              {fw.framework}
-            </div>
-          ))}
-        </div>
-      )}
+      {languages.length > 0 && <Tags toRender={renderLanguages} />}
+      {frameworks.length > 0 && <Tags toRender={renderFrameworks} />}
       <Query
         query={LIKE_QUERY}
         variables={{ id }}

@@ -17,26 +17,6 @@
   }
 }
 
-.tagWrapper {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  padding: 6px;
-  margin-bottom: 12px;
-  background-color: $g-grey-900;
-}
-
-.tag {
-  border-radius: 4px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 6px;
-  margin: 0 4px;
-  background-color: $g-grey-600;
-  color: $g-white;
-}
-
 .codeSampleWrapper {
   margin: 24px 0;
   padding: 6px;
