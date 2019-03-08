@@ -1,14 +1,15 @@
 :root {
   $black: $g-black;
   $background-blue: linear-gradient(62deg, #8ec5fc 0%, #e0c3fc 100%);
-  background-attachment: fixed;
 }
 
 .wrapper {
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
+  height: 100%;
   display: flex;
   flex-direction: column;
+  background-attachment: fixed;
   // overflow: hidden;
 
   &.default {
