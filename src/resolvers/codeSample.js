@@ -24,7 +24,7 @@ export default {
         args.frameworks = await Promise.all(frameworks);
 
         // promises gets returned in an extra layer of array for some reason. needs to be flattened
-        query = { frameworks: { $in: args.frameworks.flat() } };
+        query = { ...args, frameworks: { $in: args.frameworks.flat() } };
       }
 
       if (args.languages) {
@@ -34,7 +34,7 @@ export default {
         args.languages = await Promise.all(languages);
 
         // promises gets returned in an extra layer of array for some reason. needs to be flattened
-        query = { languages: { $in: args.languages.flat() } };
+        query = { ...args, languages: { $in: args.languages.flat() } };
       }
 
       return await CodeSample.find(query);
