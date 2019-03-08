@@ -249,12 +249,14 @@ Sample.propTypes = {
   languages: PropTypes.array.isRequired,
   codeSample: PropTypes.string.isRequired,
   href: PropTypes.string,
+  onClick: PropTypes.func,
   preview: PropTypes.bool
 };
 
 Sample.defaultProps = {
   likes: [],
   description: null,
-  href: null,
-  preview: false
+  href: "",
+  preview: false,
+  onClick: null
 };
