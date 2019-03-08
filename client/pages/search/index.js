@@ -73,11 +73,7 @@ export default withRouter(() => {
           }
 
           if (error) {
-            return (
-              <div>
-                <p>Something went wrong...</p>
-              </div>
-            );
+            return <p>Something went wrong...</p>;
           }
 
           return (
