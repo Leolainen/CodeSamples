@@ -1,10 +1,11 @@
 import { Mutation, Query } from "react-apollo";
+import { monokai } from "react-syntax-highlighter/dist/styles/hljs";
 import { toast } from "react-toastify";
 import PropTypes from "prop-types";
-import React, { Fragment, useContext, useReducer } from "react";
+import React, { Fragment, useContext, useEffect, useReducer } from "react";
 import Router from "next/router";
+import SyntaxHighlighter from "react-syntax-highlighter";
 import classnames from "classnames";
-import gql from "graphql-tag";
 
 import { Context } from "../Context";
 import Button from "../Button";
@@ -14,10 +15,16 @@ import Like from "../Like";
 import Modal from "../Modal";
 import Spinner from "../Spinner";
 import StyledLink from "../StyledLink";
-import Tags from "../Tags";
+import Tag from "../Tag";
 import WriteComment from "../WriteComment";
 
-import { TOGGLE_COMMENT_MODAL } from "./constants";
+import {
+  COMMENT_QUERY,
+  DELETE_SAMPLE_MUTATION,
+  LIKE_MUTATION,
+  LIKE_QUERY
+} from "./queries";
+import { TOGGLE_COMMENT_MODAL, TOGGLE_LANGUAGE_HIGHLIGHT } from "./constants";
 import reducer from "./reducer";
 import styles from "./style.scss";
 
@@ -43,54 +50,17 @@ export default function Sample({
   const context = useContext(Context);
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  const COMMENT_QUERY = gql`
-    query Comment($id: String!) {
-      comments(codeSampleId: $id) {
-        id
-        userId
-        username
-        likes
-        comment
-        edited
-        date
-      }
-    }
-  `;
-
-  const LIKE_QUERY = gql`
-    query sampleById($id: ID!) {
-      sampleById(id: $id) {
-        id
-        likes
-      }
-    }
-  `;
-
-  const LIKE_MUTATION = gql`
-    mutation likeSample($id: ID!) {
-      likeSample(id: $id) {
-        id
-        likes
-      }
-    }
-  `;
-
-  const DELETE_SAMPLE_MUTATION = gql`
-    mutation deleteSample($id: ID!) {
-      deleteSample(id: $id) {
-        id
-        title
-      }
-    }
-  `;
-
   const style = classnames(styles.wrapper, {
     [styles.preview]: preview
   });
 
   const toggleCommentModal = () => dispatch({ type: TOGGLE_COMMENT_MODAL });
-  const renderLanguages = languages && languages.map(lang => lang.language);
-  const renderFrameworks = frameworks && frameworks.map(fw => fw.framework);
+
+  useEffect(() => {
+    const initialLanguage = languages.length ? languages[0].language : "text";
+
+    dispatch({ type: TOGGLE_LANGUAGE_HIGHLIGHT, data: initialLanguage });
+  }, []);
 
   return (
     <Container className={style} {...rest} onClick={onClick}>
@@ -107,6 +77,7 @@ export default function Sample({
           <span>by: {username}</span>
         </div>
       )}
+
       {context.me.id === userId && !preview && (
         <Mutation
           mutation={DELETE_SAMPLE_MUTATION}
@@ -120,8 +91,33 @@ export default function Sample({
           {mutate => <Button onClick={mutate}>Delete sample</Button>}
         </Mutation>
       )}
-      {languages.length > 0 && <Tags toRender={renderLanguages} />}
-      {frameworks.length > 0 && <Tags toRender={renderFrameworks} />}
+
+      {languages.length > 0 && (
+        <div className={styles.tagWrapper}>
+          {languages.map((language, index) => (
+            <Tag
+              key={index}
+              onClick={() =>
+                dispatch({
+                  type: TOGGLE_LANGUAGE_HIGHLIGHT,
+                  data: language.language
+                })
+              }
+            >
+              {language.language}
+            </Tag>
+          ))}
+        </div>
+      )}
+
+      {frameworks.length > 0 && (
+        <div className={styles.tagWrapper}>
+          {frameworks.map((framework, index) => (
+            <Tag key={index}>{framework.framework}</Tag>
+          ))}
+        </div>
+      )}
+
       <Query
         query={LIKE_QUERY}
         variables={{ id }}
@@ -163,9 +159,19 @@ export default function Sample({
           );
         }}
       </Query>
-      <div className={styles.codeSampleWrapper}>
-        <pre className={styles.codeSample}>{codeSample}</pre>
-      </div>
+
+      <SyntaxHighlighter
+        showLineNumbers
+        language={state.languageHighlight}
+        // language={state.languageHighlight}
+        style={monokai}
+      >
+        {codeSample}
+      </SyntaxHighlighter>
+      {/**
+          <pre className={styles.codeSample}></pre>
+         */}
+
       {description && !preview && (
         <Fragment>
           <span>Authors description:</span>
