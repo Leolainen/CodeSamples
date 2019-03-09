@@ -3,8 +3,12 @@ import React from "react";
 
 import styles from "./style.scss";
 
-export default function Tag({ children }) {
-  return <div className={styles.tag}>{children}</div>;
+export default function Tag({ children, ...rest }) {
+  return (
+    <div className={styles.tag} {...rest}>
+      {children}
+    </div>
+  );
 }
 
 Tag.propTypes = {
