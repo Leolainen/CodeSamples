@@ -29,7 +29,8 @@ import reducer from "./reducer";
 import styles from "./style.scss";
 
 const initialState = {
-  commentModalIsOpen: false
+  commentModalIsOpen: false,
+  languageHighlight: "text"
 };
 
 export default function Sample({
@@ -79,17 +80,24 @@ export default function Sample({
       )}
 
       {context.me.id === userId && !preview && (
-        <Mutation
-          mutation={DELETE_SAMPLE_MUTATION}
-          onError={({ message }) => toast.error(message)}
-          variables={{ id }}
-          onCompleted={() => {
-            toast.success(`Sample was successfully deleted`);
-            Router.back();
-          }}
-        >
-          {mutate => <Button onClick={mutate}>Delete sample</Button>}
-        </Mutation>
+        <Fragment>
+          <Mutation
+            mutation={DELETE_SAMPLE_MUTATION}
+            onError={({ message }) => toast.error(message)}
+            variables={{ id }}
+            onCompleted={() => {
+              toast.success(`Sample was successfully deleted`);
+              Router.back();
+            }}
+          >
+            {mutate => (
+              <Button className="" onClick={mutate}>
+                Delete sample
+              </Button>
+            )}
+          </Mutation>
+          <StyledLink href={`/editSample?sample=${id}`}>Edit sample</StyledLink>
+        </Fragment>
       )}
 
       {languages.length > 0 && (
