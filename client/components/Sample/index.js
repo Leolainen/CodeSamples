@@ -163,14 +163,10 @@ export default function Sample({
       <SyntaxHighlighter
         showLineNumbers
         language={state.languageHighlight}
-        // language={state.languageHighlight}
         style={monokai}
       >
         {codeSample}
       </SyntaxHighlighter>
-      {/**
-          <pre className={styles.codeSample}></pre>
-         */}
 
       {description && !preview && (
         <Fragment>
