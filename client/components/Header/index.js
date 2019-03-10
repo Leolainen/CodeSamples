@@ -39,7 +39,7 @@ export default function Header() {
         <StyledLink href="/newSample" icon={<FaCode />}>
           Post a sample
         </StyledLink>
-        <StyledLink href="#" icon={<FaUser />}>
+        <StyledLink href="/mySamples" icon={<FaUser />}>
           My samples
         </StyledLink>
         <Mutation
