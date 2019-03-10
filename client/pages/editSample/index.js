@@ -6,10 +6,10 @@ import Router, { withRouter } from "next/router";
 import gql from "graphql-tag";
 
 import { Context } from "../../components/Context";
-import { isEmpty } from "../../utils/objects";
 import Button from "../../components/Button";
 import Container from "../../components/Container";
 import CustomSelect from "../../components/CustomSelect";
+import Editor from "../../components/Editor";
 import FForm from "../../components/FForm";
 import Input from "../../components/Input";
 import Layout from "../../components/Layout";
@@ -18,13 +18,6 @@ import Spinner from "../../components/Spinner";
 export default withRouter(props => {
   const context = useContext(Context);
   const sampleId = props.router.query.sample;
-
-  useEffect(() => {
-    if (isEmpty(context.me)) {
-      toast.error("You're not signed in!");
-      Router.push("/");
-    }
-  }, []);
 
   const SAMPLE_QUERY = gql`
     query sampleById($id: ID!) {
@@ -152,15 +145,21 @@ export default withRouter(props => {
                         Edit <i>{data.sampleById.title}</i>
                       </h5>
                       <Input name="title" type="text" fullWidth required />
-                      <Input
-                        name="codeSample"
-                        placeholder="Sample"
-                        fullWidth
-                        textarea
-                        required
-                        rows={4}
-                        onKeyDown={preventTab}
-                      />
+                      <Field name="codeSample">
+                        {({ input }) => (
+                          <Editor
+                            mode="javascript"
+                            theme="monokai"
+                            {...input}
+                            highlightActiveLine
+                            // showPrintMargin
+                            showGutter
+                            width="100%"
+                            // wrapEnabled
+                            enableBasicAutocompletion
+                          />
+                        )}
+                      </Field>
                       <Input
                         name="description"
                         placeholder="description"
