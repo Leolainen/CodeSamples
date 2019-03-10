@@ -46,10 +46,16 @@ export default function Sample({
   onClick,
   href,
   preview,
+  createdAt,
+  updatedAt,
+  edited,
   ...rest
 }) {
   const context = useContext(Context);
   const [state, dispatch] = useReducer(reducer, initialState);
+
+  const parseDate = dateToParse =>
+    new Date(parseInt(dateToParse)).toLocaleString();
 
   const style = classnames(styles.wrapper, {
     [styles.preview]: preview
@@ -74,10 +80,59 @@ export default function Sample({
         </StyledLink>
       ) : (
         <div className={styles.header}>
-          <h3>{title}</h3>
-          <span>by: {username}</span>
+          <div className={styles.title}>
+            <h3>{title}</h3>
+            <span>Author: {username}</span>
+          </div>
+
+          <Query
+            query={LIKE_QUERY}
+            variables={{ id }}
+            onError={({ message }) => toast.error(message)}
+          >
+            {({ data, loading }) => {
+              if (loading) {
+                return (
+                  <div className={styles.likeWrapper}>
+                    <Spinner relative />
+                  </div>
+                );
+              }
+
+              return (
+                <Mutation
+                  mutation={LIKE_MUTATION}
+                  refetchQueries={() => [
+                    { query: LIKE_QUERY, variables: { id: data.sampleById.id } }
+                  ]}
+                  variables={{ id }}
+                  onError={({ message }) => toast.error(message)}
+                >
+                  {mutate => {
+                    const fetchedLikes = data.sampleById
+                      ? [...data.sampleById.likes]
+                      : likes;
+
+                    return (
+                      <div className={styles.likeWrapper}>
+                        <Like
+                          amount={fetchedLikes.length}
+                          onClick={() => mutate()}
+                        />
+                      </div>
+                    );
+                  }}
+                </Mutation>
+              );
+            }}
+          </Query>
         </div>
       )}
+
+      <div className={styles.date}>
+        <span>Posted: {parseDate(createdAt)}</span>
+        {edited && <span>Last updated: {parseDate(updatedAt)}</span>}
+      </div>
 
       {context.me.id === userId && !preview && (
         <Fragment>
@@ -126,55 +181,15 @@ export default function Sample({
         </div>
       )}
 
-      <Query
-        query={LIKE_QUERY}
-        variables={{ id }}
-        onError={({ message }) => toast.error(message)}
-      >
-        {({ data, loading }) => {
-          if (loading) {
-            return (
-              <div className={styles.likeWrapper}>
-                <Spinner relative />
-              </div>
-            );
-          }
-
-          return (
-            <Mutation
-              mutation={LIKE_MUTATION}
-              refetchQueries={() => [
-                { query: LIKE_QUERY, variables: { id: data.sampleById.id } }
-              ]}
-              variables={{ id }}
-              onError={({ message }) => toast.error(message)}
-            >
-              {mutate => {
-                const fetchedLikes = data.sampleById
-                  ? [...data.sampleById.likes]
-                  : likes;
-
-                return (
-                  <div className={styles.likeWrapper}>
-                    <Like
-                      amount={fetchedLikes.length}
-                      onClick={() => mutate()}
-                    />
-                  </div>
-                );
-              }}
-            </Mutation>
-          );
-        }}
-      </Query>
-
-      <SyntaxHighlighter
-        showLineNumbers
-        language={state.languageHighlight}
-        style={monokai}
-      >
-        {codeSample}
-      </SyntaxHighlighter>
+      <div className={styles.codeSampleWrapper}>
+        <SyntaxHighlighter
+          showLineNumbers
+          language={state.languageHighlight}
+          style={monokai}
+        >
+          {codeSample}
+        </SyntaxHighlighter>
+      </div>
 
       {description && !preview && (
         <Fragment>

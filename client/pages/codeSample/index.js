@@ -21,6 +21,9 @@ export default withRouter(props => {
         title
         likes
         description
+        edited
+        createdAt
+        updatedAt
         frameworks {
           framework
         }

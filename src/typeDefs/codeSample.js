@@ -57,6 +57,7 @@ export default gql`
     likes: [String!]!
     edited: Boolean!
     createdAt: String!
+    updatedAt: String!
     date: String!
   }
 

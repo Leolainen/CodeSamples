@@ -50,6 +50,9 @@ export default withRouter(() => {
         title
         likes
         description
+        edited
+        createdAt
+        updatedAt
         frameworks {
           framework
         }

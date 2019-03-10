@@ -1,10 +1,11 @@
 import { Query } from "react-apollo";
 import { toast } from "react-toastify";
-import { withRouter } from "next/router";
 import React, { Fragment, useContext } from "react";
+import Router, { withRouter } from "next/router";
 import gql from "graphql-tag";
 
 import { Context } from "../../components/Context";
+import { isEmpty } from "../../utils/objects";
 import Layout from "../../components/Layout";
 import Sample from "../../components/Sample";
 import Spinner from "../../components/Spinner";
@@ -13,7 +14,10 @@ import StyledLink from "../../components/StyledLink";
 export default withRouter(() => {
   const context = useContext(Context);
 
-  console.log("me", context.me);
+  if (isEmpty(context.me)) {
+    toast.error("You're not signed in!");
+    Router.push("/");
+  }
 
   const SAMPLE_QUERY = gql`
     query Sample($userId: String) {
@@ -25,6 +29,9 @@ export default withRouter(() => {
         title
         likes
         description
+        edited
+        createdAt
+        updatedAt
         frameworks {
           framework
         }
