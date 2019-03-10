@@ -10,30 +10,22 @@ export default function CustomSelect({ creatable, className, ...rest }) {
   const outerStyles = classnames(styles["react-select-container"], className);
   const innerStyles = classnames(styles["react-select--menu"]);
 
-  const typeOfSelect = () => {
-    if (creatable) {
-      return (
-        <CreatableSelect
-          className={outerStyles}
-          classNamePrefix={innerStyles}
-          {...rest}
-        />
-      );
-    }
-    return (
-      <Select className={outerStyles} classNamePrefix={innerStyles} {...rest} />
-    );
-  };
-
-  return typeOfSelect();
+  return creatable ? (
+    <CreatableSelect
+      className={outerStyles}
+      classNamePrefix={innerStyles}
+      {...rest}
+    />
+  ) : (
+    <Select className={outerStyles} classNamePrefix={innerStyles} {...rest} />
+  );
 }
 
 CustomSelect.propTypes = {
   className: PropTypes.string,
   creatable: PropTypes.bool,
   options: PropTypes.array,
-  isMulti: PropTypes.bool,
-  defaultValue: PropTypes.object
+  isMulti: PropTypes.bool
 };
 
 CustomSelect.defaultProps = {
