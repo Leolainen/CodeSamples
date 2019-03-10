@@ -6,6 +6,43 @@ import { CodeSample, Framework, Language } from "../models";
 import { postCodeSample } from "../schemas";
 import * as Auth from "../auth";
 
+const handleFramework = async framework => {
+  const fetchFramework = async () =>
+    await Framework.findOne({
+      framework: framework.toLowerCase()
+    });
+
+  let fetchedFramework = await fetchFramework();
+
+  if (!fetchedFramework) {
+    await Framework.create({
+      framework: framework.toLowerCase()
+    });
+    fetchedFramework = await fetchFramework();
+  }
+
+  return fetchedFramework;
+};
+
+// Same as above but with languages
+const handleLanguage = async language => {
+  const fetchLang = async () =>
+    await Language.findOne({
+      language: language.toLowerCase()
+    });
+
+  let fetchedLanguage = await fetchLang();
+
+  if (!fetchedLanguage) {
+    await Language.create({
+      language: language.toLowerCase()
+    });
+    fetchedLanguage = await fetchLang();
+  }
+
+  return fetchedLanguage;
+};
+
 export default {
   Query: {
     allSamples: (root, args, context, info) => {
@@ -108,43 +145,6 @@ export default {
         return fetchedType;
       };
 
-      const handleFramework = async framework => {
-        const fetchFramework = async () =>
-          await Framework.findOne({
-            framework: framework.toLowerCase()
-          });
-
-        let fetchedFramework = await fetchFramework();
-
-        if (!fetchedFramework) {
-          await Framework.create({
-            framework: framework.toLowerCase()
-          });
-          fetchedFramework = await fetchFramework();
-        }
-
-        return fetchedFramework;
-      };
-
-      // Same as above but with languages
-      const handleLanguage = async language => {
-        const fetchLang = async () =>
-          await Language.findOne({
-            language: language.toLowerCase()
-          });
-
-        let fetchedLanguage = await fetchLang();
-
-        if (!fetchedLanguage) {
-          await Language.create({
-            language: language.toLowerCase()
-          });
-          fetchedLanguage = await fetchLang();
-        }
-
-        return fetchedLanguage;
-      };
-
       const promisedFrameworks = frameworks.map(
         async framework => await handleFramework(framework)
         // async framework => await convertToType(framework, Framework)
@@ -166,11 +166,21 @@ export default {
     updateSample: async (root, args, { req }, info) => {
       Auth.checkSignedIn(req);
 
-      const { id } = args;
+      const { id, frameworks, languages } = args;
 
       // maybe doesn't need validation?
       // Since user is free to edit as they see fit.
       // await Joi.validate(args, updateCodeSample, { abortEarly: false });
+
+      const promisedFrameworks = frameworks.map(
+        async framework => await handleFramework(framework)
+      );
+      const promisedLanguages = languages.map(
+        async language => await handleLanguage(language)
+      );
+
+      args.frameworks = await Promise.all(promisedFrameworks);
+      args.languages = await Promise.all(promisedLanguages);
 
       const updatedCodeSample = await CodeSample.findByIdAndUpdate(
         id,
