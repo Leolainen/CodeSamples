@@ -1,6 +1,6 @@
 import { Query } from "react-apollo";
 import { toast } from "react-toastify";
-import React, { Fragment, useContext } from "react";
+import React, { Fragment, useContext, useEffect } from "react";
 import Router, { withRouter } from "next/router";
 import gql from "graphql-tag";
 
@@ -14,10 +14,12 @@ import StyledLink from "../../components/StyledLink";
 export default withRouter(() => {
   const context = useContext(Context);
 
-  if (isEmpty(context.me)) {
-    toast.error("You're not signed in!");
-    Router.push("/");
-  }
+  useEffect(() => {
+    if (isEmpty(context.me)) {
+      toast.error("You're not signed in!");
+      Router.push("/");
+    }
+  }, []);
 
   const SAMPLE_QUERY = gql`
     query Sample($userId: String) {

@@ -1,7 +1,7 @@
 import { Field } from "react-final-form";
 import { Mutation, Query } from "react-apollo";
 import { toast } from "react-toastify";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import Router, { withRouter } from "next/router";
 import gql from "graphql-tag";
 
@@ -19,10 +19,12 @@ export default withRouter(props => {
   const context = useContext(Context);
   const sampleId = props.router.query.sample;
 
-  if (isEmpty(context.me)) {
-    toast.error("You're not signed in!");
-    Router.push("/");
-  }
+  useEffect(() => {
+    if (isEmpty(context.me)) {
+      toast.error("You're not signed in!");
+      Router.push("/");
+    }
+  }, []);
 
   const SAMPLE_QUERY = gql`
     query sampleById($id: ID!) {
@@ -61,8 +63,6 @@ export default withRouter(props => {
         frameworks: $frameworks
       ) {
         id
-        userId
-        username
         title
         codeSample
         description
