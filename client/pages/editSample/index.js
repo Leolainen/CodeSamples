@@ -1,11 +1,10 @@
 import { Field } from "react-final-form";
 import { Mutation, Query } from "react-apollo";
 import { toast } from "react-toastify";
-import React, { useContext, useEffect } from "react";
+import React from "react";
 import Router, { withRouter } from "next/router";
 import gql from "graphql-tag";
 
-import { Context } from "../../components/Context";
 import Button from "../../components/Button";
 import Container from "../../components/Container";
 import CustomSelect from "../../components/CustomSelect";
@@ -16,7 +15,6 @@ import Layout from "../../components/Layout";
 import Spinner from "../../components/Spinner";
 
 export default withRouter(props => {
-  const context = useContext(Context);
   const sampleId = props.router.query.sample;
 
   const SAMPLE_QUERY = gql`
@@ -68,13 +66,6 @@ export default withRouter(props => {
       }
     }
   `;
-
-  const preventTab = e => {
-    if (e.key === "Tab") {
-      e.preventDefault();
-      return "\t";
-    }
-  };
 
   return (
     <Query
@@ -152,10 +143,8 @@ export default withRouter(props => {
                             theme="monokai"
                             {...input}
                             highlightActiveLine
-                            // showPrintMargin
                             showGutter
                             width="100%"
-                            // wrapEnabled
                             enableBasicAutocompletion
                           />
                         )}

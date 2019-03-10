@@ -8,6 +8,7 @@ import gql from "graphql-tag";
 import Button from "../../components/Button";
 import Container from "../../components/Container";
 import CustomSelect from "../../components/CustomSelect";
+import Editor from "../../components/Editor";
 import FForm from "../../components/FForm";
 import Input from "../../components/Input";
 import Layout from "../../components/Layout";
@@ -45,13 +46,6 @@ export default () => {
     }
   `;
 
-  const preventTab = e => {
-    if (e.key === "Tab") {
-      e.preventDefault();
-      return "\t";
-    }
-  };
-
   return (
     <Mutation
       mutation={POST_MUTATION}
@@ -64,24 +58,28 @@ export default () => {
       {postSample => (
         <Layout>
           <FForm
-            onSubmit={
-              ({ title, codeSample, description, languages, frameworks }) =>
-                postSample({
-                  variables: {
-                    title,
-                    codeSample,
-                    description,
-                    languages: languages
-                      ? languages.map(language => language.value)
-                      : [],
-                    frameworks: frameworks
-                      ? frameworks.map(framework => framework.value)
-                      : []
-                  }
-                })
-              // frameworks: [...frameworks.framework]
+            onSubmit={({
+              title,
+              codeSample,
+              description,
+              languages,
+              frameworks
+            }) =>
+              postSample({
+                variables: {
+                  title,
+                  codeSample,
+                  description,
+                  languages: languages
+                    ? languages.map(language => language.value)
+                    : [],
+                  frameworks: frameworks
+                    ? frameworks.map(framework => framework.value)
+                    : []
+                }
+              })
             }
-            children={({ submitting, pristine, values }) => (
+            children={({ submitting, pristine }) => (
               <Container spacing={6}>
                 <h5>Post a new sample!</h5>
                 <Input
@@ -91,15 +89,19 @@ export default () => {
                   fullWidth
                   required
                 />
-                <Input
-                  name="codeSample"
-                  placeholder="Sample"
-                  fullWidth
-                  textarea
-                  required
-                  rows={4}
-                  onKeyDown={preventTab}
-                />
+                <Field name="codeSample">
+                  {({ input }) => (
+                    <Editor
+                      mode="javascript"
+                      theme="monokai"
+                      {...input}
+                      highlightActiveLine
+                      showGutter
+                      width="100%"
+                      enableBasicAutocompletion
+                    />
+                  )}
+                </Field>
                 <Input
                   name="description"
                   placeholder="description"
