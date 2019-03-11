@@ -9,7 +9,8 @@ export const COMMENT_QUERY = gql`
       likes
       comment
       edited
-      date
+      createdAt
+      updatedAt
     }
   }
 `;
