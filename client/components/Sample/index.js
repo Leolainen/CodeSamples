@@ -1,10 +1,12 @@
 import { Mutation, Query } from "react-apollo";
-import { monokai } from "react-syntax-highlighter/dist/styles/hljs";
+// import { monokai } from "react-syntax-highlighter/dist/styles/hljs";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { atomDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { toast } from "react-toastify";
 import PropTypes from "prop-types";
 import React, { Fragment, useContext, useEffect, useReducer } from "react";
 import Router from "next/router";
-import SyntaxHighlighter from "react-syntax-highlighter";
+// import SyntaxHighlighter from "react-syntax-highlighter";
 import classnames from "classnames";
 
 import { Context } from "../Context";
@@ -185,7 +187,7 @@ export default function Sample({
         <SyntaxHighlighter
           showLineNumbers
           language={state.languageHighlight}
-          style={monokai}
+          style={atomDark}
         >
           {codeSample}
         </SyntaxHighlighter>
@@ -262,7 +264,10 @@ Sample.propTypes = {
   codeSample: PropTypes.string.isRequired,
   href: PropTypes.string,
   onClick: PropTypes.func,
-  preview: PropTypes.bool
+  preview: PropTypes.bool,
+  createdAt: PropTypes.string.isRequired,
+  updatedAt: PropTypes.string.isRequired,
+  edited: PropTypes.bool.isRequired
 };
 
 Sample.defaultProps = {
