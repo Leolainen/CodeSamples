@@ -1,4 +1,4 @@
-import { Mutation, Query } from "react-apollo";
+import { Mutation } from "react-apollo";
 import { toast } from "react-toastify";
 import PropTypes from "prop-types";
 import React, { useContext } from "react";
@@ -9,7 +9,6 @@ import Button from "../Button";
 import Container from "../Container";
 import FForm from "../FForm";
 import Input from "../Input";
-import Layout from "../Layout";
 
 import styles from "./style.scss";
 
