@@ -1,3 +1,4 @@
+import { FaEdit, FaTrash } from "react-icons/fa";
 import { Mutation, Query } from "react-apollo";
 // import { monokai } from "react-syntax-highlighter/dist/styles/hljs";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
@@ -141,27 +142,6 @@ export default function Sample({
         {edited && <span>Last updated: {parseDate(updatedAt)}</span>}
       </div>
 
-      {context.me.id === userId && !preview && (
-        <Fragment>
-          <Mutation
-            mutation={DELETE_SAMPLE_MUTATION}
-            onError={({ message }) => toast.error(message)}
-            variables={{ id }}
-            onCompleted={() => {
-              toast.success(`Sample was successfully deleted`);
-              Router.back();
-            }}
-          >
-            {mutate => (
-              <Button className="" onClick={mutate}>
-                Delete sample
-              </Button>
-            )}
-          </Mutation>
-          <StyledLink href={`/editSample?sample=${id}`}>Edit sample</StyledLink>
-        </Fragment>
-      )}
-
       {languages.length > 0 && (
         <div className={styles.tagWrapper}>
           {languages.map((language, index) => (
@@ -197,6 +177,25 @@ export default function Sample({
           {codeSample}
         </SyntaxHighlighter>
       </div>
+
+      {context.me.id === userId && !preview && (
+        <div className={styles.deleteEditWrapper}>
+          <Mutation
+            mutation={DELETE_SAMPLE_MUTATION}
+            onError={({ message }) => toast.error(message)}
+            variables={{ id }}
+            onCompleted={() => {
+              toast.success(`Sample was successfully deleted`);
+              Router.back();
+            }}
+          >
+            {mutate => <FaTrash onClick={mutate} />}
+          </Mutation>
+          <StyledLink href={`/editSample?sample=${id}`}>
+            <FaEdit className={styles.editButton} />
+          </StyledLink>
+        </div>
+      )}
 
       {description && !preview && (
         <Fragment>

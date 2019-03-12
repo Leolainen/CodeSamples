@@ -60,6 +60,20 @@
   padding: 12px;
 }
 
+.deleteEditWrapper {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 16px;
+
+  & > * {
+    margin-right: 16px;
+  }
+}
+
+.editButton {
+  color: $g-white;
+}
+
 .likeWrapper {
   display: inline-flex;
   justify-content: flex-end;
