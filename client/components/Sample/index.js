@@ -222,7 +222,7 @@ export default function Sample({
           ));
 
           return (
-            <Fragment>
+            <div>
               <div className={styles.commentsWrapper}>
                 <p className={styles.innerCommentsWrapper}>
                   {data.comments.length}{" "}
@@ -249,7 +249,7 @@ export default function Sample({
                   />
                 </Modal>
               )}
-            </Fragment>
+            </div>
           );
         }}
       </Query>
