@@ -76,8 +76,13 @@ export default function Sample({
       {href ? (
         <StyledLink href={href} noStyle>
           <div className={styles.header}>
-            <h3>{title}</h3>
-            <span>by: {username}</span>
+            <div className={styles.title}>
+              <h3>{title}</h3>
+              <span>by: {username}</span>
+            </div>
+            <div className={styles.likeWrapper}>
+              <Like amount={likes.length} />
+            </div>
           </div>
         </StyledLink>
       ) : (
