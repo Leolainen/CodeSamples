@@ -107,7 +107,7 @@ export default () => {
                   placeholder="description"
                   fullWidth
                   textarea
-                  rows={4}
+                  rows={9}
                 />
                 <Field
                   name="frameworks"

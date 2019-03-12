@@ -6,7 +6,8 @@
 
 .button {
   border: none;
-  background: #f1f1f1;
+  background: none;
+  background-color: #f1f1f1;
   box-shadow: 0 4px 8px hsla(0, 0%, 10%, 0.1);
   padding: 6px 12px;
   border-radius: 4px;
@@ -18,6 +19,11 @@
 
   &.fullWidth {
     width: 100%;
+  }
+
+  &.noStyle {
+    background: none;
+    box-shadow: none;
   }
 }
 

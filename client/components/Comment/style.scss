@@ -21,14 +21,36 @@
   padding: 24px 12px;
 }
 
+.date {
+  font-size: 12px;
+}
+
+.edited {
+  display: flex;
+  justify-content: flex-end;
+  margin: 16px;
+  font-size: 12px;
+  font-style: italic;
+}
+
 .footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
   border-top: 1px solid $g-grey-500;
   padding: 12px;
   padding-bottom: 0;
+}
 
-  > p {
+.dateWrapper {
+  p {
     margin: 0;
     padding: 0;
   }
-  //   background-color: $g-grey-700;
+}
+
+.editDeleteWrapper {
+  > * {
+    margin-left: 16px;
+  }
 }

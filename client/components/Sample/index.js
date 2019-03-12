@@ -228,6 +228,7 @@ export default function Sample({
                   {data.comments.length}{" "}
                   {overOneComment ? "comments" : "comment"}
                   <Button
+                    noStyle
                     className={styles.writeCommentButton}
                     onClick={toggleCommentModal}
                   >

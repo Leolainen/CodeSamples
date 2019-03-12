@@ -4,10 +4,18 @@ import classnames from "classnames";
 
 import styles from "./style.scss";
 
-export default function Button({ rounded, fullWidth, children, ...rest }) {
-  const style = classnames(styles.button, {
+export default function Button({
+  rounded,
+  className,
+  fullWidth,
+  children,
+  noStyle,
+  ...rest
+}) {
+  const style = classnames(styles.button, className, {
     [styles.rounded]: rounded,
-    [styles.fullWidth]: fullWidth
+    [styles.fullWidth]: fullWidth,
+    [styles.noStyle]: noStyle
   });
 
   return (
@@ -19,10 +27,14 @@ export default function Button({ rounded, fullWidth, children, ...rest }) {
 
 Button.propTypes = {
   children: PropTypes.node,
-  rounded: PropTypes.bool
+  rounded: PropTypes.bool,
+  className: PropTypes.string,
+  noStyle: PropTypes.bool
 };
 
 Button.defaultProps = {
   children: "",
-  rounded: false
+  rounded: false,
+  className: "",
+  noStyle: false
 };

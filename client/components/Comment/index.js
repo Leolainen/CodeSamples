@@ -1,3 +1,4 @@
+import { FaEdit, FaTrash } from "react-icons/fa";
 import { Mutation } from "react-apollo";
 import { toast } from "react-toastify";
 import PropTypes from "prop-types";
@@ -45,7 +46,7 @@ export default function Comment({
   return (
     <div className={styles.wrapper}>
       <div className={styles.header}>
-        {username} {edited && <span>Edited</span>}
+        <span className={styles.username}>{username}</span>
         <Mutation
           mutation={LIKE_COMMENT_MUTATION}
           variables={{ id }}
@@ -58,11 +59,16 @@ export default function Comment({
         </Mutation>
       </div>
       <div className={styles.content}>{comment}</div>
+      {edited && <div className={styles.edited}>Edited</div>}
       <div className={styles.footer}>
-        <p>Posted on: {parseDate(createdAt)}</p>
-        {edited && <p>Last updated: {parseDate(updatedAt)}</p>}
+        <div className={styles.dateWrapper}>
+          <p className={styles.date}>Posted on: {parseDate(createdAt)}</p>
+          {edited && (
+            <p className={styles.date}>Last updated: {parseDate(updatedAt)}</p>
+          )}
+        </div>
         {context.me.id === userId && (
-          <Fragment>
+          <div className={styles.editDeleteWrapper}>
             <Mutation
               mutation={DELETE_COMMENT_MUTATION}
               onCompleted={() => {
@@ -72,15 +78,14 @@ export default function Comment({
               onError={({ message }) => toast.error(message)}
               variables={{ id }}
             >
-              {mutate => <Button onClick={mutate}>Delete</Button>}
+              {mutate => <FaTrash onClick={mutate} />}
             </Mutation>
 
-            <Button onClick={() => dispatch({ type: TOGGLE_EDIT })}>
-              Edit comment
-            </Button>
-          </Fragment>
+            <FaEdit onClick={() => dispatch({ type: TOGGLE_EDIT })} />
+          </div>
         )}
       </div>
+
       {state.isEditing && (
         <Modal clickOutside={() => dispatch({ type: TOGGLE_EDIT })}>
           <Mutation

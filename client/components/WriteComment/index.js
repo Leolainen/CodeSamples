@@ -65,7 +65,7 @@ export default function WriteComment({ submitted, refetch, codeSampleId }) {
                 fullWidth
                 required
                 textarea
-                rows={6}
+                rows={9}
               />
               <Button type="submit" disabled={pristine || submitting} fullWidth>
                 Post comment

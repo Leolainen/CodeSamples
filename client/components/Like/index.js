@@ -8,7 +8,7 @@ import styles from "./style.scss";
 
 export default function Like({ amount, onClick }) {
   return (
-    <Button className={styles.likes} onClick={onClick}>
+    <Button noStyle className={styles.likes} onClick={onClick}>
       <FaThumbsUp style={{ fontSize: "12px" }} />
       <span>{amount}</span>
     </Button>

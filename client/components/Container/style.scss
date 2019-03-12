@@ -11,6 +11,7 @@
   border-radius: $g-borderRadius-default;
   box-shadow: 0 2px 16px 4px hsla(0, 0%, 0%, 0.2);
   min-height: 120px;
+  min-width: 50vw;
 
   &.center {
     display: flex;
@@ -21,6 +22,10 @@
 
   &.transparent {
     background-color: $transparent-grey;
+  }
+
+  @media $phabletDown {
+    width: 100%;
   }
 }
 
