@@ -62,7 +62,7 @@ mutation {
               })
             }
             children={({ submitting, pristine }) => (
-              <Container spacing={6}>
+              <Container spacing={4} center>
                 <h5>Register a new account</h5>
                 <Input
                   name="username"

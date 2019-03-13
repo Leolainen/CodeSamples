@@ -44,7 +44,7 @@ export default () => {
               })
             }
             children={({ submitting, pristine }) => (
-              <Container spacing={6}>
+              <Container spacing={4} center>
                 <h5>Login to your account</h5>
                 <Input
                   name="email"

@@ -28,12 +28,14 @@ export default function Button({
 Button.propTypes = {
   children: PropTypes.node,
   rounded: PropTypes.bool,
+  fullWidth: PropTypes.bool,
   className: PropTypes.string,
   noStyle: PropTypes.bool
 };
 
 Button.defaultProps = {
   children: "",
+  fullWidth: false,
   rounded: false,
   className: "",
   noStyle: false
