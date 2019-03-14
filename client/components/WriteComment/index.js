@@ -60,6 +60,7 @@ export default function WriteComment({ submitted, refetch, codeSampleId }) {
             <Container spacing={6} className={styles.commentWrapper}>
               <h5>Say something</h5>
               <Input
+                className={styles.commentField}
                 name="comment"
                 placeholder="Comment"
                 fullWidth

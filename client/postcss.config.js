@@ -5,9 +5,11 @@ const softBlue = "#3e77f1";
 const yellow = "#f2d011";
 const red = "#f84443";
 const pink = "#ff8988";
+const orange = "#e77427";
 
 // greyscales
 const grey100 = "#ccc";
+const grey400 = "#9c9c9c";
 const grey500 = "#858484";
 const grey600 = "#666666";
 const grey700 = "#555555";
@@ -31,10 +33,12 @@ const globals = {
   "g-blue": blue,
   "g-yellow": yellow,
   "g-red": red,
+  "g-orange": orange,
   "g-pink": pink,
 
   // greyscales
   "g-grey-100": grey100,
+  "g-grey-400": grey400,
   "g-grey-500": grey500,
   "g-grey-600": grey600,
   "g-grey-700": grey700,

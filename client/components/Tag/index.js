@@ -1,16 +1,28 @@
 import PropTypes from "prop-types";
 import React from "react";
+import classnames from "classnames";
 
 import styles from "./style.scss";
 
-export default function Tag({ children, ...rest }) {
+export default function Tag({ children, onClick, className, ...rest }) {
+  const style = classnames(styles.tag, className, {
+    [styles.clickable]: onClick
+  });
+
   return (
-    <div className={styles.tag} {...rest}>
+    <div className={style} onClick={onClick} {...rest}>
       {children}
     </div>
   );
 }
 
 Tag.propTypes = {
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
+  onClick: PropTypes.func,
+  className: PropTypes.string
+};
+
+Tag.defaultProps = {
+  onClick: null,
+  className: ""
 };

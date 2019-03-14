@@ -15,8 +15,10 @@
 
   &.center {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    // flex-direction: column;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    // justify-content: center;
     align-items: center;
   }
 

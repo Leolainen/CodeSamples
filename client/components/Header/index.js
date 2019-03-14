@@ -24,7 +24,7 @@ import {
   LOGGED_IN,
   LOGGED_OUT,
   TOGGLE_SIDEBAR,
-  UPDATE_WINDOW_WIDTH,
+  // UPDATE_WINDOW_WIDTH,
   WINDOW_WIDTH_DESKTOP
 } from "./constants";
 import reducer from "./reducer";
@@ -51,7 +51,7 @@ export default function Header() {
 
   useEffect(() => {
     setWindowWidth(window.innerWidth);
-    console.log(windowWidth);
+
     // dispatch({ type: UPDATE_WINDOW_WIDTH, data: window.innerWidth });
     // window.addEventListener("resize", () => updateWindowWidth());
 

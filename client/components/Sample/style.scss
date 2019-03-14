@@ -71,6 +71,7 @@
 }
 
 .codeSampleWrapper {
+  position: relative;
   margin: 24px 0;
 
   .preview & {
@@ -129,6 +130,11 @@
   align-items: center;
   justify-content: flex-start;
   padding: 6px;
-  margin-bottom: 12px;
+  margin: 12px 0;
   background-color: $g-grey-900;
+}
+
+.selectedTag {
+  background-color: $g-grey-500;
+  box-shadow: 2px 2px 2px 2px $g-grey-900;
 }

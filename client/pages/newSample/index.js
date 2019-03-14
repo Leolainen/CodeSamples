@@ -89,26 +89,51 @@ export default () => {
                   fullWidth
                   required
                 />
-                <Field name="codeSample">
-                  {({ input }) => (
-                    <Editor
-                      mode="javascript"
-                      theme="monokai"
-                      {...input}
-                      highlightActiveLine
-                      showGutter
-                      width="100%"
-                      enableBasicAutocompletion
-                    />
+
+                <Field
+                  name="languages"
+                  render={({ input }) => (
+                    <Query
+                      onError={({ message }) => toast.error(message)}
+                      query={gql`
+                        {
+                          allLanguages {
+                            language
+                          }
+                        }
+                      `}
+                    >
+                      {({ loading, data }) => {
+                        if (loading) {
+                          return (
+                            <CustomSelect
+                              isDisabled
+                              placeholder={<Spinner />}
+                            />
+                          );
+                        }
+                        const options = data.allLanguages.map(lang => {
+                          return {
+                            label: lang.language,
+                            value: lang.language
+                          };
+                        });
+
+                        return (
+                          <CustomSelect
+                            placeholder="Select language..."
+                            creatable
+                            isSearchable
+                            isMulti
+                            {...input}
+                            options={options}
+                          />
+                        );
+                      }}
+                    </Query>
                   )}
-                </Field>
-                <Input
-                  name="description"
-                  placeholder="description"
-                  fullWidth
-                  textarea
-                  rows={9}
                 />
+
                 <Field
                   name="frameworks"
                   render={({ input }) => (
@@ -154,48 +179,25 @@ export default () => {
                   )}
                 />
 
-                <Field
-                  name="languages"
-                  render={({ input }) => (
-                    <Query
-                      onError={({ message }) => toast.error(message)}
-                      query={gql`
-                        {
-                          allLanguages {
-                            language
-                          }
-                        }
-                      `}
-                    >
-                      {({ loading, error, data }) => {
-                        if (loading) {
-                          return (
-                            <CustomSelect
-                              isDisabled
-                              placeholder={<Spinner />}
-                            />
-                          );
-                        }
-                        const options = data.allLanguages.map(lang => {
-                          return {
-                            label: lang.language,
-                            value: lang.language
-                          };
-                        });
-
-                        return (
-                          <CustomSelect
-                            placeholder="Select language..."
-                            creatable
-                            isSearchable
-                            isMulti
-                            {...input}
-                            options={options}
-                          />
-                        );
-                      }}
-                    </Query>
+                <Field name="codeSample">
+                  {({ input }) => (
+                    <Editor
+                      mode="javascript"
+                      theme="monokai"
+                      {...input}
+                      highlightActiveLine
+                      showGutter
+                      width="100%"
+                      enableBasicAutocompletion
+                    />
                   )}
+                </Field>
+                <Input
+                  name="description"
+                  placeholder="description"
+                  fullWidth
+                  textarea
+                  rows={9}
                 />
                 <Button
                   type="submit"

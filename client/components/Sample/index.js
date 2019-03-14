@@ -147,6 +147,10 @@ export default function Sample({
           {languages.map((language, index) => (
             <Tag
               key={index}
+              className={classnames({
+                [styles.selectedTag]:
+                  language.language === state.languageHighlight
+              })}
               onClick={() =>
                 dispatch({
                   type: TOGGLE_LANGUAGE_HIGHLIGHT,
@@ -169,6 +173,24 @@ export default function Sample({
       )}
 
       <div className={styles.codeSampleWrapper}>
+        {context.me.id === userId && !preview && (
+          <div className={styles.deleteEditWrapper}>
+            <Mutation
+              mutation={DELETE_SAMPLE_MUTATION}
+              onError={({ message }) => toast.error(message)}
+              variables={{ id }}
+              onCompleted={() => {
+                toast.success(`Sample was successfully deleted`);
+                Router.back();
+              }}
+            >
+              {mutate => <FaTrash onClick={mutate} />}
+            </Mutation>
+            <StyledLink href={`/editSample?sample=${id}`}>
+              <FaEdit className={styles.editButton} />
+            </StyledLink>
+          </div>
+        )}
         <SyntaxHighlighter
           showLineNumbers
           language={state.languageHighlight}
@@ -177,25 +199,6 @@ export default function Sample({
           {codeSample}
         </SyntaxHighlighter>
       </div>
-
-      {context.me.id === userId && !preview && (
-        <div className={styles.deleteEditWrapper}>
-          <Mutation
-            mutation={DELETE_SAMPLE_MUTATION}
-            onError={({ message }) => toast.error(message)}
-            variables={{ id }}
-            onCompleted={() => {
-              toast.success(`Sample was successfully deleted`);
-              Router.back();
-            }}
-          >
-            {mutate => <FaTrash onClick={mutate} />}
-          </Mutation>
-          <StyledLink href={`/editSample?sample=${id}`}>
-            <FaEdit className={styles.editButton} />
-          </StyledLink>
-        </div>
-      )}
 
       {description && !preview && (
         <Fragment>
