@@ -5,16 +5,28 @@
   min-height: 80px;
   margin: 0;
   padding: 12px;
-  // margin-bottom: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: $g-grey-700;
   color: white;
   display: flex;
+
+  @media $phabletDown {
+  }
 }
 
 .innerWrapper {
+  display: flex;
+  align-items: center;
+  width: 60%;
+  justify-content: space-between;
   align-self: flex-end;
-  width: 100%;
   text-align: right;
+
+  @media $phabletDown {
+    width: 100%;
+  }
 }
 
 .logo {
@@ -33,4 +45,13 @@
   position: absolute;
   right: 16px;
   top: 24px;
+}
+
+.headerLinks {
+  display: flex;
+  justify-content: flex-end;
+
+  div {
+    margin-right: 16px;
+  }
 }
