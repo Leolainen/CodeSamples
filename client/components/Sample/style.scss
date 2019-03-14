@@ -78,6 +78,12 @@
     max-height: 60px;
     overflow: hidden;
   }
+
+  &:hover {
+    .deleteEditWrapper {
+      opacity: 1;
+    }
+  }
 }
 
 .codeSample {
@@ -90,17 +96,33 @@
 }
 
 .deleteEditWrapper {
+  position: absolute;
+  right: 0;
+  top: 16px;
   display: flex;
-  justify-content: flex-start;
+  justify-content: flex-end;
+  align-items: baseline;
   margin-bottom: 16px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
 
   & > * {
     margin-right: 16px;
   }
+
+  @media $phabletDown {
+    opacity: 1;
+    top: -28px;
+  }
 }
 
-.editButton {
-  color: $g-white;
+.editButton,
+.deleteButton {
+  color: $g-grey-400;
+
+  &:hover {
+    color: $g-white;
+  }
 }
 
 .likeWrapper {

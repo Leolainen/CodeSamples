@@ -184,7 +184,11 @@ export default function Sample({
                 Router.back();
               }}
             >
-              {mutate => <FaTrash onClick={mutate} />}
+              {mutate => (
+                <Button noStyle className={styles.deleteButton}>
+                  <FaTrash onClick={mutate} />
+                </Button>
+              )}
             </Mutation>
             <StyledLink href={`/editSample?sample=${id}`}>
               <FaEdit className={styles.editButton} />
