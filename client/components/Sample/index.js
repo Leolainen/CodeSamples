@@ -227,13 +227,15 @@ export default function Sample({
                 <p className={styles.innerCommentsWrapper}>
                   {data.comments.length}{" "}
                   {overOneComment ? "comments" : "comment"}
-                  <Button
-                    noStyle
-                    className={styles.writeCommentButton}
-                    onClick={toggleCommentModal}
-                  >
-                    Write a comment
-                  </Button>
+                  {!preview && (
+                    <Button
+                      noStyle
+                      className={styles.writeCommentButton}
+                      onClick={toggleCommentModal}
+                    >
+                      Write a comment
+                    </Button>
+                  )}
                 </p>
               </div>
 

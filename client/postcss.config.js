@@ -13,6 +13,7 @@ const grey600 = "#666666";
 const grey700 = "#555555";
 const grey800 = "#4b4b4b";
 const grey900 = "#3d3d3d";
+const grey1000 = "#2e2e2e";
 
 // Breakpoints.
 const deviceMaxWidths = {
@@ -39,6 +40,7 @@ const globals = {
   "g-grey-700": grey700,
   "g-grey-800": grey800,
   "g-grey-900": grey900,
+  "g-grey-1000": grey1000,
 
   // Font stuff.
   "g-fontSizeLarger": "1.8rem",

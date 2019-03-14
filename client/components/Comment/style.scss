@@ -1,7 +1,8 @@
 .wrapper {
   display: block;
   margin: 24px 0;
-  padding: 12px 0;
+  padding: 0;
+  padding-top: 12px;
   border-bottom: 2px solid $g-grey-900;
   color: $g-white;
   background-color: $g-grey-900;
@@ -36,10 +37,10 @@
 .footer {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
-  border-top: 1px solid $g-grey-500;
+  align-items: center;
+  // border-top: 1px solid $g-grey-500;
+  background-color: $g-grey-1000;
   padding: 12px;
-  padding-bottom: 0;
 }
 
 .dateWrapper {
