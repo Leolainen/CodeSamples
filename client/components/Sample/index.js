@@ -1,13 +1,9 @@
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { Mutation, Query } from "react-apollo";
-// import { monokai } from "react-syntax-highlighter/dist/styles/hljs";
-import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { atomDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { toast } from "react-toastify";
 import PropTypes from "prop-types";
 import React, { Fragment, useContext, useEffect, useReducer } from "react";
 import Router from "next/router";
-// import SyntaxHighlighter from "react-syntax-highlighter";
 import classnames from "classnames";
 
 import { Context } from "../Context";
@@ -18,6 +14,7 @@ import Like from "../Like";
 import Modal from "../Modal";
 import Spinner from "../Spinner";
 import StyledLink from "../StyledLink";
+import SyntaxHighlighter from "../SyntaxHighlighter";
 import Tag from "../Tag";
 import WriteComment from "../WriteComment";
 
@@ -195,11 +192,7 @@ export default function Sample({
             </StyledLink>
           </div>
         )}
-        <SyntaxHighlighter
-          showLineNumbers
-          language={state.languageHighlight}
-          style={atomDark}
-        >
+        <SyntaxHighlighter language={state.languageHighlight}>
           {codeSample}
         </SyntaxHighlighter>
       </div>
