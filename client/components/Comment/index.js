@@ -47,16 +47,37 @@ export default function Comment({
     <div className={styles.wrapper}>
       <div className={styles.header}>
         <span className={styles.username}>{username}</span>
-        <Mutation
-          mutation={LIKE_COMMENT_MUTATION}
-          variables={{ id }}
-          onError={({ message }) => toast.error(message)}
-          onCompleted={() => refetch()}
-        >
-          {likeComment => {
-            return <Like amount={likes.length} onClick={() => likeComment()} />;
-          }}
-        </Mutation>
+        <div className={styles.commentInteractions}>
+          {context.me.id === userId && (
+            <div className={styles.editDeleteWrapper}>
+              <Mutation
+                mutation={DELETE_COMMENT_MUTATION}
+                onCompleted={() => {
+                  toast.success(`Comment successfully deleted`);
+                  refetch();
+                }}
+                onError={({ message }) => toast.error(message)}
+                variables={{ id }}
+              >
+                {mutate => <FaTrash onClick={mutate} />}
+              </Mutation>
+
+              <FaEdit onClick={() => dispatch({ type: TOGGLE_EDIT })} />
+            </div>
+          )}
+          <Mutation
+            mutation={LIKE_COMMENT_MUTATION}
+            variables={{ id }}
+            onError={({ message }) => toast.error(message)}
+            onCompleted={() => refetch()}
+          >
+            {likeComment => {
+              return (
+                <Like amount={likes.length} onClick={() => likeComment()} />
+              );
+            }}
+          </Mutation>
+        </div>
       </div>
       <div className={styles.content}>{comment}</div>
       {edited && <div className={styles.edited}>Edited</div>}
@@ -67,23 +88,6 @@ export default function Comment({
             <p className={styles.date}>Last updated: {parseDate(updatedAt)}</p>
           )}
         </div>
-        {context.me.id === userId && (
-          <div className={styles.editDeleteWrapper}>
-            <Mutation
-              mutation={DELETE_COMMENT_MUTATION}
-              onCompleted={() => {
-                toast.success(`Comment successfully deleted`);
-                refetch();
-              }}
-              onError={({ message }) => toast.error(message)}
-              variables={{ id }}
-            >
-              {mutate => <FaTrash onClick={mutate} />}
-            </Mutation>
-
-            <FaEdit onClick={() => dispatch({ type: TOGGLE_EDIT })} />
-          </div>
-        )}
       </div>
 
       {state.isEditing && (

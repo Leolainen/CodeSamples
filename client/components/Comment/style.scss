@@ -56,6 +56,12 @@
 .editDeleteWrapper {
   > * {
     margin-left: 16px;
+    color: $g-grey-500;
+    cursor: pointer;
+
+    &:hover {
+      color: $g-white;
+    }
   }
 }
 
@@ -67,4 +73,10 @@
 
 .commentField {
   width: 100%;
+}
+
+.commentInteractions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 }
