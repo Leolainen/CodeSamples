@@ -10,8 +10,6 @@ export class Provider extends React.Component {
   state = {
     loggedIn: false,
     me: {},
-    username: "",
-    email: "",
     query: {},
     mutation: {},
     dispatch: (action, args) => {
@@ -29,17 +27,3 @@ export class Provider extends React.Component {
     return <Context.Provider value={this.state}>{children}</Context.Provider>;
   }
 }
-
-// Provider.propTypes = {
-//   children: PropTypes.node.isRequired
-// };
-
-// export function Provider({ children }) {
-//   const initialState = {
-//     wasClicked: false
-//   };
-
-//   const [state, dispatch] = useReducer(reducer, initialState);
-
-//   return <Context.Provider value={state}>{children}</Context.Provider>;
-// }
