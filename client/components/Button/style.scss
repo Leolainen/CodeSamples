@@ -29,10 +29,7 @@
   }
 }
 
-.example {
+// Testing css variables
+.testExample {
   background-color: var(--orange);
-}
-
-.header {
-  color: $blue;
 }
