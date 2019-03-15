@@ -21,6 +21,10 @@
   padding: 24px 12px;
 }
 
+.username {
+  font-style: italic;
+}
+
 .date {
   font-size: 12px;
 }
@@ -53,4 +57,14 @@
   > * {
     margin-left: 16px;
   }
+}
+
+.commentWrapper {
+  @media $phabletDown {
+    width: 100vw;
+  }
+}
+
+.commentField {
+  width: 100%;
 }

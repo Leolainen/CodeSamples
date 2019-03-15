@@ -2,7 +2,7 @@ import { FaEdit, FaTrash } from "react-icons/fa";
 import { Mutation } from "react-apollo";
 import { toast } from "react-toastify";
 import PropTypes from "prop-types";
-import React, { Fragment, useContext, useReducer } from "react";
+import React, { useContext, useReducer } from "react";
 
 import { Context } from "../Context";
 import Button from "../Button";
@@ -112,9 +112,10 @@ export default function Comment({
                   await refetch();
                 }}
                 children={({ submitting, pristine }) => (
-                  <Container spacing={6}>
+                  <Container spacing={6} className={styles.commentWrapper}>
                     <h5>Say something</h5>
                     <Input
+                      className={styles.commentField}
                       name="comment"
                       placeholder="Comment"
                       fullWidth

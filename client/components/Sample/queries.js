@@ -41,3 +41,26 @@ export const DELETE_SAMPLE_MUTATION = gql`
     }
   }
 `;
+
+export const POST_COMMENT_MUTATION = gql`
+  mutation postComment(
+    $userId: String!
+    $codeSampleId: String!
+    $comment: String!
+  ) {
+    postComment(
+      userId: $userId
+      codeSampleId: $codeSampleId
+      comment: $comment
+    ) {
+      id
+      userId
+      username
+      codeSampleId
+      likes
+      comment
+      edited
+      date
+    }
+  }
+`;

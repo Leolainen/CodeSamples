@@ -10,19 +10,21 @@ import { Context } from "../Context";
 import Button from "../Button";
 import Comment from "../Comment";
 import Container from "../Container";
+import FForm from "../FForm";
+import Input from "../Input";
 import Like from "../Like";
 import Modal from "../Modal";
 import Spinner from "../Spinner";
 import StyledLink from "../StyledLink";
 import SyntaxHighlighter from "../SyntaxHighlighter";
 import Tag from "../Tag";
-import WriteComment from "../WriteComment";
 
 import {
   COMMENT_QUERY,
   DELETE_SAMPLE_MUTATION,
   LIKE_MUTATION,
-  LIKE_QUERY
+  LIKE_QUERY,
+  POST_COMMENT_MUTATION
 } from "./queries";
 import { TOGGLE_COMMENT_MODAL, TOGGLE_LANGUAGE_HIGHLIGHT } from "./constants";
 import reducer from "./reducer";
@@ -244,11 +246,51 @@ export default function Sample({
 
               {state.commentModalIsOpen && (
                 <Modal clickOutside={toggleCommentModal}>
-                  <WriteComment
-                    submitted={toggleCommentModal}
-                    refetch={() => refetch()}
-                    codeSampleId={id}
-                  />
+                  <Mutation
+                    mutation={POST_COMMENT_MUTATION}
+                    onError={({ message }) => toast.warn(message)}
+                    onCompleted={() => toggleCommentModal()}
+                  >
+                    {postComment => (
+                      <FForm
+                        onSubmit={async values => {
+                          postComment({
+                            variables: {
+                              userId: context.me.id,
+                              codeSampleId: id,
+                              comment: values.comment
+                            }
+                          });
+
+                          await refetch();
+                        }}
+                        children={({ submitting, pristine }) => (
+                          <Container
+                            spacing={6}
+                            className={styles.commentWrapper}
+                          >
+                            <h5>Say something</h5>
+                            <Input
+                              className={styles.commentField}
+                              name="comment"
+                              placeholder="Comment"
+                              fullWidth
+                              required
+                              textarea
+                              rows={9}
+                            />
+                            <Button
+                              type="submit"
+                              disabled={pristine || submitting}
+                              fullWidth
+                            >
+                              Post comment
+                            </Button>
+                          </Container>
+                        )}
+                      />
+                    )}
+                  </Mutation>
                 </Modal>
               )}
             </div>

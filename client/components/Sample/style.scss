@@ -160,3 +160,13 @@
   background-color: $g-grey-500;
   box-shadow: 2px 2px 2px 2px $g-grey-900;
 }
+
+.commentWrapper {
+  @media $phabletDown {
+    width: 100vw;
+  }
+}
+
+.commentField {
+  width: 100%;
+}
