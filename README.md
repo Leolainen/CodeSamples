@@ -1,3 +1,10 @@
+# About this project
+A school assignment where we got to build anything we wanted.
+Built with Mongoose using MongoDB, GraphQL & Express in the backend.
+React & Scss-modules in the Frontend.
+
+I never finished to project entirely but It's fully functional.
+
 ## packages explained
 
 > - **apollo-server-express**: used to create easier graphQL schemas with "typeDefs"
