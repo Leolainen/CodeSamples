@@ -62,11 +62,7 @@ A collection of the immediate technologies used:
 > - webpack [check]
 > - Next.js (for handling routes and rendering UI) [check]
 > - React Hooks API [check]
-> - react-swipe (for handling swiping left and right on mobile)
 > - react-toastify (for handling messages for the user)
-> - threejs [maybe] (for handling the rendering of the 3D dice)
-> - cannonjs [maybe] (for handling the physics of the 3D dice)
-> - threejs-dice [maybe] (so I don't have to waste time coding my own dice)
 > - eslint [check]
 > - @zeit/next-css (https://github.com/zeit/next-plugins/tree/master/packages/next-css) [check]
 > - classnames [check]
@@ -121,39 +117,6 @@ UI testing is done with **Storybook** and structural testing is done with **Jest
 > "identity-obj-proxy": "^3.0.0", <br>
 > "enzyme": "^3.7.0", <br>
 > "jest": "^23.6.0", <br>
-
-<br>
-
-### Backend Technologies:
-
-**These backend technologies are so far only ideas and have not been implemented or planned yet!**
-
-> - Firebase (Firestore)
->   - users
->   - characters
->   - posts (if I make the wiki/rules page)
-
-<br>
-
----
-
-<br>
-
-## Project structure:
-
-> - Pages
->   - Pages here
-> - Layout
-> - Components
-> - Data
->   - Will I use Data?
-> - Assets
->   - Icons
->   - Images
-
-<br>
-
----
 
 <br>
 
